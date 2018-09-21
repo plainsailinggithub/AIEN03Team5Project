@@ -1,16 +1,27 @@
 {% extends 'aien.html' %}
 {% block style %}
 <style>
-input[type=text] {
+/* input[type=text] {
     width: 100px;
     -webkit-transition: width 0.4s ease-in-out;
     transition: width 0.4s ease-in-out;
 }
 
-/* When the input field gets focus, change its width to 100% */
+
 input[type=text]:focus {
     width: 80%;
+} */
+
+.l1{
+   width:30%; 
 }
+.l2{
+    width:80%;
+}
+#articleType{
+    display: none;
+}
+
 </style>
 {% endblock %}
 
@@ -20,7 +31,7 @@ input[type=text]:focus {
 <nav class="navbar navbar-light bg-white">
 
     <form class="form-inline">
-        <input type="text" name="search" placeholder="Search..">
+        <input class='l1' type="text" name="search" placeholder="Search..">
             <button class="btn btn-outline-primary" type="button" id="button-addon2">
                 <i class="fa fa-search"></i>
             </button>
@@ -32,8 +43,14 @@ input[type=text]:focus {
     <div class="row">
 
                         <!-- ==== 左邊部分 ==== -->
-        <div class="col-md-3">
-            <p>123</p>
+        <div class="col-md-3 text-left">
+            <button class='btn btn-info' id='typeButton'>文章分類</button>
+            <div id='articleType'>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+            </div>
         </div>
                         <!-- 左邊部分END -->
 
@@ -227,8 +244,23 @@ input[type=text]:focus {
 
 {% endblock %}
 
-{% block script %}
+{% block scripts %}
 <script>
+    $(function(){
+
+        var articleType = $('#articleType')
+        
+
+        $('input[type="text"]').focus(function(){
+            $(this).toggleClass('l1','l2')
+        }).blur(function(){
+            $(this).toggleClass('l1','l2')
+        })
+
+        $('#typeButton').click(function(){
+            articleType.toggle(500)
+        })
+    })
 </script>
 {% endblock %}
 
