@@ -69,7 +69,6 @@
     .body1{
       font-family:Microsoft JhengHei;
     }
-
     </style>
 </head>
 <body class="body1">
@@ -137,6 +136,8 @@
                   </div>
 
                 </div> <!-- row.// -->
+                {% block main %}
+                {% endblock %}
         
   <footer  style="background-color:#283E4A">
     <p>© 2018<a style="color:#0a93a6; text-decoration:none;" href="#"> LinkedIn </a>, All rights reserved 2018.</p>
@@ -151,5 +152,8 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js" integrity="sha384-kW+oWsYx3YpxvjtZjFXqazFpA7UP/MbiY4jvs+RWZo2+N94PFZ36T6TFkc9O3qoB" crossorigin="anonymous"></script>
+
+{% block script %}
+{% endblock %}
 </body>
 </html>
