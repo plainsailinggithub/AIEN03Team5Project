@@ -37,7 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+<<<<<<< HEAD
     'message',
+=======
+    'article',
+    'Sophia',
+>>>>>>> ecb6efb60298b3f60e69ab12e74a38f642c43c05
 ]
 
 MIDDLEWARE = [
@@ -55,7 +60,11 @@ ROOT_URLCONF = 'team5project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+<<<<<<< HEAD
         'DIRS': [os.path.join(BASE_DIR,'templates')],
+=======
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+>>>>>>> ecb6efb60298b3f60e69ab12e74a38f642c43c05
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -80,7 +89,12 @@ DATABASES = {
         'NAME': 'dbteam5',
         'USER':'root',
         'PASSWORD':'root',
+<<<<<<< HEAD
         'HOST':'localhost',
+=======
+        'HOST':'localhost'
+        
+>>>>>>> ecb6efb60298b3f60e69ab12e74a38f642c43c05
     }
 }
 
@@ -122,6 +136,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+<<<<<<< HEAD
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR,'static')
 ]
+=======
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+>>>>>>> ecb6efb60298b3f60e69ab12e74a38f642c43c05
