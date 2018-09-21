@@ -1,4 +1,4 @@
-"""team5project URL Configuration
+"""project01 URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/2.1/topics/http/urls/
@@ -14,11 +14,26 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path,include
+from rest_framework.routers import DefaultRouter
+from todo import views
+
+router = DefaultRouter()
+router.register(r'todo',views.TodoViewSet)
+router.register(r'member',views.MemberViewSet)
+router.register(r'friendship',views.FriendshipViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+<<<<<<< HEAD
     path('article/', include('article.urls')),
     path('Sophia/', include('Sophia.urls')),
 
+=======
+    path('message/',include('message.urls')),
+    path('article', include('article.urls')),
+    path('Sophia', include('Sophia.urls')),
+    path('api/',include(router.urls)),
+    path('message/',include('message.urls')),
+>>>>>>> b6ce8ee5cf751875fa2e92903ea32a086c8c71fa
 ]

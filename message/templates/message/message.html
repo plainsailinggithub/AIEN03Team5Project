@@ -1,0 +1,107 @@
+{% extends "aien.html" %}
+{% block style %}
+
+<style>
+    h2{
+      text-align:center;
+    }
+    .t1{
+      width:800px;
+      margin:0 auto;
+    }
+    #textarea1{
+      width:600px;height:400px;
+    }
+    #textarea2{
+      width:600px;
+      height:75px;
+    } 
+    #tabs{
+      float:left;
+      width:300px;
+      height:500px;
+    }        
+</style>
+{% endblock %}
+
+{% block main %}
+    <h2>訊息區</h2>
+    <form method="POST">
+        <div id="tabs">
+            <ul>
+              <li><a href="#tabs-1">訊息列表</a></li>
+              <li><a href="#tabs-2">好友列表</a></li>
+            </ul>
+            <div id="tabs-1">
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">搜尋訊息</label>
+                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                </div>
+                <div class="form-group">
+                  <label for="exampleFormControlSelect1">Example select</label>
+                  <select class="form-control" id="exampleFormControlSelect1">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                  </select>
+                </div>
+                </div>
+        
+
+            <div id="tabs-2">  
+                <div class="form-group">
+                    <select multiple class="form-control" id="friends">
+                      <option>ryan</option>
+                      <option>wang</option>
+                      <option>cheng</option>
+                      <option>liu</option>
+                      <option>su</option>
+                    </select>
+                </div>
+  
+            </div>
+           
+          </div>
+
+
+            <div class="form-group t1">
+              <label for="exampleFormControlTextarea1">訊息視窗</label>
+              <textarea class="form-control" id="textarea1" name="textarea1" readonly="readonly"></textarea>
+            </div>
+            <div class="form-group t1">
+              <textarea class="form-control" id="textarea2" name="textarea2"></textarea>
+              <label for="exampleFormControlTextarea1">輸入視窗</label>
+            </div>
+          
+          </form>
+
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $( function() {
+      $( "#tabs" ).tabs();
+    } );
+</script>
+<!-- <script>
+    $(document).ready(function(){
+    //     var datas = {
+    //         "title":"gogogo",
+    //         "text":"ogogog",
+    //     }    
+    // $.post('api/todo/',data,function(data){
+    //     console.log(data)
+    // })
+    $.getJSON('api/todo/',function(dates){
+        $.each(dates,function(index,object){
+            console.log(object.name)
+            console.log(object.friendid)
+        })
+    })
+    })
+
+</script>     -->
+{% endblock %}

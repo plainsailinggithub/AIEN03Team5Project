@@ -1,0 +1,40 @@
+<!-- {% extends "aien.html" %}
+{% block content %} -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    </html>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>姓名</th>
+                <th>電子郵件</th>
+                <th>密碼</th>
+                <th>年紀</th>
+                <th>編輯</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for member in members %}
+            <tr>
+                <td>{{member.1}}</td>
+                <td>{{member.2}}</td>
+                <td>{{member.3}}</td>
+                <td>{{member.4}}</td>
+                <td>
+                    <a href="{% url "member:delete" member.0 %}" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
+                    <a href="{% url "member:update" member.0 %}" class="btn btn-secondary"><i class="fas fa-user-edit"></i></a>
+                 </td>
+            </tr>
+           {% endfor %}
+        </tbody>
+    </table>
+ <!-- {% endblock%} --> 
+</body>
+
