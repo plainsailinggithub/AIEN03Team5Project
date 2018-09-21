@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'message',
     'article',
+    'member',
     'Sophia',
     'todo',
     'rest_framework',
