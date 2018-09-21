@@ -1,0 +1,25 @@
+{% extends "aien.html" %}
+{% block styles %}
+{% endblock %}
+{% block content %}
+{% endblock%}
+{% block scripts %}
+<script>
+    $(document).ready(function(){
+    //     var datas = {
+    //         "title":"gogogo",
+    //         "text":"ogogog",
+    //     }    
+    // $.post('api/todo/',data,function(data){
+    //     console.log(data)
+    // })
+    $.getJSON('api/friendship/',function(dates){
+        $.each(dates,function(index,object){
+            console.log(object.name)
+            console.log(object.friendid)
+        })
+    })
+    })
+
+</script>
+{% endblock %}

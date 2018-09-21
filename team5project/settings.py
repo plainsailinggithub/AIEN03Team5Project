@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'message',
     'article',
     'Sophia',
+    'todo',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

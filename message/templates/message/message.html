@@ -1,48 +1,107 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    
-</head>
-<body>
-    <h2>歡迎來到聊天室</h2>
+{% extends "aien.html" %}
+{% block style %}
+
+<style>
+    h2{
+      text-align:center;
+    }
+    .t1{
+      width:800px;
+      margin:0 auto;
+    }
+    #textarea1{
+      width:600px;height:400px;
+    }
+    #textarea2{
+      width:600px;
+      height:75px;
+    } 
+    #tabs{
+      float:left;
+      width:300px;
+      height:500px;
+    }        
+</style>
+{% endblock %}
+
+{% block main %}
+    <h2>訊息區</h2>
     <form method="POST">
-            <div class="form-group">
-              <label for="exampleFormControlInput1">Email address</label>
-              <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+        <div id="tabs">
+            <ul>
+              <li><a href="#tabs-1">訊息列表</a></li>
+              <li><a href="#tabs-2">好友列表</a></li>
+            </ul>
+            <div id="tabs-1">
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">搜尋訊息</label>
+                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                </div>
+                <div class="form-group">
+                  <label for="exampleFormControlSelect1">Example select</label>
+                  <select class="form-control" id="exampleFormControlSelect1">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                  </select>
+                </div>
+                </div>
+        
+
+            <div id="tabs-2">  
+                <div class="form-group">
+                    <select multiple class="form-control" id="friends">
+                      <option>ryan</option>
+                      <option>wang</option>
+                      <option>cheng</option>
+                      <option>liu</option>
+                      <option>su</option>
+                    </select>
+                </div>
+  
             </div>
-            <div class="form-group">
-              <label for="exampleFormControlSelect1">Example select</label>
-              <select class="form-control" id="exampleFormControlSelect1">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </select>
+           
+          </div>
+
+
+            <div class="form-group t1">
+              <label for="exampleFormControlTextarea1">訊息視窗</label>
+              <textarea class="form-control" id="textarea1" name="textarea1" readonly="readonly"></textarea>
             </div>
-            <div class="form-group">
-              <label for="exampleFormControlSelect2">Example multiple select</label>
-              <select multiple class="form-control" id="exampleFormControlSelect2">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </select>
+            <div class="form-group t1">
+              <textarea class="form-control" id="textarea2" name="textarea2"></textarea>
+              <label for="exampleFormControlTextarea1">輸入視窗</label>
             </div>
-            <div class="form-group">
-              <label for="exampleFormControlTextarea1">Example textarea</label>
-              <textarea class="form-control" id="textarea1" name="textarea1" rows="3"></textarea>
-            </div>
-            <h5 class="as-mes-wrapper"><div class="as-mes-header bh-b-title"><div class="as-mes-header__tool txt-align-l"><button class="btn-icon btn-icon--inverse" title="加入我的廣場" onclick="im_forum.reInviting(0,true);"><i class="material-icons">bookmark_border</i></button></div><div class="as-mes-title">廣場聊天室(Beta)</div><div class="as-mes-header__tool txt-align-r"><button class="btn-icon btn-icon--inverse" title="開新視窗" onclick="im_forum_layout.showSingle(0);"><i class="material-icons">open_in_new</i></button><button class="btn-icon btn-icon--inverse" title="開啟完整版" onclick="window.open('https://haha.gamer.com.tw/?room=5107');ga('send','event','IM一般操作','開啟完整版','B頁');"><i class="material-icons">fullscreen</i></button></div></div></h5><div id="chatRoom"></div><script>var im_forum = new BAHA_IM_FORUM('forum',{bsn:"5107",btitle:"神喻",token:"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJmaXJlYmFzZS1hZG1pbnNkay0ydGw0YkBoYWhhbXV0LTg4ODguaWFtLmdzZXJ2aWNlYWNjb3VudC5jb20iLCJzdWIiOiJmaXJlYmFzZS1hZG1pbnNkay0ydGw0YkBoYWhhbXV0LTg4ODguaWFtLmdzZXJ2aWNlYWNjb3VudC5jb20iLCJhdWQiOiJodHRwczpcL1wvaWRlbnRpdHl0b29sa2l0Lmdvb2dsZWFwaXMuY29tXC9nb29nbGUuaWRlbnRpdHkuaWRlbnRpdHl0b29sa2l0LnYxLklkZW50aXR5VG9vbGtpdCIsImlhdCI6MTUzNzM0NTMyMCwiZXhwIjoxNTM3MzQ4OTIwLCJ1aWQiOiJhbmdlbGphaW5hIiwiY2xhaW1zIjp7Im5pY2siOiJcdTVlMGNcdTgzODlcdTY1YWY9XHU2NzA4XHU4M2VmIiwiZGVueXBvc3QiOmZhbHNlLCJtb2JpbGUiOmZhbHNlfX0.pp9NFRVxFO3LqRr3PmA86cpb8U6GRcAXBnhVtGTNH_UaGyyOovOZKBVGbrfs4FjxQgHrOpb23uyK4-SaApu2dAT_YdVyv1QKUhrkQHsymUn1Cf5pBvn0gkZv0m_eNrbhJH4aLTwjqGtV6dlUR22gEhQN49rgiY8xMICVLlsv9sDuzA9b1phkBZo_S9ut1W_oXYj7bsLitcX7un_9STQkc1WuRbA6JQ4ATFTL0L2PjB6vdfRATO5G79NSlL8Wj3peIp_ca7nRkM_bmLUeSg3HQwlCZS8J0qUl_JQb_oqL9e_zYxguMLh9CeX2sCYG7fUwocOP-GiUQiWQMxOzNVEUuQ"});var im_forum_layout = new BAHA_IM_FORUM_LAYOUT();</script><script src="https://i2.bahamut.com.tw/js/live.js?v=1515983360"></script>    
+          
           </form>
-          <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-          <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>      
-</body>
-</html>
+
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $( function() {
+      $( "#tabs" ).tabs();
+    } );
+</script>
+<!-- <script>
+    $(document).ready(function(){
+    //     var datas = {
+    //         "title":"gogogo",
+    //         "text":"ogogog",
+    //     }    
+    // $.post('api/todo/',data,function(data){
+    //     console.log(data)
+    // })
+    $.getJSON('api/todo/',function(dates){
+        $.each(dates,function(index,object){
+            console.log(object.name)
+            console.log(object.friendid)
+        })
+    })
+    })
+
+</script>     -->
+{% endblock %}

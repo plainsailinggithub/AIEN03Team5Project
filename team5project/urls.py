@@ -15,11 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
+from rest_framework.routers import DefaultRouter
+from todo import views
+
+router = DefaultRouter()
+router.register(r'todo',views.TodoViewSet)
+router.register(r'member',views.MemberViewSet)
+router.register(r'friendship',views.FriendshipViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('message/',include('message.urls')),
     path('article', include('article.urls')),
     path('Sophia', include('Sophia.urls')),
+    path('api/',include(router.urls)),
 
 ]

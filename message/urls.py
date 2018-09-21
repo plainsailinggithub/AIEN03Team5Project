@@ -6,7 +6,8 @@ app_name = "message"
 
 urlpatterns = [
     #http://localhost:8000/member
-    path('',views.index,name="index"),
-    path('message/',views.message,name="message"), 
-  
+    path('',views.message,name="message"),
+    path('message/',views.index,name="index"), 
+    # path('api/friendship/',views.friendship,name="friendship"),
+    
 ]

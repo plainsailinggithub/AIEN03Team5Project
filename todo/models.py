@@ -24,4 +24,4 @@ class Friendship(models.Model):
     last_modified_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
     class Meta:
-        db_table = "friendship" ;                
+        db_table = "friendship" ;  
