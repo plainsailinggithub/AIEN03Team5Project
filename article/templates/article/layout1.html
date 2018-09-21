@@ -1,0 +1,94 @@
+{% extends 'aien.html' %}
+{% block style %}
+
+<style>
+    div{
+        border:1px solid darkcyan;
+    }
+    .article-part{
+        background-color:rgba(3, 151, 131, 0.76);
+    }
+    .article-head{
+        background-color:rgba(3, 151, 131, 0.925);
+    }
+</style>
+{% endblock %}
+{% block main %}
+<div class='row'>
+
+    <!-- ------------------------------ left part -------------------------------- -->
+    <div class='col-md-3'>
+        <div>
+            <h3 class='text-center font-weight-bold'>Left side</h3>
+            <div class='form-group row'>
+                <label for="title" class='col-form-label col-sm-3 text-right'>標題 :</label>
+                <div class='col-sm-9'>
+                    <input type="text" class='form-control' id='title' name='title' placeholder='請輸入文章標題' autocomplete='off'>
+                </div>
+            </div>
+            <div class='form-group row'>
+                <label for="paragraph" class='col-form-label col-sm-3 text-right'>標題 :</label>
+                <div class='col-sm-9'>
+                    <textarea name="paragraph" class='form-control' id="paragraph"  rows="5"></textarea>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- --------------試著做做看這樣的功能
+<div id="tabs" class='row'>
+    <ul class='col-sm-12'>
+        <li><a href="#tabs-1">Nun</a></li>
+        <li><a href="#tabs-2" class='col-sm-4'>Proin</a></li>
+        <li><a href="#tabs-3" class='col-sm-4'>Aene</a></li>
+    </ul>
+<div id="tabs-1">
+<p> lectus.</p>
+</div>
+<div id="tabs-2">
+<p>purus.</p>
+</div>
+<div id="tabs-3">
+<p>, luctus a, lacus.</p>
+<p>it hendrerit.</p>
+</div>
+</div> -->
+
+    </div>
+
+    <!-- ------------------------- left part end ------------------------ -->
+
+    <div class='col-md-6 '>
+        <h3 class='text-center font-weight-bold'>文章</h3>
+        <div>
+            <div class="card text-white mb-3 article-part" >
+                <div class="card-header article-head">Header</div>
+                <div class="card-body">
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+    <div class='col-md-3'>
+        <p>123456</p>
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+$( function() {
+    $('#tabs').tabs({
+        'event': 'mouseover'
+    });
+});
+</script>
+{% endblock%}
