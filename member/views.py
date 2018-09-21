@@ -4,7 +4,7 @@ from django.db import connection
 from .modelsmember import Member
 from member.models import Members
 # Create your views here.
-
+member = Member()
 def index(request):
     if request.method == "POST":
         mem_name = request.POST['mem_name']
