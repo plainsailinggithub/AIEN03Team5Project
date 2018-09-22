@@ -17,6 +17,13 @@
          body {
             background-color: #F5F5F5;
         }
+        .header_bar{
+            width:100%;
+            position:fixed;
+            left:0;
+            top:0;
+            z-index:1;
+        }
 
 
 /*
@@ -120,7 +127,7 @@
 
 </head>
 <body class="body1">
-<div class=".container-fluid">
+<div class=".container-fluid header_bar">
   <nav class="navbar navbar-expand-lg navbar-dark header-padding" style="background-color:#283E4A;height: 52px">
             
     <a class="navbar-brand" href="#">LinkedIn</a>
@@ -174,7 +181,7 @@
 
 
                     
-<div class="container-fluid gedf-wrapper divcontent">
+<div class="container-fluid gedf-wrapper divcontent mb-5">
         <div class="row" >
                 <!-- 左半邊 -->
                 {% block left %}
