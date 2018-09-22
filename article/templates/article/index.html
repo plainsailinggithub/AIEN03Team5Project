@@ -14,18 +14,19 @@
     <input type="button" value='文章分類' class='btn btn-primary' id='btnType'>
     <div class='mt-3 text-left' id='articleType'>
         <div>
-            <p class='btn btn-info'>職業甘苦談</p>
+            <p class='btn btn-info'>全部文章</p>
         </div>
         <div>
-            <p class='btn btn-info'>面試分享</p>
+            <p class='btn btn-info'>自己</p>
         </div>
         <div>
-            <p class='btn btn-info'>生活趣事</p>
+            <p class='btn btn-info'>好友</p>
         </div>
     </div>
 
     <!-- 發佈訊息 -->
 <div class="card gedf-card " id='sendMessage'>
+
     <div class="card-header">
         <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
             <li class="nav-item">
@@ -40,8 +41,12 @@
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="posts-tab">
                 <div class="form-group">
-                    <label class="sr-only" for="message">post</label>
-                    <textarea class="form-control" id="message" rows="5" placeholder="請輸入想說的訊息"></textarea>
+                    <label class="sr-only" for="title">post</label>
+                    <input type='text' class='form-control' placeholder='請輸入標題' id='title' name='title' required>
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="content">post</label>
+                    <textarea class="form-control" id="content" name='content' rows="5" placeholder="請輸入想說的訊息" required></textarea>
                 </div>
 
             </div>
@@ -57,7 +62,7 @@
         </div>
         <div class="btn-toolbar justify-content-between">
             <div class="btn-group">
-                <button type="submit" class="btn btn-primary">發送</button>
+                <button type="submit" id='send' class="btn btn-primary">發送</button>
             </div>
             <div class="btn-group">
                 <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
@@ -73,15 +78,16 @@
         </div>
     </div>
 </div>
-    <!-- 發佈訊息 END -->
+
 </div>
+    <!-- 發佈訊息 END -->
 {% endblock %}
 
 
 {% block middle %}
 
 
-            <div class="card gedf-card">
+            <!-- <div class="card gedf-card">
                 <div class="card-header">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="d-flex justify-content-between align-items-center">
@@ -125,11 +131,11 @@
                     <a href="#" class="card-link"><i class="fa fa-comment"></i> Comment</a>
                     <a href="#" class="card-link"><i class="fa fa-mail-forward"></i> Share</a>
                 </div>
-            </div>
+            </div> -->
 
 
 
-
+            {% for article in articles %}
             <div class="card gedf-card mb-3">
                 <div class="card-header">
                     <div class="d-flex justify-content-between align-items-center">
@@ -148,7 +154,7 @@
                                     <i class="fa fa-ellipsis-h"></i>
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
-                                    <div class="h6 dropdown-header">請選擇想對文章做</div>
+                                    <div class="h6 dropdown-header">想對文章 :</div>
                                     <a class="dropdown-item" href="#">保存</a>
                                     <a class="dropdown-item" href="#">隱藏</a>
                                     <a class="dropdown-item" href="#">檢舉</a>
@@ -159,14 +165,13 @@
 
                 </div>
                 <div class="card-body">
-                    <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i>幾分鐘前發佈 (Ex: 12分鐘以前)</div>
-                    <a class="card-link" href="#">
-                        <h5 class="card-title">文章標題</h5>
+                    <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i>{{ article.create_time }}</div>
+                    <a class="card-link" href="#"></a>
+                        <h5 class="card-title">{{ article.title }}</h5>
                     </a>
 
                     <p class="card-text">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo recusandae nulla rem eos ipsa praesentium esse magnam nemo dolor
-                        sequi fuga quia quaerat cum, obcaecati hic, molestias minima iste voluptates.
+                        {{ article.content }}
                     </p>
                 </div>
                 <div class="card-footer">
@@ -175,15 +180,8 @@
                     <a href="#" class="card-link"><i class="fa fa-mail-forward"></i> 分享</a>
                 </div>
             </div>
+            {% endfor %}
 
-
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
 
 {% endblock %}
 
@@ -194,7 +192,13 @@
         var btnType = $('#btnType')
         var sendMessage = $('#sendMessage')
         var articleType = $('#articleType')
+        var send = $('#send')
 
+        function showMessage(){
+            sendMessage.hide(600)
+            btnSend.val('發表文章')
+        }
+            // 切換顯示 發表文章按鈕
         btnSend.click(function(){
             articleType.hide()
             btnType.val('文章分類')
@@ -206,7 +210,7 @@
                 $(this).val('發表文章')
             }
         })
-        
+            // 切換顯示 文章分類按鈕
         btnType.click(function(){
             sendMessage.hide()
             btnSend.val('發表文章')
@@ -217,8 +221,20 @@
                 $(this).val('文章分類')
             }
         })
-        
-
+    
+            
+            // 送出文章 (create)
+        send.click(function(){
+            showMessage()
+            var title = $('#title')
+            var content = $('#content')
+            datas = {title:title.val(), content:content.val()}
+            $.get('/article/create', datas, function(data){
+                console.log(data)
+            title.val('')
+            content.val('')
+            })
+        })
 
 
 
