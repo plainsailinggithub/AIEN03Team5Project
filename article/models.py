@@ -10,6 +10,7 @@ class Articles(models.Model):
     content = models.TextField()
     last_modified_time = models.DateTimeField(auto_now = True)
     create_time = models.DateTimeField(auto_now_add = True)
+    membername = models.CharField(max_length = 30)
 
     class Meta:
         db_table = 'articles'

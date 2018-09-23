@@ -1,8 +1,12 @@
 {% extends 'aien.html' %}
+{% load static %}
 {% block style %}
 <style>
     #sendMessage, #articleType{
         display:none;
+    }
+    a{
+        cursor:pointer;
     }
 
 </style>
@@ -136,15 +140,15 @@
 
 <div id='paragraph'>
     {% for article in articles %}
-    <div class="card gedf-card mb-3">
+    <div class="card gedf-card mb-2 articleId" id='{{ article.id }}'>
         <div class="card-header">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="mr-2">
-                        <img class="rounded-circle" width="45" src="https://picsum.photos/50/50" alt="">
+                        <img class="rounded-circle" width="45" src="{% static 'images/tree.png' %}" alt="">
                     </div>
                     <div class="ml-2">
-                        <div class="h5 m-0">會員名稱</div>
+                        <div class="h5 m-0">{{ article.membername }}</div>
                         <div class="h7 text-muted">會員email</div>
                     </div>
                 </div>
@@ -158,6 +162,7 @@
                             <a class="dropdown-item" href="#">保存</a>
                             <a class="dropdown-item" href="#">隱藏</a>
                             <a class="dropdown-item" href="#">檢舉</a>
+                            <a class="dropdown-item btnDelete" id='btnDelete'>刪除</a>
                         </div>
                     </div>
                 </div>
@@ -168,7 +173,6 @@
             <a class="card-link" href="#"></a>
                 <h5 class="card-title">{{ article.title }}</h5>
             </a>
-
             <p class="card-text">
                 {{ article.content }}
             </p>
@@ -193,6 +197,7 @@
         var articleType = $('#articleType')
         var send = $('#send')
         var paragraph = $('#paragraph')
+        var btnDelete = $('#btnDelete')
         
 
         function showMessage(){
@@ -230,21 +235,37 @@
                 // 清空文字
             var title = $('#title')
             var content = $('#content')
-            datas = {title:title.val(), content:content.val()}
+            var memberName = 'IsTree'
+            datas = {title:title.val(), content:content.val(), membername:memberName}
             title.val('')
             content.val('')
-            paragraph.text('')
-            $.get('/article/create', datas, function(returnDatas){
+
+
+            // paragraph.text('')
+            $.get('/article/create/', datas, function(returnDatas){
                     // 接收json 
+
+                            // ==== 我發現只更新一筆資料的缺點: 沒有辦法更新底下文章的時間，所以~不用了====
+                    //         // 只收最新的一筆資料
+                    // var data = returnDatas[0]
+                    // dataF = data.fields
+                    // localTime = get_time_delta(dataF.create_time)
+                    // update_paragraph2(data.pk, localTime, dataF.title, dataF.content)
+                            // ==== 我發現只更新一筆資料的缺點: 沒有辦法更新底下文章的時間，所以~不用了 END====
+
+                        //更新的部分是 資料表的所有資料
+                paragraph.text('')
                 $.each(returnDatas, function(i, obj){
                     var data = obj.fields
                         // 計算發佈文章時間是多久以前   呼叫 get_time_delta Function!
                     localTime = get_time_delta(data.create_time)
-                    update_paragraph(localTime, data.title, data.content) 
+                    update_paragraph(obj.pk, localTime, data.membername, data.title, data.content)
                 })
+                paragraph.children('div:nth-child(1)').hide().show(600)
             })
         })
     
+
     // 將db裡存的UTC 時間轉換成localtime 才能去被 now減去
 function get_time_delta(dbTime){
     var now = new Date(Date.now())
@@ -265,18 +286,18 @@ function get_time_delta(dbTime){
 
 }
 
-
-function update_paragraph(create_time, title, content,){
+    // 送出文章後，會讀取資料表的所有資料
+function update_paragraph(ID, create_time, memberName, title, content,){
     paragraph.append('\
-    <div class="card gedf-card mb-3">\
-        <div class="card-header">\
+    <div class="card gedf-card mb-2 articleId"' + 'id=' + ID+'>' +
+        '<div class="card-header">\
             <div class="d-flex justify-content-between align-items-center">\
                 <div class="d-flex justify-content-between align-items-center">\
                     <div class="mr-2">\
                         <img class="rounded-circle" width="45" src="https://picsum.photos/50/50" alt="">\
                     </div>\
                     <div class="ml-2">\
-                        <div class="h5 m-0">會員名稱</div>\
+                        <div class="h5 m-0">' + memberName +'</div>\
                         <div class="h7 text-muted">會員email</div>\
                     </div>\
                 </div>\
@@ -290,6 +311,7 @@ function update_paragraph(create_time, title, content,){
                             <a class="dropdown-item" href="#">保存</a>\
                             <a class="dropdown-item" href="#">隱藏</a>\
                             <a class="dropdown-item" href="#">檢舉</a>\
+                            <a class="dropdown-item btnDelete" id="btnDelete">刪除</a>\
                         </div>\
                     </div>\
                 </div>\
@@ -310,9 +332,24 @@ function update_paragraph(create_time, title, content,){
             <a href="#" class="card-link"><i class="fa fa-mail-forward"></i> 分享</a>\
         </div>\
     </div>'
-    )}
+    )
+    }
 
-// update_paragraph('2016-05-12' ,'abc', 'abcdefg~~~')
+        // paragraph是原始存在的，以它為起點，動態綁定刪除按鈕
+    paragraph.on('click', '.btnDelete', function(){
+        // console.log('candelete')
+        var theDiv = $(this).parents('div.articleId')
+        articleId = $(theDiv).attr('id')
+        $.get('/article/delete/' + articleId +'/', function(data){
+            // console.log(data)
+        } )
+        theDiv.hide(600)
+    })
+
+    // 送出文章後，只把資料表中的最新的一筆資料以prepend方式 插入進來。
+
+
+
 
 
 })

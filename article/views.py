@@ -41,12 +41,26 @@ def create(request):
     if request.method == 'GET':
         title = request.GET['title']
         content = request.GET['content']
-    Articles.objects.create(title=title, content=content)
-        #read datas
+        membername = request.GET['membername']
+    Articles.objects.create(title=title, content=content, membername=membername)
+        # 傳送所有資料表中的資料
+    #     #read datas
     articles = serializers.serialize('json', Articles.objects.all()[::-1])
     return HttpResponse(articles, content_type = 'application/json')
 
+    #     # 只傳最後一筆資料回去
+    # x = list((Articles.objects.all()[::-1][0],))
+    # x = serializers.serialize('json',x)
+    # return HttpResponse(x, content_type = 'application/json')
 
+
+
+def delete(request, articleId):
+    if request.method =='GET':
+        articleId = articleId
+        data = Articles.objects.get(id = articleId)
+        data.delete()
+    return HttpResponse('')
 
 def nice_print(arg):
     print('\n-------------------\n')
