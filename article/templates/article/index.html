@@ -134,54 +134,53 @@
             </div> -->
 
 
-
-            {% for article in articles %}
-            <div class="card gedf-card mb-3">
-                <div class="card-header">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="mr-2">
-                                <img class="rounded-circle" width="45" src="https://picsum.photos/50/50" alt="">
-                            </div>
-                            <div class="ml-2">
-                                <div class="h5 m-0">會員名稱</div>
-                                <div class="h7 text-muted">會員email</div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="dropdown">
-                                <button class="btn btn-link dropdown-toggle" type="button" id="gedf-drop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fa fa-ellipsis-h"></i>
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
-                                    <div class="h6 dropdown-header">想對文章 :</div>
-                                    <a class="dropdown-item" href="#">保存</a>
-                                    <a class="dropdown-item" href="#">隱藏</a>
-                                    <a class="dropdown-item" href="#">檢舉</a>
-                                </div>
-                            </div>
+<div id='paragraph'>
+    {% for article in articles %}
+    <div class="card gedf-card mb-3">
+        <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="mr-2">
+                        <img class="rounded-circle" width="45" src="https://picsum.photos/50/50" alt="">
+                    </div>
+                    <div class="ml-2">
+                        <div class="h5 m-0">會員名稱</div>
+                        <div class="h7 text-muted">會員email</div>
+                    </div>
+                </div>
+                <div>
+                    <div class="dropdown">
+                        <button class="btn btn-link dropdown-toggle" type="button" id="gedf-drop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-ellipsis-h"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
+                            <div class="h6 dropdown-header">想對文章 :</div>
+                            <a class="dropdown-item" href="#">保存</a>
+                            <a class="dropdown-item" href="#">隱藏</a>
+                            <a class="dropdown-item" href="#">檢舉</a>
                         </div>
                     </div>
-
-                </div>
-                <div class="card-body">
-                    <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i>{{ article.create_time }}</div>
-                    <a class="card-link" href="#"></a>
-                        <h5 class="card-title">{{ article.title }}</h5>
-                    </a>
-
-                    <p class="card-text">
-                        {{ article.content }}
-                    </p>
-                </div>
-                <div class="card-footer">
-                    <a href="#" class="card-link"><i class="fa fa-gittip"></i> 讚</a>
-                    <a href="#" class="card-link"><i class="fa fa-comment"></i> 留言</a>
-                    <a href="#" class="card-link"><i class="fa fa-mail-forward"></i> 分享</a>
                 </div>
             </div>
-            {% endfor %}
+        </div>
+        <div class="card-body">
+            <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i>{{ article.create_time }}</div>
+            <a class="card-link" href="#"></a>
+                <h5 class="card-title">{{ article.title }}</h5>
+            </a>
 
+            <p class="card-text">
+                {{ article.content }}
+            </p>
+        </div>
+        <div class="card-footer">
+            <a href="#" class="card-link"><i class="fa fa-gittip"></i> 讚</a>
+            <a href="#" class="card-link"><i class="fa fa-comment"></i> 留言</a>
+            <a href="#" class="card-link"><i class="fa fa-mail-forward"></i> 分享</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
 
 {% endblock %}
 
@@ -193,6 +192,7 @@
         var sendMessage = $('#sendMessage')
         var articleType = $('#articleType')
         var send = $('#send')
+        var paragraph = $('#paragraph')
 
         function showMessage(){
             sendMessage.hide(600)
@@ -226,19 +226,72 @@
             // 送出文章 (create)
         send.click(function(){
             showMessage()
+                // 清空文字
             var title = $('#title')
             var content = $('#content')
             datas = {title:title.val(), content:content.val()}
-            $.get('/article/create', datas, function(data){
-                console.log(data)
             title.val('')
             content.val('')
+            paragraph.text('')
+            $.get('/article/create', datas, function(returnDatas){
+                    // 接收json 
+                $.each(returnDatas, function(i, obj){
+                    var data = obj.fields
+                    update_paragraph(data.create_time, data.title, data.content) 
+                })
             })
         })
 
 
+function update_paragraph(create_time, title, content,){
+    paragraph.append('\
+    <div class="card gedf-card mb-3">\
+        <div class="card-header">\
+            <div class="d-flex justify-content-between align-items-center">\
+                <div class="d-flex justify-content-between align-items-center">\
+                    <div class="mr-2">\
+                        <img class="rounded-circle" width="45" src="https://picsum.photos/50/50" alt="">\
+                    </div>\
+                    <div class="ml-2">\
+                        <div class="h5 m-0">會員名稱</div>\
+                        <div class="h7 text-muted">會員email</div>\
+                    </div>\
+                </div>\
+                <div>\
+                    <div class="dropdown">\
+                        <button class="btn btn-link dropdown-toggle" type="button" id="gedf-drop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">\
+                            <i class="fa fa-ellipsis-h"></i>\
+                        </button>\
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">\
+                            <div class="h6 dropdown-header">想對文章 :</div>\
+                            <a class="dropdown-item" href="#">保存</a>\
+                            <a class="dropdown-item" href="#">隱藏</a>\
+                            <a class="dropdown-item" href="#">檢舉</a>\
+                        </div>\
+                    </div>\
+                </div>\
+            </div>\
+        </div>\
+        <div class="card-body">\
+            <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i>'+ create_time + '</div>\
+            <a class="card-link" href="#"></a>\
+                <h5 class="card-title">' +title + '</h5>\
+            </a>\
+            <p class="card-text">' +
+                content +
+            '</p>\
+        </div>\
+        <div class="card-footer">\
+            <a href="#" class="card-link"><i class="fa fa-gittip"></i> 讚</a>\
+            <a href="#" class="card-link"><i class="fa fa-comment"></i> 留言</a>\
+            <a href="#" class="card-link"><i class="fa fa-mail-forward"></i> 分享</a>\
+        </div>\
+    </div>'
+    )}
+
+// update_paragraph('2016-05-12' ,'abc', 'abcdefg~~~')
 
 
-    })
+})
 </script>
 {% endblock %}

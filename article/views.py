@@ -5,6 +5,7 @@ from django.core import serializers
 import datetime
 from datetime import datetime as dt
 
+
 # Create your views here.
 def index(request):
     articles = Articles.objects.all()[::-1]
@@ -42,5 +43,6 @@ def create(request):
         title = request.GET['title']
         content = request.GET['content']
     Articles.objects.create(title=title, content=content)
-    return HttpResponse('back to you abc')
+    articles = serializers.serialize('json', Articles.objects.all()[::-1])
+    return HttpResponse(articles, content_type = 'application/json')
 
