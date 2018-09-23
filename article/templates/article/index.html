@@ -193,6 +193,7 @@
         var articleType = $('#articleType')
         var send = $('#send')
         var paragraph = $('#paragraph')
+        
 
         function showMessage(){
             sendMessage.hide(600)
@@ -237,10 +238,32 @@
                     // 接收json 
                 $.each(returnDatas, function(i, obj){
                     var data = obj.fields
-                    update_paragraph(data.create_time, data.title, data.content) 
+                        // 計算發佈文章時間是多久以前   呼叫 get_time_delta Function!
+                    localTime = get_time_delta(data.create_time)
+                    update_paragraph(localTime, data.title, data.content) 
                 })
             })
         })
+    
+    // 將db裡存的UTC 時間轉換成localtime 才能去被 now減去
+function get_time_delta(dbTime){
+    var now = new Date(Date.now())
+    var x = dbTime
+    x = x.replace('T',' ').slice(0, x.indexOf('.'))
+    x = new Date(x)
+    y = new Date(Date.UTC(x.getFullYear(), x.getMonth(), x.getDate(), x.getHours(), x.getMinutes(), x.getSeconds()))
+    localTime = parseInt((now-y)/1000)
+    if (localTime/60 <1){
+        return '0分鐘以前'
+    }else if(localTime/60 <60 ){
+        return parseInt(localTime/60) + '分鐘以前'
+    }else if (localTime/3600 <24){
+        return parseInt(localTime/3600) + '小時以前'
+    }else {
+        return parseInt(localTime/3600/24) + '天以前'
+    }
+
+}
 
 
 function update_paragraph(create_time, title, content,){

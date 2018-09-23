@@ -8,41 +8,47 @@ from datetime import datetime as dt
 
 # Create your views here.
 def index(request):
-    articles = Articles.objects.all()[::-1]
-    now = datetime.datetime.now()
-
-        # 轉換時間
-    for i in articles:
-        create_time = i.create_time                 #從資料庫取出UTC時間
-        create_time = create_time.timestamp()       #轉換成timestamp物件
-        create_time = dt.fromtimestamp(create_time) #取得localtime
-        if (now - create_time).days <1:
-            create_time = (now - create_time).seconds
-            create_time = change_time(create_time)
-        else:
-            create_time = str((now - create_time).days) + '天以前'
-        # print(create_time)
-        i.create_time = create_time    #改變articles物件的欄位值
-        # print(i.create_time)
-    # print('==================\n\n')
+    articles = read_articles(Articles.objects.all()[::-1])
     return render(request, 'article/index.html', locals())
 
 def change_time(seconds):
-    # print(seconds/3600)
-    days = seconds/3600/24
-    hours = seconds/3600
-    minute = seconds/60
+    hours = seconds//3600
+    minute = seconds//60
     if minute < 60:
-        return str(int(minute)) + '分鐘以前'
+        return str(minute) + '分鐘以前'
     elif hours < 24:
-        return str(int(hours)) + '小時以前'
+        return str(hours) + '小時以前'
+
+def read_articles(datas):
+    articles = datas
+    now = datetime.datetime.now()
+        # 轉換時間
+    for i in articles:
+        _create_time = i.create_time                    #從資料庫取出UTC時間
+        _create_time = _create_time.timestamp()         #轉換成timestamp物件
+        _create_time = dt.fromtimestamp(_create_time)   #取得localtime
+        if (now - _create_time).days <1:
+            _create_time = (now - _create_time).seconds
+            _create_time = change_time(_create_time)
+        else:
+            _create_time = str((now - _create_time).days) + '天以前'
+        i.create_time = _create_time
+    return articles
 
 
 def create(request):
+        #create data
     if request.method == 'GET':
         title = request.GET['title']
         content = request.GET['content']
     Articles.objects.create(title=title, content=content)
+        #read datas
     articles = serializers.serialize('json', Articles.objects.all()[::-1])
     return HttpResponse(articles, content_type = 'application/json')
 
+
+
+def nice_print(arg):
+    print('\n-------------------\n')
+    print(arg)
+    print('\n-------------------\n')
