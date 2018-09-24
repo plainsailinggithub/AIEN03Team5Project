@@ -9,6 +9,28 @@
         cursor:pointer;
     }
 
+    #edit{
+        display:none;
+        position:fixed;
+        top:60px;
+        left:25%;
+        z-index:2;
+        background-color: #fefefe;
+        margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+        border: 1px solid #888;
+        width: 49%; /* Could be more or less, depending on screen size */
+    }
+    #bg{
+        display:none;
+        position:fixed;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+        z-index:1;
+        background-color:rgba(0, 0, 0, 0.534);
+    }
+
 </style>
 {% endblock %}
 
@@ -184,8 +206,28 @@
         </div>
     </div>
     {% endfor %}
-</div>
 
+    <div id='bg'>
+
+    </div>
+
+    <div class='bg-white text-center' id='edit'>
+        <button type="button" class="close" aria-label="Close">
+            <span aria-hidden="true" id='close'>&times;</span>
+        </button>
+        <p>123</p>
+        <p>123</p>
+        <p>123</p>
+        <p>123</p>
+        <p>123</p>
+        <p>123</p>
+        <p>123</p>
+        <p>123</p>
+    </div>
+
+
+
+</div>
 {% endblock %}
 
 {% block scripts %}
@@ -346,8 +388,23 @@ function update_paragraph(ID, create_time, memberName, title, content,){
         theDiv.hide(600)
     })
 
-    // 送出文章後，只把資料表中的最新的一筆資料以prepend方式 插入進來。
 
+
+
+
+// 送出文章後，只把資料表中的最新的一筆資料以prepend方式 插入進來。
+    // 已刪除~
+
+    var bg = $('#bg')
+    var edit = $('#edit')
+
+    function close(){
+        bg.hide()
+        edit.hide()
+        console.log('closing')
+    }
+    $('#close').click(close)
+    bg.click(close)
 
 
 
