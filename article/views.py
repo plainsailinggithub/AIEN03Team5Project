@@ -61,6 +61,15 @@ def delete(request, articleId):
         data.delete()
     return HttpResponse('')
 
+
+def update(request, articleId):
+    if request.is_ajax():
+        abc = {'a':request.POST['abc']}
+        print(abc)
+        print('why not return?')
+    return HttpResponse(88)
+
+
 def nice_print(arg):
     print('\n-------------------\n')
     print(arg)
