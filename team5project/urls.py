@@ -25,15 +25,9 @@ router.register(r'friendship',views.FriendshipViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-<<<<<<< HEAD
+    path('message/',include('message.urls')),
     path('article/', include('article.urls')),
     path('Sophia/', include('Sophia.urls')),
-
-=======
-    path('message/',include('message.urls')),
-    path('article', include('article.urls')),
-    path('Sophia', include('Sophia.urls')),
     path('api/',include(router.urls)),
     path('message/',include('message.urls')),
->>>>>>> b6ce8ee5cf751875fa2e92903ea32a086c8c71fa
 ]
