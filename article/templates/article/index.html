@@ -1,268 +1,414 @@
 {% extends 'aien.html' %}
+{% load static %}
 {% block style %}
 <style>
-/* input[type=text] {
-    width: 100px;
-    -webkit-transition: width 0.4s ease-in-out;
-    transition: width 0.4s ease-in-out;
-}
+    #sendMessage, #articleType{
+        display:none;
+    }
+    a{
+        cursor:pointer;
+    }
 
-
-input[type=text]:focus {
-    width: 80%;
-} */
-
-.l1{
-   width:30%; 
-}
-.l2{
-    width:80%;
-}
-#articleType{
-    display: none;
-}
+    #edit{
+        display:none;
+        position:fixed;
+        top:60px;
+        left:25%;
+        z-index:2;
+        background-color: #fefefe;
+        margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+        border: 1px solid #888;
+        width: 49%; /* Could be more or less, depending on screen size */
+    }
+    #bg{
+        display:none;
+        position:fixed;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+        z-index:1;
+        background-color:rgba(0, 0, 0, 0.534);
+    }
 
 </style>
 {% endblock %}
 
-{% block main %}
+{% block left %}
+<div class="col-md-3 text-center bg-white pt-3 left">
+    <input type="button" value='發表文章' class='btn btn-primary' id='btnSend'>
+    <input type="button" value='文章分類' class='btn btn-primary' id='btnType'>
+    <div class='mt-3 text-left' id='articleType'>
+        <div>
+            <p class='btn btn-info'>全部文章</p>
+        </div>
+        <div>
+            <p class='btn btn-info'>自己</p>
+        </div>
+        <div>
+            <p class='btn btn-info'>好友</p>
+        </div>
+    </div>
 
-                        <!-- ==== 搜尋bar ==== -->
-<nav class="navbar navbar-light bg-white">
+    <!-- 發佈訊息 -->
+<div class="card gedf-card " id='sendMessage'>
 
-    <form class="form-inline">
-        <input class='l1' type="text" name="search" placeholder="Search..">
-            <button class="btn btn-outline-primary" type="button" id="button-addon2">
-                <i class="fa fa-search"></i>
-            </button>
-    </form>
-</nav>
-                        <!-- 搜尋bar END -->
+    <div class="card-header">
+        <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="posts-tab" data-toggle="tab" href="#posts" role="tab" aria-controls="posts" aria-selected="true">發表訊息</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="images-tab" data-toggle="tab" role="tab" aria-controls="images" aria-selected="false" href="#images">圖檔</a>
+            </li>
+        </ul>
+    </div>
+    <div class="card-body">
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="posts-tab">
+                <div class="form-group">
+                    <label class="sr-only" for="title">post</label>
+                    <input type='text' class='form-control' placeholder='請輸入標題' id='title' name='title' required>
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="content">post</label>
+                    <textarea class="form-control" id="content" name='content' rows="5" placeholder="請輸入想說的訊息" required></textarea>
+                </div>
 
-<div class="container-fluid gedf-wrapper">
-    <div class="row">
-
-                        <!-- ==== 左邊部分 ==== -->
-        <div class="col-md-3 text-left">
-            <button class='btn btn-info' id='typeButton'>文章分類</button>
-            <div id='articleType'>
-                <p>1</p>
-                <p>1</p>
-                <p>1</p>
-                <p>1</p>
+            </div>
+            <div class="tab-pane fade" id="images" role="tabpanel" aria-labelledby="images-tab">
+                <div class="form-group">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="customFile">
+                        <label class="custom-file-label" for="customFile">上傳圖片</label>
+                    </div>
+                </div>
+                <div class="py-4"></div>
             </div>
         </div>
-                        <!-- 左邊部分END -->
-
-
-                        <!-- ==== 中間部分 ==== -->
-        <div class="col-md-6 gedf-main">
-
-
-            <!-- -----------------------(表單) 發表文章 --------||comment by Tree|| -->
-            <div class="card gedf-card">
-                <div class="card-header">
-                    <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" id="posts-tab" data-toggle="tab" href="#posts" role="tab" aria-controls="posts" aria-selected="true">發表文章</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="images-tab" data-toggle="tab" role="tab" aria-controls="images" aria-selected="false" href="#images">圖片</a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="card-body">
-                    <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="posts-tab">
-                            <div class="form-group">
-                                <label class="sr-only" for="message">post</label>
-                                <textarea class="form-control" id="message" rows="3" placeholder="請輸入想說的訊息" autofocus></textarea>
-                            </div>
-
-                        </div>
-                        <div class="tab-pane fade" id="images" role="tabpanel" aria-labelledby="images-tab">
-                            <div class="form-group">
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="customFile">
-                                    <label class="custom-file-label" for="customFile">上傳圖片</label>
-                                </div>
-                            </div>
-                            <div class="py-4"></div>
-                        </div>
-                    </div>
-                    <div class="btn-toolbar justify-content-between">
-                        <div class="btn-group">
-                            <button type="submit" class="btn btn-primary">發表</button>
-                        </div>
-                        <div class="btn-group">
-                            <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false">
-                                <i class="fa fa-globe"></i> Public
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                <a class="dropdown-item" href="#"><i class="fa fa-globe"></i> Public</a>
-                                <a class="dropdown-item" href="#"><i class="fa fa-users"></i> Friends</a>
-                                <a class="dropdown-item" href="#"><i class="fa fa-user"></i> Just me</a>
-                            </div>
-                        </div>
-                    </div>
+        <div class="btn-toolbar justify-content-between">
+            <div class="btn-group">
+                <button type="submit" id='send' class="btn btn-primary">發送</button>
+            </div>
+            <div class="btn-group">
+                <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                    <i class="fa fa-globe"></i> 公開
+                </button>
+                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                    <a class="dropdown-item" href="#"><i class="fa fa-globe"></i> 公開</a>
+                    <a class="dropdown-item" href="#"><i class="fa fa-users"></i> 只限朋友</a>
+                    <a class="dropdown-item" href="#"><i class="fa fa-user"></i> 限本人</a>
                 </div>
             </div>
-            <!-- -----------------------(表單) 發表文章 END --------||comment by Tree|| -->
-
-
-            <!-- ---------------------------發表的文章 (database所讀出來的資料)------||comment by Tree|| -->
-            <div class="card gedf-card mb-4">
-                <div class="card-header">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="mr-2">
-                                <img class="rounded-circle" width="45" src="https://picsum.photos/50/50" alt="">
-                            </div>
-                            <div class="ml-2">
-                                <div class="h5 m-0">@LeeCross</div>
-                                <div class="h7 text-muted">Miracles Lee Cross</div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="dropdown">
-                                <button class="btn btn-link dropdown-toggle" type="button" id="gedf-drop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fa fa-ellipsis-h"></i>
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
-                                    <div class="h6 dropdown-header">Configuration</div>
-                                    <a class="dropdown-item" href="#">Save</a>
-                                    <a class="dropdown-item" href="#">Hide</a>
-                                    <a class="dropdown-item" href="#">Report</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="card-body">
-                    <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i>10 min ago</div>
-                    <a class="card-link" href="#">
-                        <h5 class="card-title">Lorem ipsum dolor sit amet, consectetur adip.</h5>
-                    </a>
-
-                    <p class="card-text">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo recusandae nulla rem eos ipsa praesentium esse magnam nemo dolor
-                        sequi fuga quia quaerat cum, obcaecati hic, molestias minima iste voluptates.
-                    </p>
-                </div>
-                <div class="card-footer">
-                    <a href="#" class="card-link"><i class="fa fa-gittip"></i> Like</a>
-                    <a href="#" class="card-link"><i class="fa fa-comment"></i> Comment</a>
-                    <a href="#" class="card-link"><i class="fa fa-mail-forward"></i> Share</a>
-                </div>
-            </div>
-            <!-- ---------------------------發表的文章 (database所讀出來的資料) END------||comment by Tree|| -->
-
-            <!-- ---------------------------發表的文章 (database所讀出來的資料)------||comment by Tree|| -->
-            <div class="card gedf-card">
-                <div class="card-header">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="mr-2">
-                                <img class="rounded-circle" width="45" src="https://picsum.photos/50/50" alt="">
-                            </div>
-                            <div class="ml-2">
-                                <div class="h5 m-0">@LeeCross</div>
-                                <div class="h7 text-muted">Miracles Lee Cross</div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="dropdown">
-                                <button class="btn btn-link dropdown-toggle" type="button" id="gedf-drop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fa fa-ellipsis-h"></i>
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
-                                    <div class="h6 dropdown-header">Configuration</div>
-                                    <a class="dropdown-item" href="#">Save</a>
-                                    <a class="dropdown-item" href="#">Hide</a>
-                                    <a class="dropdown-item" href="#">Report</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="card-body">
-                    <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i>10 min ago</div>
-                    <a class="card-link" href="#">
-                        <h5 class="card-title">Lorem ipsum dolor sit amet, consectetur adip.</h5>
-                    </a>
-
-                    <p class="card-text">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo recusandae nulla rem eos ipsa praesentium esse magnam nemo dolor
-                        sequi fuga quia quaerat cum, obcaecati hic, molestias minima iste voluptates.
-                    </p>
-                </div>
-                <div class="card-footer">
-                    <a href="#" class="card-link"><i class="fa fa-gittip"></i> Like</a>
-                    <a href="#" class="card-link"><i class="fa fa-comment"></i> Comment</a>
-                    <a href="#" class="card-link"><i class="fa fa-mail-forward"></i> Share</a>
-                </div>
-            </div>
-            <!-- ---------------------------發表的文章 (database所讀出來的資料) END------||comment by Tree|| -->
-
         </div>
-                        <!-- ==== 中間部分END ==== -->
-
-
-
-
-                        <!-- 右邊部分 -->
-        <div class="col-md-3">
-            <div class="card gedf-card">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content.</p>
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
-                </div>
-            </div>
-            <div class="card gedf-card">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                            card's content.</p>
-                        <a href="#" class="card-link">Card link</a>
-                        <a href="#" class="card-link">Another link</a>
-                    </div>
-                </div>
-        </div>
-                        <!-- 右邊部分END -->
-
     </div>
 </div>
 
+</div>
+    <!-- 發佈訊息 END -->
+{% endblock %}
+
+
+{% block middle %}
+
+
+            <!-- <div class="card gedf-card">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="mr-2">
+                                <img class="rounded-circle" width="45" src="https://picsum.photos/50/50" alt="">
+                            </div>
+                            <div class="ml-2">
+                                <div class="h5 m-0">@LeeCross</div>
+                                <div class="h7 text-muted">Miracles Lee Cross</div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="dropdown">
+                                <button class="btn btn-link dropdown-toggle" type="button" id="gedf-drop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-ellipsis-h"></i>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
+                                    <div class="h6 dropdown-header">Configuration</div>
+                                    <a class="dropdown-item" href="#">Save</a>
+                                    <a class="dropdown-item" href="#">Hide</a>
+                                    <a class="dropdown-item" href="#">Report</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card-body">
+                    <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i>10 min ago</div>
+                    <a class="card-link" href="#">
+                        <h5 class="card-title">Lorem ipsum dolor sit amet, consectetur adip.</h5>
+                    </a>
+
+                    <p class="card-text">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo recusandae nulla rem eos ipsa praesentium esse magnam nemo dolor
+                        sequi fuga quia quaerat cum, obcaecati hic, molestias minima iste voluptates.
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <a href="#" class="card-link"><i class="fa fa-gittip"></i> Like</a>
+                    <a href="#" class="card-link"><i class="fa fa-comment"></i> Comment</a>
+                    <a href="#" class="card-link"><i class="fa fa-mail-forward"></i> Share</a>
+                </div>
+            </div> -->
+
+
+<div id='paragraph'>
+    {% for article in articles %}
+    <div class="card gedf-card mb-2 articleId" id='{{ article.id }}'>
+        <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="mr-2">
+                        <img class="rounded-circle" width="45" src="{% static 'images/tree.png' %}" alt="">
+                    </div>
+                    <div class="ml-2">
+                        <div class="h5 m-0">{{ article.membername }}</div>
+                        <div class="h7 text-muted">會員email</div>
+                    </div>
+                </div>
+                <div>
+                    <div class="dropdown">
+                        <button class="btn btn-link dropdown-toggle" type="button" id="gedf-drop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-ellipsis-h"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
+                            <div class="h6 dropdown-header">想對文章 :</div>
+                            <a class="dropdown-item" href="#">保存</a>
+                            <a class="dropdown-item" href="#">隱藏</a>
+                            <a class="dropdown-item" href="#">檢舉</a>
+                            <a class="dropdown-item btnDelete" id='btnDelete'>刪除</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i>{{ article.create_time }}</div>
+            <a class="card-link" href="#"></a>
+                <h5 class="card-title">{{ article.title }}</h5>
+            </a>
+            <p class="card-text">
+                {{ article.content }}
+            </p>
+        </div>
+        <div class="card-footer">
+            <a href="#" class="card-link"><i class="fa fa-gittip"></i> 讚</a>
+            <a href="#" class="card-link"><i class="fa fa-comment"></i> 留言</a>
+            <a href="#" class="card-link"><i class="fa fa-mail-forward"></i> 分享</a>
+        </div>
+    </div>
+    {% endfor %}
+
+    <div id='bg'>
+
+    </div>
+
+    <div class='bg-white text-center' id='edit'>
+        <button type="button" class="close" aria-label="Close">
+            <span aria-hidden="true" id='close'>&times;</span>
+        </button>
+        <p>123</p>
+        <p>123</p>
+        <p>123</p>
+        <p>123</p>
+        <p>123</p>
+        <p>123</p>
+        <p>123</p>
+        <p>123</p>
+    </div>
+
+
+
+</div>
 {% endblock %}
 
 {% block scripts %}
 <script>
     $(function(){
-
+        var btnSend = $('#btnSend')
+        var btnType = $('#btnType')
+        var sendMessage = $('#sendMessage')
         var articleType = $('#articleType')
+        var send = $('#send')
+        var paragraph = $('#paragraph')
+        var btnDelete = $('#btnDelete')
         
 
-        $('input[type="text"]').focus(function(){
-            $(this).toggleClass('l1','l2')
-        }).blur(function(){
-            $(this).toggleClass('l1','l2')
+        function showMessage(){
+            sendMessage.hide(600)
+            btnSend.val('發表文章')
+        }
+            // 切換顯示 發表文章按鈕
+        btnSend.click(function(){
+            articleType.hide()
+            btnType.val('文章分類')
+            sendMessage.slideToggle(600)
+            sendMessage.find('textarea').focus()
+            if( $(this).val() =='發表文章'){
+                $(this).val('關閉訊息')
+            } else{
+                $(this).val('發表文章')
+            }
         })
+            // 切換顯示 文章分類按鈕
+        btnType.click(function(){
+            sendMessage.hide()
+            btnSend.val('發表文章')
+            articleType.toggle(600)
+            if($(this).val() == '文章分類'){
+                $(this).val('關閉分類')
+            } else{
+                $(this).val('文章分類')
+            }
+        })
+    
+            
+            // 送出文章 (create)
+        send.click(function(){
+            showMessage()
+                // 清空文字
+            var title = $('#title')
+            var content = $('#content')
+            var memberName = 'IsTree'
+            datas = {title:title.val(), content:content.val(), membername:memberName}
+            title.val('')
+            content.val('')
 
-        $('#typeButton').click(function(){
-            articleType.toggle(500)
+
+            // paragraph.text('')
+            $.get('/article/create/', datas, function(returnDatas){
+                    // 接收json 
+
+                            // ==== 我發現只更新一筆資料的缺點: 沒有辦法更新底下文章的時間，所以~不用了====
+                    //         // 只收最新的一筆資料
+                    // var data = returnDatas[0]
+                    // dataF = data.fields
+                    // localTime = get_time_delta(dataF.create_time)
+                    // update_paragraph2(data.pk, localTime, dataF.title, dataF.content)
+                            // ==== 我發現只更新一筆資料的缺點: 沒有辦法更新底下文章的時間，所以~不用了 END====
+
+                        //更新的部分是 資料表的所有資料
+                paragraph.text('')
+                $.each(returnDatas, function(i, obj){
+                    var data = obj.fields
+                        // 計算發佈文章時間是多久以前   呼叫 get_time_delta Function!
+                    localTime = get_time_delta(data.create_time)
+                    update_paragraph(obj.pk, localTime, data.membername, data.title, data.content)
+                })
+                paragraph.children('div:nth-child(1)').hide().show(600)
+            })
         })
+    
+
+    // 將db裡存的UTC 時間轉換成localtime 才能去被 now減去
+function get_time_delta(dbTime){
+    var now = new Date(Date.now())
+    var x = dbTime
+    x = x.replace('T',' ').slice(0, x.indexOf('.'))
+    x = new Date(x)
+    y = new Date(Date.UTC(x.getFullYear(), x.getMonth(), x.getDate(), x.getHours(), x.getMinutes(), x.getSeconds()))
+    localTime = parseInt((now-y)/1000)
+    if (localTime/60 <1){
+        return '0分鐘以前'
+    }else if(localTime/60 <60 ){
+        return parseInt(localTime/60) + '分鐘以前'
+    }else if (localTime/3600 <24){
+        return parseInt(localTime/3600) + '小時以前'
+    }else {
+        return parseInt(localTime/3600/24) + '天以前'
+    }
+
+}
+
+    // 送出文章後，會讀取資料表的所有資料
+function update_paragraph(ID, create_time, memberName, title, content,){
+    paragraph.append('\
+    <div class="card gedf-card mb-2 articleId"' + 'id=' + ID+'>' +
+        '<div class="card-header">\
+            <div class="d-flex justify-content-between align-items-center">\
+                <div class="d-flex justify-content-between align-items-center">\
+                    <div class="mr-2">\
+                        <img class="rounded-circle" width="45" src="https://picsum.photos/50/50" alt="">\
+                    </div>\
+                    <div class="ml-2">\
+                        <div class="h5 m-0">' + memberName +'</div>\
+                        <div class="h7 text-muted">會員email</div>\
+                    </div>\
+                </div>\
+                <div>\
+                    <div class="dropdown">\
+                        <button class="btn btn-link dropdown-toggle" type="button" id="gedf-drop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">\
+                            <i class="fa fa-ellipsis-h"></i>\
+                        </button>\
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">\
+                            <div class="h6 dropdown-header">想對文章 :</div>\
+                            <a class="dropdown-item" href="#">保存</a>\
+                            <a class="dropdown-item" href="#">隱藏</a>\
+                            <a class="dropdown-item" href="#">檢舉</a>\
+                            <a class="dropdown-item btnDelete" id="btnDelete">刪除</a>\
+                        </div>\
+                    </div>\
+                </div>\
+            </div>\
+        </div>\
+        <div class="card-body">\
+            <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i>'+ create_time + '</div>\
+            <a class="card-link" href="#"></a>\
+                <h5 class="card-title">' +title + '</h5>\
+            </a>\
+            <p class="card-text">' +
+                content +
+            '</p>\
+        </div>\
+        <div class="card-footer">\
+            <a href="#" class="card-link"><i class="fa fa-gittip"></i> 讚</a>\
+            <a href="#" class="card-link"><i class="fa fa-comment"></i> 留言</a>\
+            <a href="#" class="card-link"><i class="fa fa-mail-forward"></i> 分享</a>\
+        </div>\
+    </div>'
+    )
+    }
+
+        // paragraph是原始存在的，以它為起點，動態綁定刪除按鈕
+    paragraph.on('click', '.btnDelete', function(){
+        // console.log('candelete')
+        var theDiv = $(this).parents('div.articleId')
+        articleId = $(theDiv).attr('id')
+        $.get('/article/delete/' + articleId +'/', function(data){
+            // console.log(data)
+        } )
+        theDiv.hide(600)
     })
+
+
+
+
+
+// 送出文章後，只把資料表中的最新的一筆資料以prepend方式 插入進來。
+    // 已刪除~
+
+    var bg = $('#bg')
+    var edit = $('#edit')
+
+    function close(){
+        bg.hide()
+        edit.hide()
+        console.log('closing')
+    }
+    $('#close').click(close)
+    bg.click(close)
+
+
+
+
+})
 </script>
 {% endblock %}
-
-
-
