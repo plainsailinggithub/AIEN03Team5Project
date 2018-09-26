@@ -63,11 +63,12 @@ def delete(request, articleId):
 
 
 def update(request, articleId):
-    if request.is_ajax():
-        abc = {'a':request.POST['abc']}
-        print(abc)
-        print('why not return?')
-    return HttpResponse(88)
+    # if request.is_ajax():
+    #     abc = {'a':request.POST['abc']}
+    #     print(abc)
+    #     print('why not return?')
+    article = serializers.serialize('json', Articles.objects.filter(id = articleId))
+    return HttpResponse(article, content_type='application/json')
 
 
 def nice_print(arg):
