@@ -153,7 +153,7 @@
                             <a class="dropdown-item" href="#">保存</a>
                             <a class="dropdown-item" href="#">隱藏</a>
                             <a class="dropdown-item" href="#">檢舉</a>
-                            <a class="dropdown-item update" href="#">編輯</a>
+                            <a class="dropdown-item update" >編輯</a>
                             <a class="dropdown-item btnDelete" id='btnDelete'>刪除</a>
                         </div>
                     </div>
@@ -341,7 +341,7 @@ function update_paragraph(ID, create_time, memberName, title, content,){
 
         // paragraph是原始存在的，以它為起點，動態綁定刪除按鈕
     paragraph.on('click', '.btnDelete', function(){
-        // console.log('candelete')
+        console.log('candelete')
         var theDiv = $(this).parents('div.articleId')
         articleId = $(theDiv).attr('id')
         $.get('/article/delete/' + articleId +'/', function(data){
@@ -368,26 +368,26 @@ function update_paragraph(ID, create_time, memberName, title, content,){
     $('#close').click(close)
     bg.click(close)
 
-
+    var updateId;
     paragraph.on('click', '.update', function(){
         var the_div = $(this).parents('div.articleId')
-        var id = the_div.attr('id')
+        updateId = the_div.attr('id')
+        console.log(updateId)
         bg.show(600)
         edit.show(600)
         edit_paragraph()
+        var title = the_div.find('h5.card-title').text().trim()
+        var content = the_div.find('p.card-text').text().trim()
 
-        console.log(id)
-        $.get('/article/update/'+id+'/',function(data){
-            var data = data[0].fields
-            var title = $('#titleEdit')
-            var content = $('#contentEdit')
-            title.val(data.title)
-            content.val(data.content)
-            console.log(data.title)
-        })
-        
-        
+        var titleEdit = $('#titleEdit')
+        var contentEdit = $('#contentEdit')
+        titleEdit.val(title)
+        contentEdit.val(content)
+
     })
+
+
+
 
     function edit_paragraph(){
         edit.html('<button type="button" class="close" aria-label="Close">\
@@ -451,6 +451,14 @@ function update_paragraph(ID, create_time, memberName, title, content,){
         var title = $('#titleEdit')
         var content = $('#contentEdit')
         console.log(title.val(), content.val())
+        datas = {
+            title: title.val(),
+            content: content.val()
+        }
+        console.log(updateId)
+        $.get('/article/update/' + updateId + '/',datas, function(datas){
+            console.log(datas)
+        } )
     })
 
 
@@ -471,13 +479,15 @@ function update_paragraph(ID, create_time, memberName, title, content,){
     
 
 
-
+var bbgg = $('#bbgg')
 $('#btnbbgg').click(function(){
-    $('#bbgg').css({width:'100%'})
+    bbgg.css({width:'100%'})
 })
-$('#bbgg').click(function(){
+bbgg.click(function(){
     $(this).css({width:'0'})
 })
+
+
 
 
 
