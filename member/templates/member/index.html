@@ -130,7 +130,7 @@
               
       <div class="collapse navbar-collapse" id="navbarColor02">
 
-            <form class="form-inline my-2 my-lg-0" method="post"  >
+            <form class="form-inline my-2 my-lg-0" action="{% url 'member:login' %}" method="post"  >
                 {% csrf_token %}
                 <input class="form-control mr-sm-2" type="text" placeholder="帳號" >
                 <input class="form-control mr-sm-2" type="text" placeholder="密碼">
@@ -145,7 +145,7 @@
       <section>      
         <h1 class="entry-title"><span>Sign Up</span> </h1>
         <hr>
-            <form class="form-horizontal" method="POST" name="signup" id="signup" enctype="multipart/form-data" >        
+            <form class="form-horizontal" action="{% url 'member:register' %}" method="POST" name="signup" id="signup" enctype="multipart/form-data" >        
                 {% csrf_token %}
                 <div class="form-group">
                 <label class="control-label col-sm-3">Full Name <span class="text-danger">*</span></label>
@@ -160,6 +160,7 @@
                     <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
                     <input type="email" class="form-control" name="emailid" id="emailid" placeholder="Enter your Email" value="">
+                    <span id="check"></span>
                     </div>
                 </div>
                 </div>
@@ -184,7 +185,21 @@
     </div>
 </div>
 </div>
-
+<script>
+    $(document).ready(function(){
+        $("#emailid").blur(function(){
+            var name = $(this).val()
+            $.get('../check/'+name+'/',function(data){
+                if (data == "1"){
+                    alert("名稱已存在")
+                }else{
+                    alert("名稱可使用")
+                }
+            })  
+        })
+    
+    })
+</script>
 
 <!-- row.// -->
               
