@@ -10,19 +10,19 @@ def index(request):
 
     return render(request,'member/index.html', locals())
 def setting(request):
-
-    return render(request,'member/member.html', locals())
-
-def member(request):
     if request.method == "POST":
         gender = request.POST['gender']
         company = request.POST['company']
         position = request.POST['position']
         skill = request.POST['skill']
         language = request.POST['language']
-        
+            
         _member = (gender,company,company,position,skill,language)
-        abc.create(_member)
+        abc.update(_member)
+    return render(request,'member/member.html', locals())
+
+def member(request):
+    
     return render(request,'member/homepage.html', locals())
 def register(request):
     if request.method == "POST":
@@ -32,40 +32,38 @@ def register(request):
         
         _member = (mem_name,emailid,password)
         abc.create(_member)
-        return redirect('/member/')
+        strJS = "<script>alert('註冊成功');location.href='/member/ '</script>"
+        response = HttpResponse(strJS)
+        response.set_cookie("name",emailid)
+        return response
 
     
     
     return render(request,'member/index.html', locals())
 def login(request):
     if request.method == "POST":
-        emailid = request.POST["emailid"]
-        password = request.POST["password"]
+        emailid = request.POST["loginid"]
+        password = request.POST["loginpw"]
         
         theMember = Members.objects.filter(emailid=emailid,password=password)
         if theMember:
-            # if 'url' in request.GET:
-            #     theUrl = request.GET['url']
-            # else:
-            #     theUrl = "/"
             
-            name = theMember[0].mem_name
+            name = theMember[0].emailid
             strJS = "<script>alert('登入成功');location.href='/member/ '</script>"
             response = HttpResponse(strJS)
-            # remember = None
-             
-            # if 'remember' in request.COOKIES:
-            #     expiresdate = datetime.datetime.now() + datetime.timedelta(days=7)
-            #     response.set_cookie("name",name,expires=expiresdate)     
-            # else:
             response.set_cookie("name",name)
             return response
                 
         else:
             
-            return HttpResponse("<script>alert('登入失敗'),location.href='/member/login/'</script>")
+            return HttpResponse("<script>alert('登入失敗'),location.href='/'</script>")
         
     return render(request,'member/index.html',locals())
+def logout(request):
+    response = HttpResponse("<script>location.href='/'</script>")
+    response.delete_cookie('name')
+    return response
+
 def checkname(request,name):
     #select * from members where name=name
     result = Members.objects.filter(name=mem_name)

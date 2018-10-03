@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'Sophia',
     'todo',
     'rest_framework',
-    'index',
+    
     
 ]
 
