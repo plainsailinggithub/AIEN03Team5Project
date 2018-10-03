@@ -1,17 +1,18 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.db import connection
-from rest_framework import viewsets
+# from message.serializers import MemberSerializre,FriendshipSerializre
+# from message.models import Member,Friendship
+# from rest_framework import viewsets
 # from member.modelsmember import Member
 # from .modelsmember import Member
 # from member.models import Members
 # import datetime
 # from django.core import serializers
 
-#建立物件
-# member = Member()
 
-# Create your views here.
+
+
 def index(request):  
     title = "訊息"
     # with connection.cursor() as cursor:
