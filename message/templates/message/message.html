@@ -13,8 +13,7 @@
       width:600px;height:400px;
     }
     #textarea2{
-      width:600px;
-      height:75px;
+      width:600px;height:75px;
     } 
     #tabs{
       float:left;
@@ -68,10 +67,11 @@
 
             <div class="form-group t1">
               <label for="exampleFormControlTextarea1">訊息視窗</label>
-              <textarea class="form-control" id="textarea1" name="textarea1" readonly="readonly"></textarea>
+              <textarea class="form-control" id="textarea1" name="textarea1" readonly="readonly">
+              </textarea>
             </div>
             <div class="form-group t1">
-              <textarea class="form-control" id="textarea2" name="textarea2"></textarea>
+              <textarea class="form-control" id="textarea2" name="textarea2" autofocus></textarea>
               <label for="exampleFormControlTextarea1">輸入視窗</label>
             </div>
           
@@ -86,22 +86,42 @@
       $( "#tabs" ).tabs();
     } );
 </script>
-<!-- <script>
+<script>
     $(document).ready(function(){
-    //     var datas = {
-    //         "title":"gogogo",
-    //         "text":"ogogog",
-    //     }    
-    // $.post('api/todo/',data,function(data){
-    //     console.log(data)
+        // $('#leftnav').load('partial/nav.html');
+        $('#textarea2').keydown(function () {
+            if (event.keyCode == 13 && event.shiftKey){
+                $(this).val($(this).val())
+            }else if (event.keyCode == 13) {
+                var textset= $('#textarea2').val();
+                event.preventDefault();
+                if ($('#textarea2').val() == ("" | " ")){
+                    return none
+                }else{
+                    if($('#textarea1').val() == ("" | " ")){
+                        $('#textarea1').html(textset)
+                    }else{
+                        $('#textarea1').html( $('#textarea1').html()+ "\r" + textset )
+                    };
+                    $('#textarea2').val("")
+                }
+            };    
+        });
+
+    // //     var datas = {
+    // //         "title":"gogogo",
+    // //         "text":"ogogog",
+    // //     }    
+    // // $.post('api/todo/',data,function(data){
+    // //     console.log(data)
+    // // })
+    // $.getJSON('api/todo/',function(dates){
+    //     $.each(dates,function(index,object){
+    //         console.log(object.name)
+    //         console.log(object.friendid)
+    //     })
     // })
-    $.getJSON('api/todo/',function(dates){
-        $.each(dates,function(index,object){
-            console.log(object.name)
-            console.log(object.friendid)
-        })
-    })
     })
 
-</script>     -->
+</script>    
 {% endblock %}

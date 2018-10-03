@@ -1,9 +1,5 @@
 from rest_framework import serializers
-from todo.models import Todo
-from todo.models import Member
-from todo.models import Friendship
-
-
+from todo.models import Todo,Member,Friendship
 class TodoSerializre(serializers.ModelSerializer):
     class Meta:
         model = Todo
