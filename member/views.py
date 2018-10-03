@@ -64,9 +64,9 @@ def logout(request):
     response.delete_cookie('name')
     return response
 
-def checkname(request,name):
+def checkname(request,emailid):
     #select * from members where name=name
-    result = Members.objects.filter(name=mem_name)
+    result = Members.objects.filter(emailid=emailid)
     message = 0
     if result:
         message = 1

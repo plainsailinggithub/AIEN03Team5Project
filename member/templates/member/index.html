@@ -185,21 +185,8 @@
     </div>
 </div>
 </div>
-<script>
-    $(document).ready(function(){
-        $("#emailid").blur(function(){
-            var name = $(this).val()
-            $.get('../check/'+name+'/',function(data){
-                if (data == "1"){
-                    alert("名稱已存在")
-                }else{
-                    alert("名稱可使用")
-                }
-            })  
-        })
-    
-    })
-</script>
+
+
 
 <!-- row.// -->
               
@@ -220,5 +207,19 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-
+<script>
+    $(document).ready(function(){
+        $("#emailid").blur(function(){
+            var emailid = $(this).val()
+            $.get('../check/'+emailid+'/',function(data){
+                if (data == "1"){
+                    alert("信箱已註冊")
+                }else{
+                    alert("信箱可使用")
+                }
+            })  
+        })
+    
+    })
+</script>
 </html>
