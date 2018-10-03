@@ -1,11 +1,11 @@
 <!DOCTYPE html>
+
+<!-- !!!!樣板最新的版本, 如果內容需要更改, 請先找隊員溝通!!!! -->
+<!-- !!!!可以把自己的app樣式放到{% block left %}或{% block middle %}裡面!!!! -->
+<!-- !!!!可以把自己的scripts放到{% block scripts %}裡面!!!! -->
+<!-- !!!!我把{% style block %}刪掉了, 需要的人自己加!!!! -->
+
 <html lang="en">
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> change aien.html's comment
 <head>
     {% load static %}
     <meta charset="UTF-8">
@@ -128,25 +128,12 @@
     .body1{
       font-family:Microsoft JhengHei;
     }
-<<<<<<< HEAD
-    </style>
-    {% block style %}
-    {% endblock %}
-
-</head>
-=======
 
 
     </style>
 
 
 </head>
-<!-- !!!!樣板最新的版本, 如果內容需要更改, 請先找隊員溝通!!!! -->
-<!-- !!!!可以把自己的app樣式放到 block left 或 block middle 裡面!!!! -->
-<!-- !!!!可以把自己的scripts放到 block scripts 裡面!!!! -->
-<!-- !!!!我把 style block 刪掉了, 需要的人自己加!!!! -->
-
->>>>>>> change aien.html's comment
 <body class="body1">
 <div class=".container-fluid header_bar">
   <nav class="navbar navbar-expand-lg navbar-dark header-padding" style="background-color:#283E4A;height: 52px">
@@ -182,11 +169,7 @@
                 我的設定
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-<<<<<<< HEAD
-                <a class="dropdown-item" href="{% url 'member:member' %}">個人資料</a>
-=======
                 <a class="dropdown-item" href="#">Action</a>
->>>>>>> change aien.html's comment
                 <a class="dropdown-item" href="#">Another action</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#">Something else here</a>
@@ -202,33 +185,6 @@
   </nav>
 </div>
 
-<<<<<<< HEAD
-
-
-
-                    
-<div class="container-fluid gedf-wrapper divcontent mb-5">
-        <div class="row" >
-                <!-- 左半邊 -->
-                {% block left %}
-        
-                {% endblock %}
-                 <!-- 左半邊 END -->
-
-        <div class="col-md-6 gedf-main">
-                   
-                <!-- 中間 -->
-                {% block middle %}
-
-                {% endblock %}
-                <!-- 中間 END -->
-
-
-<!-- 我原本的index也複製整份 結果 主版面又長的一模一樣，就變成上下有兩坨一樣的東西不知道怎麼寫啊
-..我只好刪掉我的..用這邊的避免重複 -->
-<!-- 總不能只用主版面的東西然後寫功能吧...那等於我只不過在寫js檔而已~ -->
-<!-- 所以左半邊和中間部分我拿到Article的index.html去了   ||Comment by Tree|| -->
-=======
 <!-- header和footer之間的中間白色區區域最外圍div -->
 <div class="container-fluid gedf-wrapper divcontent">
     
@@ -503,34 +459,10 @@
 
        </div>
        <!-- 中間6/12的div區塊 div class="col-md-6 gedf-main" 的結尾-->
->>>>>>> change aien.html's comment
 
 
 
 
-<<<<<<< HEAD
-                <!-- ==== 右半邊的部分 ==== -->
-        </div>
-        <div class="col-md-3 content-right">
-            <div class="card gedf-card">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content.</p>
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-  
-
-                {% block main %}
-                {% endblock %}
-        
-=======
         <!-- 右邊block 比例3/12 放廣告區 不要動!-->
       <div class="col-md-3 content-right">
           <div class="card gedf-card">
@@ -567,7 +499,6 @@
   
 
         <!-- footer div區塊 -->
->>>>>>> change aien.html's comment
   <footer  style="background-color:#283E4A">
     <p>© 2018<a style="color:#0a93a6; text-decoration:none;" href="#"> LinkedIn </a>, All rights reserved 2018.</p>
   </footer>
