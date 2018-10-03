@@ -52,11 +52,13 @@
             <div id="tabs-2">  
                 <div class="form-group">
                     <select multiple class="form-control" id="friends">
-                      <option>ryan</option>
-                      <option>wang</option>
-                      <option>cheng</option>
-                      <option>liu</option>
-                      <option>su</option>
+                      <option id="op1">ryan</option>
+                      <option id="op2">wang</option>
+                      <option id="op3">cheng</option>
+                      <option id="op4">liu</option>
+                      <option id="op5">su</option>
+                      <option id="op6">su</option>
+                      <option id="op7">su</option>
                     </select>
                 </div>
   
@@ -115,12 +117,12 @@
     // // $.post('api/todo/',data,function(data){
     // //     console.log(data)
     // // })
-    // $.getJSON('api/todo/',function(dates){
-    //     $.each(dates,function(index,object){
-    //         console.log(object.name)
-    //         console.log(object.friendid)
-    //     })
-    // })
+    $.getJSON('/api/friendship/',function(dates){
+        $.each(dates,function(index,object){
+            console.log(object.name)
+            console.log(object.friendid)
+        })
+    })
     })
 
 </script>    

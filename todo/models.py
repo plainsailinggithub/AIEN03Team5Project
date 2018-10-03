@@ -25,3 +25,11 @@ class Friendship(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     class Meta:
         db_table = "friendship" ;  
+
+class Message(models.Model):
+    name = models.CharField(max_length=45)
+    message = models.CharField(max_length=3000)
+    last_modified_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    class Meta:
+        db_table = "message" ;  
