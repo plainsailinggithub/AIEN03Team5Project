@@ -50,7 +50,7 @@ def login(request):
             #     theUrl = "/"
             
             name = theMember[0].mem_name
-            strJS = "<script>alert('登入成功');location.href='" + theUrl + "'</script>"
+            strJS = "<script>alert('登入成功');location.href='/member/ '</script>"
             response = HttpResponse(strJS)
             # remember = None
              
