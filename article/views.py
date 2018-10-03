@@ -6,7 +6,6 @@ import datetime
 from datetime import datetime as dt
 
 
-# Create your views here.
 def index(request):
     articles = read_articles(Articles.objects.all()[::-1])
     return render(request, 'article/index.html', locals())
@@ -61,6 +60,13 @@ def delete(request, articleId):
         data = Articles.objects.get(id = articleId)
         data.delete()
     return HttpResponse('')
+
+
+def update(request, articleId):
+
+    article = serializers.serialize('json', Articles.objects.filter(id = articleId))
+    return HttpResponse(article, content_type='application/json')
+
 
 def nice_print(arg):
     print('\n-------------------\n')

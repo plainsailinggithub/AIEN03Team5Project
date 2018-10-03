@@ -19,6 +19,7 @@
         margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
         border: 1px solid #888;
         width: 49%; /* Could be more or less, depending on screen size */
+
     }
     #bg{
         display:none;
@@ -30,7 +31,19 @@
         z-index:1;
         background-color:rgba(0, 0, 0, 0.534);
     }
-
+    #bbgg{
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: rgb(0,0,0);
+        background-color: rgba(0,0,0, 0.7);
+        overflow-x: hidden;
+        transition: 0.5s;
+        color:white;
+    }
 </style>
 {% endblock %}
 
@@ -105,60 +118,16 @@
     </div>
 </div>
 
+
+<div id='bbgg'> <p>testinggggggggg</p></div>
+<div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><button id='btnbbgg' class='btn btn-danger'>click me</button></div>
+
 </div>
     <!-- 發佈訊息 END -->
 {% endblock %}
 
 
 {% block middle %}
-
-
-            <!-- <div class="card gedf-card">
-                <div class="card-header">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="mr-2">
-                                <img class="rounded-circle" width="45" src="https://picsum.photos/50/50" alt="">
-                            </div>
-                            <div class="ml-2">
-                                <div class="h5 m-0">@LeeCross</div>
-                                <div class="h7 text-muted">Miracles Lee Cross</div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="dropdown">
-                                <button class="btn btn-link dropdown-toggle" type="button" id="gedf-drop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fa fa-ellipsis-h"></i>
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
-                                    <div class="h6 dropdown-header">Configuration</div>
-                                    <a class="dropdown-item" href="#">Save</a>
-                                    <a class="dropdown-item" href="#">Hide</a>
-                                    <a class="dropdown-item" href="#">Report</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="card-body">
-                    <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i>10 min ago</div>
-                    <a class="card-link" href="#">
-                        <h5 class="card-title">Lorem ipsum dolor sit amet, consectetur adip.</h5>
-                    </a>
-
-                    <p class="card-text">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo recusandae nulla rem eos ipsa praesentium esse magnam nemo dolor
-                        sequi fuga quia quaerat cum, obcaecati hic, molestias minima iste voluptates.
-                    </p>
-                </div>
-                <div class="card-footer">
-                    <a href="#" class="card-link"><i class="fa fa-gittip"></i> Like</a>
-                    <a href="#" class="card-link"><i class="fa fa-comment"></i> Comment</a>
-                    <a href="#" class="card-link"><i class="fa fa-mail-forward"></i> Share</a>
-                </div>
-            </div> -->
-
 
 <div id='paragraph'>
     {% for article in articles %}
@@ -184,6 +153,7 @@
                             <a class="dropdown-item" href="#">保存</a>
                             <a class="dropdown-item" href="#">隱藏</a>
                             <a class="dropdown-item" href="#">檢舉</a>
+                            <a class="dropdown-item update" >編輯</a>
                             <a class="dropdown-item btnDelete" id='btnDelete'>刪除</a>
                         </div>
                     </div>
@@ -211,18 +181,10 @@
 
     </div>
 
-    <div class='bg-white text-center' id='edit'>
+    <div class='bg-white text-center ' id='edit'>
         <button type="button" class="close" aria-label="Close">
             <span aria-hidden="true" id='close'>&times;</span>
         </button>
-        <p>123</p>
-        <p>123</p>
-        <p>123</p>
-        <p>123</p>
-        <p>123</p>
-        <p>123</p>
-        <p>123</p>
-        <p>123</p>
     </div>
 
 
@@ -336,7 +298,7 @@ function update_paragraph(ID, create_time, memberName, title, content,){
             <div class="d-flex justify-content-between align-items-center">\
                 <div class="d-flex justify-content-between align-items-center">\
                     <div class="mr-2">\
-                        <img class="rounded-circle" width="45" src="https://picsum.photos/50/50" alt="">\
+                        <img class="rounded-circle" width="45" src="{% static "images/tree.png" %}" alt="">\
                     </div>\
                     <div class="ml-2">\
                         <div class="h5 m-0">' + memberName +'</div>\
@@ -379,7 +341,7 @@ function update_paragraph(ID, create_time, memberName, title, content,){
 
         // paragraph是原始存在的，以它為起點，動態綁定刪除按鈕
     paragraph.on('click', '.btnDelete', function(){
-        // console.log('candelete')
+        console.log('candelete')
         var theDiv = $(this).parents('div.articleId')
         articleId = $(theDiv).attr('id')
         $.get('/article/delete/' + articleId +'/', function(data){
@@ -399,12 +361,135 @@ function update_paragraph(ID, create_time, memberName, title, content,){
     var edit = $('#edit')
 
     function close(){
-        bg.hide()
-        edit.hide()
+        bg.hide(600)
+        edit.hide(600)
         console.log('closing')
     }
     $('#close').click(close)
     bg.click(close)
+
+    var updateId;
+    paragraph.on('click', '.update', function(){
+        var the_div = $(this).parents('div.articleId')
+        updateId = the_div.attr('id')
+        console.log(updateId)
+        bg.show(600)
+        edit.show(600)
+        edit_paragraph()
+        var title = the_div.find('h5.card-title').text().trim()
+        var content = the_div.find('p.card-text').text().trim()
+
+        var titleEdit = $('#titleEdit')
+        var contentEdit = $('#contentEdit')
+        titleEdit.val(title)
+        contentEdit.val(content)
+
+    })
+
+
+
+
+    function edit_paragraph(){
+        edit.html('<button type="button" class="close" aria-label="Close">\
+            <span aria-hidden="true" id="close">&times;</span>\
+        </button>\
+        <div class="card-header">\
+        <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">\
+            <li class="nav-item">\
+                <a class="nav-link active" id="posts-tab" data-toggle="tab" href="#posts" role="tab" aria-controls="posts" aria-selected="true">發表訊息</a>\
+            </li>\
+            <li class="nav-item">\
+                <a class="nav-link" id="images-tab" data-toggle="tab" role="tab" aria-controls="images" aria-selected="false" href="#images">圖檔</a>\
+            </li>\
+        </ul>\
+    </div>\
+    <div class="card-body">\
+        <div class="tab-content" id="myTabContent">\
+            <div class="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="posts-tab">\
+                <div class="form-group">\
+                    <label class="sr-only" for="title">post</label>\
+                    <input type="text" class="form-control" placeholder="請輸入標題" id="titleEdit" name="title" required>\
+                </div>\
+                <div class="form-group">\
+                    <label class="sr-only" for="content">post</label>\
+                    <textarea class="form-control" id="contentEdit" name="content" rows="5" placeholder="請輸入想說的訊息" required></textarea>\
+                </div>\
+            </div>\
+            <div class="tab-pane fade" id="images" role="tabpanel" aria-labelledby="images-tab">\
+                <div class="form-group">\
+                    <div class="custom-file">\
+                        <label class="custom-file-label" for="customFile">上傳圖片</label>\
+                        <input type="file" class="custom-file-input" id="customFile">\
+                    </div>\
+                </div>\
+                <div class="py-4"></div>\
+            </div>\
+        </div>\
+        <div class="btn-toolbar justify-content-between">\
+            <div class="btn-group">\
+                <button type="submit" id="sendEdit" class="btn btn-primary">發送</button>\
+            </div>\
+            <div class="btn-group">\
+                <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"\
+                    aria-expanded="false">\
+                    <i class="fa fa-globe"></i> 公開\
+                </button>\
+                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">\
+                    <a class="dropdown-item" href="#"><i class="fa fa-globe"></i> 公開</a>\
+                    <a class="dropdown-item" href="#"><i class="fa fa-users"></i> 只限朋友</a>\
+                    <a class="dropdown-item" href="#"><i class="fa fa-user"></i> 限本人</a>\
+                </div>\
+            </div>\
+        </div>\
+    </div>\
+</div>')
+    }
+
+
+    paragraph.on('click', '#sendEdit', function(){
+        console.log('can send_update')
+        var title = $('#titleEdit')
+        var content = $('#contentEdit')
+        console.log(title.val(), content.val())
+        datas = {
+            title: title.val(),
+            content: content.val()
+        }
+        console.log(updateId)
+        $.get('/article/update/' + updateId + '/',datas, function(datas){
+            console.log(datas)
+        } )
+    })
+
+
+
+
+        // 回傳的東西不能用啊????
+    // $.ajax({
+    //     url:'/article/update/2/',
+    //     method:'POST',
+    //     headers:{'X-CSRFToken': '{{ csrf_token }}'},
+    //     data: {'abc':'GGYY', 'zxc':'yygg'},
+    //     dataType: 'json',
+    //     }
+    //     ).done(function(datas){
+    //         console.log(datas)
+    //     })
+
+    
+
+
+var bbgg = $('#bbgg')
+$('#btnbbgg').click(function(){
+    bbgg.css({width:'100%'})
+})
+bbgg.click(function(){
+    $(this).css({width:'0'})
+})
+
+
+
+
 
 
 

@@ -11,9 +11,6 @@ def index(request):
         mem_name = request.POST['mem_name']
         emailid = request.POST['emailid']
         password = request.POST['password']
-        # with connection.cursor() as cursor:
-        #     sql = '''insert into members(name,email,age,password)values(%s,%s,%s,%s)'''
-        #     cursor.execute(sql,(title,email,age,password))
         
         _member = (mem_name,emailid,password)
         abc.create(_member)
