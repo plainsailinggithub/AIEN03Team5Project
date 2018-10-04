@@ -63,8 +63,18 @@ def delete(request, articleId):
 
 
 def update(request, articleId):
+    if request.method =='GET':
+        title = request.GET['title']
+        content = request.GET['content']
+        datas = {
+            'title':title,
+            'content':content
+        }
+        row = Articles.objects.filter(id = articleId)
+        row.update(**datas)
+        print('get yes -----\n\n\n\n')
 
-    article = serializers.serialize('json', Articles.objects.filter(id = articleId))
+    article = serializers.serialize('json', Articles.objects.all()[::-1])
     return HttpResponse(article, content_type='application/json')
 
 

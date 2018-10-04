@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'todo',
     'rest_framework',
     'index',
+    'search',
     
 ]
 
