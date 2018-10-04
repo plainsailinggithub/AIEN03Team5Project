@@ -150,7 +150,7 @@
                 <div class="form-group">
                 <label class="control-label col-sm-3">Full Name <span class="text-danger">*</span></label>
                 <div class="col-md-8 col-sm-9">
-                    <input type="text" class="form-control" name="mem_name" id="mem_name" placeholder="Enter your Name here" value="">
+                    <input type="text" class="form-control" name="mem_name" id="mem_name" required="required" placeholder="Enter your Name here" value="">
                 </div>
                 </div>        
 
@@ -159,9 +159,10 @@
                 <div class="col-md-8 col-sm-9">
                     <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                    <input type="email" class="form-control" name="emailid" id="emailid" placeholder="Enter your Email" value="">
-                    <span id="check"></span>
+                    <input type="email" class="form-control" name="emailid" id="emailid" required="required" placeholder="Enter your Email" value="">
+                   
                     </div>
+                     <span id="check" class="text-danger"></span>
                 </div>
                 </div>
                 
@@ -170,7 +171,7 @@
                 <div class="col-md-5 col-sm-8">
                     <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                    <input type="password" class="form-control" name="password" id="password" placeholder="Choose password (5-15 chars)" value="">
+                    <input type="password" class="form-control" name="password" id="password" required="required" placeholder="Choose password (4-8 chars)" value="">
                 </div>   
                 </div>
                 </div>
@@ -213,9 +214,13 @@
             var emailid = $(this).val()
             $.get('../check/'+emailid+'/',function(data){
                 if (data == "1"){
-                    alert("信箱已註冊")
+                    document.getElementById("check").innerHTML="信箱已註冊";
+                    // alert("信箱已註冊")
                 }else{
-                    alert("信箱可使用")
+                    var OriginalFont=document.getElementById("check").innerHTML;
+                    document.getElementById("check").innerHTML='<font color="green">'+"信箱可使用"+'</font>';
+                    // document.getElementById("check").innerHTML="信箱可使用";
+                    // alert("信箱可使用")
                 }
             })  
         })
