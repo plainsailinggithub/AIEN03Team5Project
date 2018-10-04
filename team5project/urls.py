@@ -32,5 +32,6 @@ urlpatterns = [
     path('article/', include('article.urls')),
     path('Sophia/', include('Sophia.urls')),
     path('api/',include(router.urls)),
-    
+    path('index/', include('index.urls')),
+    path('search/',include('search.urls')),
 ]
