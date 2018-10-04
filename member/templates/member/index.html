@@ -172,7 +172,8 @@
                     <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
                     <input type="password" class="form-control" name="password" id="password" required="required" placeholder="Choose password (4-8 chars)" value="">
-                </div>   
+                </div>
+                <span id="pwdcheck" class="text-danger"></span>   
                 </div>
                 </div>
 
@@ -212,19 +213,43 @@
     $(document).ready(function(){
         $("#emailid").blur(function(){
             var emailid = $(this).val()
-            $.get('../check/'+emailid+'/',function(data){
-                if (data == "1"){
-                    document.getElementById("check").innerHTML="信箱已註冊";
-                    // alert("信箱已註冊")
-                }else{
-                    var OriginalFont=document.getElementById("check").innerHTML;
-                    document.getElementById("check").innerHTML='<font color="green">'+"信箱可使用"+'</font>';
-                    // document.getElementById("check").innerHTML="信箱可使用";
-                    // alert("信箱可使用")
-                }
-            })  
+            emailRule = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
+            var emaillen = emailid.length;
+            if (emaillen>0){
+                if(emailid.search(emailRule)!= -1){
+                    $.get('../check/'+emailid+'/',function(data){
+                        if (data == "1"){
+                            document.getElementById("check").innerHTML="信箱已註冊";
+                            // alert("信箱已註冊")
+                        }else{
+                            var OriginalFont=document.getElementById("check").innerHTML;
+                            document.getElementById("check").innerHTML='<font color="green">'+"信箱可使用"+'</font>';
+                            // document.getElementById("check").innerHTML="信箱可使用";
+                            // alert("信箱可使用")
+                        }
+                    })
+                }else
+                    document.getElementById("check").innerHTML="信箱格式錯誤";
+            }else{
+                document.getElementById("check").innerHTML="";
+            }
+
         })
     
+        $("#password").blur(function(){
+            var pwd = $(this).val();
+            var pwdlen = pwd.length;
+            if (pwdlen>0){
+                if (pwdlen<4 || pwdlen>8){
+                    document.getElementById("pwdcheck").innerHTML="請輸入4-8碼";
+                }else{
+                    document.getElementById("pwdcheck").innerHTML="";
+                }
+            }else{
+                document.getElementById("pwdcheck").innerHTML="";
+            }
+
+        })
     })
 </script>
 </html>
