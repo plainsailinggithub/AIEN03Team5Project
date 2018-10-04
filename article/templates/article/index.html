@@ -48,7 +48,7 @@
 {% endblock %}
 
 {% block left %}
-<div class="col-md-3 text-center bg-white pt-3 left">
+<!-- <div class="col-md-3 text-center bg-white pt-3 left"> -->
     <input type="button" value='發表文章' class='btn btn-primary' id='btnSend'>
     <input type="button" value='文章分類' class='btn btn-primary' id='btnType'>
     <div class='mt-3 text-left' id='articleType'>
@@ -119,10 +119,10 @@
 </div>
 
 
-<div id='bbgg'> <p>testinggggggggg</p></div>
-<div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><button id='btnbbgg' class='btn btn-danger'>click me</button></div>
+<!-- <div id='bbgg'> <p>testinggggggggg</p></div>
+<div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><button id='btnbbgg' class='btn btn-danger'>click me</button></div> -->
 
-</div>
+<!-- </div> -->
     <!-- 發佈訊息 END -->
 {% endblock %}
 
@@ -152,8 +152,8 @@
                             <div class="h6 dropdown-header">想對文章 :</div>
                             <a class="dropdown-item" href="#">保存</a>
                             <a class="dropdown-item" href="#">隱藏</a>
-                            <a class="dropdown-item" href="#">檢舉</a>
                             <a class="dropdown-item update" >編輯</a>
+                            <a class="dropdown-item" href="#">檢舉</a>
                             <a class="dropdown-item btnDelete" id='btnDelete'>刪除</a>
                         </div>
                     </div>
@@ -177,19 +177,16 @@
     </div>
     {% endfor %}
 
-    <div id='bg'>
-
-    </div>
-
-    <div class='bg-white text-center ' id='edit'>
-        <button type="button" class="close" aria-label="Close">
-            <span aria-hidden="true" id='close'>&times;</span>
-        </button>
-    </div>
-
-
-
 </div>
+
+<div id='bg'>
+</div>
+<div class='bg-white text-center ' id='edit'>
+    <button type="button" class="close" aria-label="Close">
+        <span aria-hidden="true" id='close'>&times;</span>
+    </button>
+</div>
+
 {% endblock %}
 
 {% block scripts %}
@@ -267,8 +264,8 @@
                 })
                 paragraph.children('div:nth-child(1)').hide().show(600)
             })
+
         })
-    
 
     // 將db裡存的UTC 時間轉換成localtime 才能去被 now減去
 function get_time_delta(dbTime){
@@ -314,6 +311,7 @@ function update_paragraph(ID, create_time, memberName, title, content,){
                             <div class="h6 dropdown-header">想對文章 :</div>\
                             <a class="dropdown-item" href="#">保存</a>\
                             <a class="dropdown-item" href="#">隱藏</a>\
+                            <a class="dropdown-item update" >編輯</a>\
                             <a class="dropdown-item" href="#">檢舉</a>\
                             <a class="dropdown-item btnDelete" id="btnDelete">刪除</a>\
                         </div>\
@@ -361,8 +359,8 @@ function update_paragraph(ID, create_time, memberName, title, content,){
     var edit = $('#edit')
 
     function close(){
-        bg.hide(600)
-        edit.hide(600)
+        bg.slideUp(500)
+        edit.slideUp(500)
         console.log('closing')
     }
     $('#close').click(close)
@@ -373,8 +371,8 @@ function update_paragraph(ID, create_time, memberName, title, content,){
         var the_div = $(this).parents('div.articleId')
         updateId = the_div.attr('id')
         console.log(updateId)
-        bg.show(600)
-        edit.show(600)
+        bg.slideDown(500)
+        edit.slideDown(500)
         edit_paragraph()
         var title = the_div.find('h5.card-title').text().trim()
         var content = the_div.find('p.card-text').text().trim()
@@ -446,35 +444,30 @@ function update_paragraph(ID, create_time, memberName, title, content,){
     }
 
 
-    paragraph.on('click', '#sendEdit', function(){
-        console.log('can send_update')
+    edit.on('click', '#sendEdit', function(){
         var title = $('#titleEdit')
         var content = $('#contentEdit')
-        console.log(title.val(), content.val())
         datas = {
             title: title.val(),
-            content: content.val()
+            content: content.val(),
+            membername:'IsTree'
         }
-        console.log(updateId)
-        $.get('/article/update/' + updateId + '/',datas, function(datas){
-            console.log(datas)
+        $.get('/article/update/' + updateId + '/',datas, function(returnDatas){
+            close()
+            paragraph.text('')
+            $.each(returnDatas, function(i, obj){
+                var data = obj.fields
+                    // 計算發佈文章時間是多久以前   呼叫 get_time_delta Function!
+                localTime = get_time_delta(data.create_time)
+                update_paragraph(obj.pk, localTime, data.membername, data.title, data.content)
+            })
+            $('#'+updateId).hide(300).show(500)
         } )
+
     })
 
 
 
-
-        // 回傳的東西不能用啊????
-    // $.ajax({
-    //     url:'/article/update/2/',
-    //     method:'POST',
-    //     headers:{'X-CSRFToken': '{{ csrf_token }}'},
-    //     data: {'abc':'GGYY', 'zxc':'yygg'},
-    //     dataType: 'json',
-    //     }
-    //     ).done(function(datas){
-    //         console.log(datas)
-    //     })
 
     
 
