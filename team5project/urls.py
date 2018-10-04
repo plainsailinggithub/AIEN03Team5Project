@@ -22,7 +22,7 @@ router = DefaultRouter()
 router.register(r'todo',views.TodoViewSet)
 router.register(r'member',views.MemberViewSet)
 router.register(r'friendship',views.FriendshipViewSet)
-router.register(r'message',views.MessageViewSet)
+router.register(r'msg',views.MsgViewSet)
 
 
 urlpatterns = [

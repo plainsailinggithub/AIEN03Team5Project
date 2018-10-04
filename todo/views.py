@@ -1,5 +1,5 @@
-from todo.models import Todo,Member,Friendship,Message
-from todo.serializers import TodoSerializre,MemberSerializre,FriendshipSerializre,MessageSerializre
+from todo.models import Todo,Member,Friendship,Msg
+from todo.serializers import TodoSerializre,MemberSerializre,FriendshipSerializre,MsgSerializre
 from rest_framework import viewsets
 # Create your views here.
 
@@ -15,6 +15,6 @@ class FriendshipViewSet(viewsets.ModelViewSet):
     queryset = Friendship.objects.all()
     serializer_class = FriendshipSerializre 
 
-class MessageViewSet(viewsets.ModelViewSet):
-    queryset = Message.objects.all()
-    serializer_class = MessageSerializre         
+class MsgViewSet(viewsets.ModelViewSet):
+    queryset = Msg.objects.all()
+    serializer_class = MsgSerializre         

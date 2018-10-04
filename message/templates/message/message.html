@@ -14,7 +14,10 @@
     }
     #textarea2{
       width:600px;height:75px;
-    } 
+    }
+    #textarea3{
+      width:175px;height:30px;
+    }  
     #tabs{
       float:left;
       width:300px;
@@ -23,7 +26,7 @@
 </style>
 {% endblock %}
 
-{% block main %}
+{% block left %}
     <h2>訊息區</h2>
     <form method="POST">
         <div id="tabs">
@@ -34,7 +37,7 @@
             <div id="tabs-1">
                 <div class="form-group">
                     <label for="exampleFormControlInput1">搜尋訊息</label>
-                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                    <input type="email" class="form-control" id="" placeholder="name@example.com">
                 </div>
                 <div class="form-group">
                   <label for="exampleFormControlSelect1">Example select</label>
@@ -50,8 +53,9 @@
         
 
             <div id="tabs-2">  
-                <div class="form-group">
-                    <select multiple class="form-control" id="friends">
+                <div class="form-group" id="friends">
+                <input type="text" class="form-control" id="addfriend"  placeholder="搜尋好友">
+                    <!-- <select multiple class="form-control" id="friends">
                       <option id="op1">ryan</option>
                       <option id="op2">wang</option>
                       <option id="op3">cheng</option>
@@ -59,13 +63,14 @@
                       <option id="op5">su</option>
                       <option id="op6">su</option>
                       <option id="op7">su</option>
-                    </select>
+                    </select> -->
                 </div>
   
             </div>
            
           </div>
-
+{% endblock %}
+{% block middle %}
 
             <div class="form-group t1">
               <label for="exampleFormControlTextarea1">訊息視窗</label>
@@ -93,10 +98,16 @@
         // $('#leftnav').load('partial/nav.html');
         $('#textarea2').keydown(function () {
             if (event.keyCode == 13 && event.shiftKey){
-                $(this).val($(this).val())
+                $(this).val($(this).val())    //設定按下shift換行
             }else if (event.keyCode == 13) {
                 var textset= $('#textarea2').val();
-                event.preventDefault();
+                var datas = {
+                    "name":"angeljaina",
+                    "message":textset,
+                    "targetid":"3",
+                    "message":"",
+                } 
+                event.preventDefault();                
                 if ($('#textarea2').val() == ("" | " ")){
                     return none
                 }else{
@@ -106,10 +117,19 @@
                         $('#textarea1').html( $('#textarea1').html()+ "\r" + textset )
                     };
                     $('#textarea2').val("")
+                    $.post('/api/msg/',datas,function(data){
+                    console.log(data)
+                    })
                 }
             };    
         });
-
+        $("a[href='#tabs-2']").one("click",function(){
+            $.getJSON('/api/member/',function(dates){
+            $.each(dates,function(index,object){
+            $('#friends').append("<div>" + object.name +"</div>")
+        })
+    })
+        })
     // //     var datas = {
     // //         "title":"gogogo",
     // //         "text":"ogogog",
@@ -117,12 +137,25 @@
     // // $.post('api/todo/',data,function(data){
     // //     console.log(data)
     // // })
-    $.getJSON('/api/friendship/',function(dates){
-        $.each(dates,function(index,object){
-            console.log(object.name)
-            console.log(object.friendid)
-        })
-    })
+    // $.getJSON('/api/friendship/',function(dates){
+    //     $.each(dates,function(index,object){
+    //         console.log(object.name)
+    //         console.log(object.friendid)
+    //     })
+    // })
+    //     $.getJSON('/api/member/',function(dates){
+    //     $.each(dates,function(index,object){
+    //         console.log(object.name)
+    //         console.log(object.email)
+    //         console.log(object.password)
+
+    //     })
+    // })
+    // $.getJSON('/api/member/',function(dates){
+    //         $.each(dates,function(index,object){
+    //         $('#friends').append(object.name)
+    //     })
+    // })
     })
 
 </script>    
