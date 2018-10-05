@@ -4,6 +4,12 @@
 {% block middle %}
 test
 個人首頁
+{{ id }}
+{% for member in members %}
+{% if member.2 == request.COOKIES.name %}
+{{ member.0 }}
+{% endif %}
+{% endfor %}
 {% endblock %}
 {% block script %}
 {% endblock %}
