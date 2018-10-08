@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from todo.models import Todo,Member,Friendship,Message
+from todo.models import Todo,Member,Friendship,Msg,Articles,
 class TodoSerializre(serializers.ModelSerializer):
     class Meta:
         model = Todo
@@ -15,7 +15,12 @@ class FriendshipSerializre(serializers.ModelSerializer):
         model = Friendship
         fields = '__all__'        
 
-class MessageSerializre(serializers.ModelSerializer):
+class MsgSerializre(serializers.ModelSerializer):
     class Meta:
-        model = Message
-        fields = '__all__'  
+        model = Msg
+        fields = '__all__'   
+
+class ArticleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Articles
+        fields = '__all__'

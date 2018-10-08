@@ -1,9 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.db import connection
-# from message.serializers import MemberSerializre,FriendshipSerializre
-# from message.models import Member,Friendship
-# from rest_framework import viewsets
+from rest_framework import viewsets
 # from member.modelsmember import Member
 # from .modelsmember import Member
 # from member.models import Members

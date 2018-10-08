@@ -19,15 +19,22 @@ from rest_framework.routers import DefaultRouter
 from todo import views
 
 router = DefaultRouter()
+#http://localhost/api/message
 router.register(r'todo',views.TodoViewSet)
 router.register(r'member',views.MemberViewSet)
 router.register(r'friendship',views.FriendshipViewSet)
+<<<<<<< HEAD
+router.register(r'msg',views.MsgViewSet)
+=======
 router.register(r'message',views.MessageViewSet)
+router.register(r'articles', views.ArticlesViewset)
+>>>>>>> b60b961dae231a3e801fa02d90ce4c3bbf9937a5
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('member.urls')),
+    #http://localhost/message/
     path('message/',include('message.urls')),
     path('article/', include('article.urls')),
     path('Sophia/', include('Sophia.urls')),
