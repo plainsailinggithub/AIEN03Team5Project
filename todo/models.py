@@ -35,3 +35,13 @@ class Msg(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     class Meta:
         db_table = "message" ;  
+
+class Articles(models.Model):
+    title = models.CharField(max_length = 100)
+    content = models.TextField()
+    last_modified_time = models.DateTimeField(auto_now = True)
+    create_time = models.DateTimeField(auto_now_add = True)
+    membername = models.CharField(max_length = 30)
+
+    class Meta:
+        db_table = 'articles'

@@ -82,3 +82,7 @@ def nice_print(arg):
     print('\n-------------------\n')
     print(arg)
     print('\n-------------------\n')
+
+
+def res(request):
+    return render(request, 'article/res.html', locals())

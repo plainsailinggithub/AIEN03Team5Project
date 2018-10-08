@@ -1,9 +1,9 @@
-{% extends 'aien.html' %}
+{% extends 'aien2.html' %}
 {% block style %}
 
 <style>
     div{
-        border:1px solid darkcyan;
+        /* border:1px solid darkcyan; */
     }
     .article-part{
         background-color:rgba(3, 151, 131, 0.76);
@@ -11,6 +11,7 @@
     .article-head{
         background-color:rgba(3, 151, 131, 0.925);
     }
+
 </style>
 {% endblock %}
 {% block main %}
@@ -33,33 +34,16 @@
                 </div>
             </div>
         </div>
-
-
-        <!-- --------------試著做做看這樣的功能
-<div id="tabs" class='row'>
-    <ul class='col-sm-12'>
-        <li><a href="#tabs-1">Nun</a></li>
-        <li><a href="#tabs-2" class='col-sm-4'>Proin</a></li>
-        <li><a href="#tabs-3" class='col-sm-4'>Aene</a></li>
-    </ul>
-<div id="tabs-1">
-<p> lectus.</p>
-</div>
-<div id="tabs-2">
-<p>purus.</p>
-</div>
-<div id="tabs-3">
-<p>, luctus a, lacus.</p>
-<p>it hendrerit.</p>
-</div>
-</div> -->
-
     </div>
 
-    <!-- ------------------------- left part end ------------------------ -->
 
-    <div class='col-md-6 '>
+
+    <!-- ------------------------- middle part ------------------------ -->
+
+    <div class='col-md-6 ' id='middle'>
         <h3 class='text-center font-weight-bold'>文章</h3>
+
+
         <div>
             <div class="card text-white mb-3 article-part" >
                 <div class="card-header article-head">Header</div>
@@ -79,16 +63,75 @@
         <p>123456</p>
     </div>
 
+
+
+
+
+
+<!-- 這個是row的結束 -->
+</div>
+
+<p>12356756</p>
+<p>12356756</p>
+<p>12356756</p>
+<p>12356756</p>
+<p>12356756</p>
+<p>12356756</p>
+<p>12356756</p>
+<p>12356756</p>
+<p>12356756</p>
+<p>12356756</p>
+<p>12356756</p>
+<p>12356756</p>
+<p>12356756</p>
+<p>12356756</p>
+<p>12356756</p>
+
+<div id='bb'>
+<p>12356756</p>
 </div>
 
 {% endblock %}
 
+
+
 {% block scripts %}
 <script>
 $( function() {
-    $('#tabs').tabs({
-        'event': 'mouseover'
-    });
+
+    var body = $('body')
+    var middle = $('#middle')
+    var empty = $('<div></div>')
+    var bb = $('#bb')
+    var flag = {
+        scroll:false,
+    }
+
+    var times = 0
+
+    $(window).scroll(function(){
+        // console.log(body.height())
+        var bottom = $(this).scrollTop() + $(this).height()
+        if(bottom > body.height()){
+            flag.scroll = true
+            console.log(flag.scroll)
+            var br = $('<br>')
+            for(i=0;i<20;i++){
+                times++
+                bb.append('<p>' + times + '</p>') 
+            }
+        } else{
+            flag.scroll = false
+            console.log(flag.scroll)
+        }
+        console.log('============')
+    })
+
+
+
+
+
+
 });
 </script>
 {% endblock%}
