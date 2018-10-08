@@ -19,6 +19,7 @@ from rest_framework.routers import DefaultRouter
 from todo import views
 
 router = DefaultRouter()
+#http://localhost/api/message
 router.register(r'todo',views.TodoViewSet)
 router.register(r'member',views.MemberViewSet)
 router.register(r'friendship',views.FriendshipViewSet)
@@ -28,6 +29,7 @@ router.register(r'msg',views.MsgViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('member.urls')),
+    #http://localhost/message/
     path('message/',include('message.urls')),
     path('article/', include('article.urls')),
     path('Sophia/', include('Sophia.urls')),

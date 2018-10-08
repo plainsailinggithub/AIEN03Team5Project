@@ -10,18 +10,87 @@
       margin:0 auto;
     }
     #textarea1{
-      width:600px;height:400px;
+        width:750px;
+        height:600px;
+        /* min-height: 120px; 
+        max-height: 300px; */
+        margin-left: auto; 
+        margin-right: auto; 
+        padding: 3px; 
+        outline: 0; 
+        border: 1px solid #a0b3d6; 
+        font-size: 12px; 
+        word-wrap: break-word;
+        overflow-x: hidden;
+        overflow-y: auto;
+        font-family: 標楷體;
     }
     #textarea2{
-      width:600px;height:75px;
+        width:750px;
+        height:100px;
+        /* min-height: 120px; 
+        max-height: 300px; */
+        margin-left: auto; 
+        margin-right: auto; 
+        padding: 3px; 
+        outline: 0; 
+        border: 1px solid #a0b3d6; 
+        font-size: 12px; 
+        word-wrap: break-word;
+        overflow-x: hidden;
+        overflow-y: auto;
+        font-family: 標楷體;
+        font-size:20px;
     }
+
+        #testarea1{
+        width:750px;
+        height:600px;
+        /* min-height: 120px; 
+        max-height: 300px; */
+        margin-left: auto; 
+        margin-right: auto; 
+        padding: 3px; 
+        outline: 0; 
+        border: 1px solid #a0b3d6; 
+        font-size: 12px; 
+        word-wrap: break-word;
+        overflow-x: hidden;
+        overflow-y: auto;
+        font-family: 標楷體;
+    }
+    #testarea2{
+        width:750px;
+        height:100px;
+        /* min-height: 120px; 
+        max-height: 300px; */
+        margin-left: auto; 
+        margin-right: auto; 
+        padding: 3px; 
+        outline: 0; 
+        border: 1px solid #a0b3d6; 
+        font-size: 12px; 
+        word-wrap: break-word;
+        overflow-x: hidden;
+        overflow-y: auto;
+        font-family: 標楷體;
+        font-size:20px;
+    }
+
     #textarea3{
-      width:175px;height:30px;
+        width:175px;height:30px;
     }  
     #tabs{
-      float:left;
-      width:300px;
-      height:500px;
+        float:left;
+        width:300px;
+        height:700px;
+    }
+    .d1{
+        width:600px;
+    }
+    .p1{
+        float:left;
+        width:500px;
     }        
 </style>
 {% endblock %}
@@ -55,35 +124,40 @@
             <div id="tabs-2">  
                 <div class="form-group" id="friends">
                 <input type="text" class="form-control" id="addfriend"  placeholder="搜尋好友">
-                    <!-- <select multiple class="form-control" id="friends">
-                      <option id="op1">ryan</option>
-                      <option id="op2">wang</option>
-                      <option id="op3">cheng</option>
-                      <option id="op4">liu</option>
-                      <option id="op5">su</option>
-                      <option id="op6">su</option>
-                      <option id="op7">su</option>
-                    </select> -->
                 </div>
   
             </div>
            
           </div>
+        </form>          
 {% endblock %}
 {% block middle %}
-
+    <form method="POST">
             <div class="form-group t1">
-              <label for="exampleFormControlTextarea1">訊息視窗</label>
-              <textarea class="form-control" id="textarea1" name="textarea1" readonly="readonly">
-              </textarea>
+              <!-- <label for="textarea1">訊息視窗</label> -->
+              <div class="form-control" id="textarea1" name="textarea1" readonly="readonly">
+              </div>
             </div>
             <div class="form-group t1">
-              <textarea class="form-control" id="textarea2" name="textarea2" autofocus></textarea>
-              <label for="exampleFormControlTextarea1">輸入視窗</label>
+                <div contenteditable="true" class="form-control" id="textarea2" name="textarea2" autofocus></div>
+              <!-- <label for="textarea2">輸入視窗</label> -->
             </div>
           
           </form>
 
+
+          <form method="POST">
+            <div class="form-group t1">
+              <!-- <label for="textarea1">訊息視窗</label> -->
+              <div class="form-control" id="testarea1" name="testarea1" readonly="readonly">
+              </div>
+            </div>
+            <div class="form-group t1">
+                <div contenteditable="true" class="form-control" id="testarea2" name="testarea2" autofocus></div>
+              <!-- <label for="textarea2">輸入視窗</label> -->
+            </div>
+          
+          </form>
 
 {% endblock %}
 
@@ -94,69 +168,133 @@
     } );
 </script>
 <script>
+$(document).ready(function(){
+    // $('#leftnav').load('partial/nav.html');
+    $('#textarea2').keydown(function () {
+        if (event.keyCode == 13 && event.shiftKey){
+            $(this).val($(this).val())    //設定按下shift換行
+        }else if (event.keyCode == 13) {
+            event.preventDefault();  //取消按下enter換行事件
+            var textset= $('#textarea2').html();
+            var datas = {
+                "name":"angeljaina",
+                "message":textset,
+                "targetid":"2",
+                "messageimage":"",
+            }
+            $.post('/api/msg/',datas,function(newmsg){
+                loadmsg()
+            })
+            $('#textarea2').html("") 
+        };    
+    });
+    $("a[href='#tabs-2']").one("click",function(){
+        $.getJSON('/api/member/',function(dates){
+            $.each(dates,function(index,object){
+                $('#friends').append("<div>" + object.name +"</div>")
+            })
+        })
+    })
+    function loadmsg(){
+        $.getJSON('/api/msg/',function(msghistory){
+            var docFrag = $(document.createDocumentFragment())
+            $.each(msghistory,function(index,msgdatas){
+                var messagewho = {}
+                if (msgdatas.name == "angeljaina"){
+                    messagewho = $('<p class="h4 triangle-right right"></p>').text(msgdatas.message)
+                }else{
+                    messagewho = $('<p class="h4 triangle-isosceles left"></p>').text(msgdatas.message)
+                }
+                var messagetime = formatDate(msgdatas.last_modified_at) 
+                //呼叫formatDate function放入變數messagetime
+                var cell1 = messagewho
+                // var cell1 = $('<p class="h4 triangle-isosceles left"></p>').text(msgdatas.message)
+                var cell2 = $('<p></p>').text(messagetime).attr('contenteditable','true')
+                var row = $ ('<div class="d1"></div>').append([cell1,cell2])
+                docFrag.append(row)
+            })
+            $('#textarea1').html(docFrag)
+            var div = document.getElementById('textarea1')
+            div.scrollTop = div.scrollHeight;
+        })
+    }
+    loadmsg()   
+    })
+    //比對訊息時間與本日時間，回傳
+    function formatDate(t) {         
+            var myDate = new Date();				
+            var month = myDate.getMonth() + 1;				
+            var day = myDate.getDate();		
+            month = (month.toString().length == 1) ? ("0" + month) : month;		day = (day.toString().length == 1) ? ("0" + day) : day; 			var result = myDate.getFullYear() + '-' + month + '-' + day;
+            if (result == t.substr(0,10)){
+                return t.substr(11,5)
+            }
+            else{
+                return (t.substr(5,5)+" "+t.substr(11,5))
+            }
+        }
+        
+</script>    
+
+<script>
     $(document).ready(function(){
         // $('#leftnav').load('partial/nav.html');
-        $('#textarea2').keydown(function () {
+        $('#testarea2').keydown(function () {
             if (event.keyCode == 13 && event.shiftKey){
                 $(this).val($(this).val())    //設定按下shift換行
             }else if (event.keyCode == 13) {
-                var textset= $('#textarea2').val();
+                event.preventDefault();  //取消按下enter換行事件
+                var textset= $('#testarea2').html();
                 var datas = {
-                    "name":"angeljaina",
+                    "name":"kintboos",
                     "message":textset,
-                    "targetid":"3",
+                    "targetid":"1",
                     "messageimage":"",
-                } 
-                event.preventDefault();                
-                if ($('#textarea2').val() == ("" | " ")){
-                    return none
-                }else{
-                    if($('#textarea1').val() == ("" | " ")){
-                        $('#textarea1').html(textset)
-                    }else{
-                        $('#textarea1').html( $('#textarea1').html()+ "\r" + textset )
-                    };
-                    $('#textarea2').val("")
-                    $.post('/api/msg/',datas,function(data){
-                    console.log(data)
-                    })
                 }
+                $.post('/api/msg/',datas,function(newmsg){
+                    loadmsg()
+                })
+                $('#testarea2').html("") 
             };    
         });
-        $("a[href='#tabs-2']").one("click",function(){
-            $.getJSON('/api/member/',function(dates){
-            $.each(dates,function(index,object){
-            $('#friends').append("<div>" + object.name +"</div>")
+        function loadmsg(){
+            $.getJSON('/api/msg/',function(msghistory){
+                var docFrag = $(document.createDocumentFragment())
+                $.each(msghistory,function(index,msgdatas){
+                    var messagewho = {}
+                if (msgdatas.name == "kintboos"){
+                    messagewho = $('<p class="h4 triangle-right right"></p>').text(msgdatas.message)
+                }else{
+                    messagewho = $('<p class="h4 triangle-isosceles left"></p>').text(msgdatas.message)
+                }
+                var messagetime = formatDate(msgdatas.last_modified_at) 
+                //呼叫formatDate function放入變數messagetime
+                var cell1 = messagewho
+                // var cell1 = $('<p class="h4 triangle-isosceles left"></p>').text(msgdatas.message)
+                    var cell2 = $('<p></p>').text(messagetime).attr('contenteditable','true')
+                    var row = $ ('<div class="d1"></div>').append([cell1,cell2])
+                    docFrag.append(row)
+                })
+                $('#testarea1').html(docFrag)
+                var div = document.getElementById('testarea1')
+                div.scrollTop = div.scrollHeight;
+            })
+        }
+        loadmsg()   
         })
-    })
-        })
-    // //     var datas = {
-    // //         "title":"gogogo",
-    // //         "text":"ogogog",
-    // //     }    
-    // // $.post('api/todo/',data,function(data){
-    // //     console.log(data)
-    // // })
-    // $.getJSON('/api/friendship/',function(dates){
-    //     $.each(dates,function(index,object){
-    //         console.log(object.name)
-    //         console.log(object.friendid)
-    //     })
-    // })
-    //     $.getJSON('/api/member/',function(dates){
-    //     $.each(dates,function(index,object){
-    //         console.log(object.name)
-    //         console.log(object.email)
-    //         console.log(object.password)
-
-    //     })
-    // })
-    // $.getJSON('/api/member/',function(dates){
-    //         $.each(dates,function(index,object){
-    //         $('#friends').append(object.name)
-    //     })
-    // })
-    })
-
-</script>    
+        //比對訊息時間與本日時間，回傳
+        function formatDate(t) {         
+                var myDate = new Date();				
+                var month = myDate.getMonth() + 1;				
+                var day = myDate.getDate();		
+                month = (month.toString().length == 1) ? ("0" + month) : month;		day = (day.toString().length == 1) ? ("0" + day) : day; 			var result = myDate.getFullYear() + '-' + month + '-' + day;
+                if (result == t.substr(0,10)){
+                    return t.substr(11,5)
+                }
+                else{
+                    return (t.substr(5,5)+" "+t.substr(11,5))
+                }
+            }
+            
+    </script>    
 {% endblock %}

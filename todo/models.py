@@ -30,7 +30,7 @@ class Msg(models.Model):
     name = models.CharField(max_length=45)
     message = models.CharField(max_length=3000)
     targetid = models.CharField(max_length=45)
-    messageimage = models.CharField(max_length=45)
+    messageimage = models.CharField(max_length=45,null=True)
     last_modified_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
     class Meta:
