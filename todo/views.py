@@ -1,5 +1,6 @@
 from todo.models import Todo,Member,Friendship,Msg,Articles
 from todo.serializers import TodoSerializre,MemberSerializre,FriendshipSerializre,MsgSerializre,ArticleSerializer
+
 from rest_framework import viewsets
 # from django_filters.rest_framework import DjangoFilterBackend
 # Create your views here.
@@ -21,7 +22,8 @@ class FriendshipViewSet(viewsets.ModelViewSet):
 class MsgViewSet(viewsets.ModelViewSet):
     queryset = Msg.objects.all()
     serializer_class = MsgSerializre
-    # filter_backends = (DjangoFilterBackend,)         
+    # filter_backends = (DjangoFilterBackend,)                
+  
 
 class ArticlesViewset(viewsets.ModelViewSet):
     queryset = Articles.objects.all()

@@ -6,22 +6,31 @@ from member.models import Members
 # Create your views here.
 abc = Member()
 def index(request):
-
+    
 
     return render(request,'member/index.html', locals())
-def setting(request):
+def setting(request,id):
     if request.method == "POST":
         gender = request.POST['gender']
         company = request.POST['company']
+        companyen = request.POST['companyen']
         position = request.POST['position']
+        positionen = request.POST['positionen']
         skill = request.POST['skill']
         language = request.POST['language']
             
-        _member = (gender,company,company,position,skill,language)
+        _member = (gender,company,companyen,position,positionen,skill,language,id)
         abc.update(_member)
+    membersingle = abc.single(id)
+    members = abc.all()
     return render(request,'member/member.html', locals())
 
 def member(request):
+    members = abc.all()
+    cname = request.COOKIES['name']
+    x = Members.objects.get(id=1)
+    print(x)
+    print(cname)
     
     return render(request,'member/homepage.html', locals())
 def register(request):

@@ -4,10 +4,12 @@ from .models import Articles
 from django.core import serializers
 import datetime
 from datetime import datetime as dt
+from member.modelsmember import Member
 
-
+abc = Member()
 def index(request):
     articles = read_articles(Articles.objects.all()[::-1])
+    members = abc.all()
     return render(request, 'article/index.html', locals())
 
 def change_time(seconds):

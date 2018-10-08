@@ -16,7 +16,7 @@ class Member:
         return member
     def update(self,member):
         with connection.cursor() as cursor:
-            sql = """update members set gender=%s,company=%s,position=%s,skill=%s,language=%s
+            sql = """update members set gender=%s,company=%s,companyen=%s,position=%s,positionen=%s,skill=%s,language=%s
                      where id=%s"""
             #tuple
             cursor.execute(sql,member)

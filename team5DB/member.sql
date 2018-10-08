@@ -29,6 +29,13 @@ CREATE TABLE `members` (
   `mem_name` varchar(45) NOT NULL,
   `emailid` varchar(200) NOT NULL,
   `password` varchar(45) NOT NULL,
+  `gender` varchar(45) DEFAULT NULL,
+  `company` varchar(60) DEFAULT NULL,
+  `companyen` varchar(60) DEFAULT NULL,
+  `position` varchar(60) DEFAULT NULL,
+  `positionen` varchar(60) DEFAULT NULL,
+  `skill` varchar(45) DEFAULT NULL,
+  `language` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -39,7 +46,7 @@ CREATE TABLE `members` (
 
 LOCK TABLES `members` WRITE;
 /*!40000 ALTER TABLE `members` DISABLE KEYS */;
-INSERT INTO `members` VALUES (1,'Jack','jack@gmail.com','123');
+INSERT INTO `members` VALUES (1,'Jack','jack@gmail.com','123',NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `members` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +59,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-09-21 16:27:15
+-- Dump completed on 2018-10-04 15:02:24
