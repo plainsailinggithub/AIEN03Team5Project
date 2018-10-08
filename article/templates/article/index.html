@@ -139,8 +139,8 @@
                         <img class="rounded-circle" width="45" src="{% static 'images/tree.png' %}" alt="">
                     </div>
                     <div class="ml-2">
-                        <div class="h5 m-0">{{ article.membername }}</div>
-                        <div class="h7 text-muted">會員email</div>
+                        <div class="h5 m-0">{{ article.memberid.mem_name}}</div>
+                        <div class="h7 text-muted">{{ article.memberid.emailid }}</div>
                     </div>
                 </div>
                 <div>
@@ -244,6 +244,7 @@
 
             // paragraph.text('')
             $.get('/article/create/', datas, function(returnDatas){
+            console.log(returnDatas[0].fields.mtable[0])
                     // 接收json 
 
                             // ==== 我發現只更新一筆資料的缺點: 沒有辦法更新底下文章的時間，所以~不用了====
@@ -260,7 +261,7 @@
                     var data = obj.fields
                         // 計算發佈文章時間是多久以前   呼叫 get_time_delta Function!
                     localTime = get_time_delta(data.create_time)
-                    update_paragraph(obj.pk, localTime, data.membername, data.title, data.content)
+                    update_paragraph(obj.pk, localTime, data.mtable[1], data.mtable[0], data.title, data.content)
                 })
                 paragraph.children('div:nth-child(1)').hide().show(600)
             })
@@ -288,7 +289,7 @@ function get_time_delta(dbTime){
 }
 
     // 送出文章後，會讀取資料表的所有資料
-function update_paragraph(ID, create_time, memberName, title, content,){
+function update_paragraph(ID, create_time, memberName, email, title, content,){
     paragraph.append('\
     <div class="card gedf-card mb-2 articleId"' + 'id=' + ID+'>' +
         '<div class="card-header">\
@@ -299,7 +300,7 @@ function update_paragraph(ID, create_time, memberName, title, content,){
                     </div>\
                     <div class="ml-2">\
                         <div class="h5 m-0">' + memberName +'</div>\
-                        <div class="h7 text-muted">會員email</div>\
+                        <div class="h7 text-muted">' + email + '</div>\
                     </div>\
                 </div>\
                 <div>\
@@ -459,7 +460,7 @@ function update_paragraph(ID, create_time, memberName, title, content,){
                 var data = obj.fields
                     // 計算發佈文章時間是多久以前   呼叫 get_time_delta Function!
                 localTime = get_time_delta(data.create_time)
-                update_paragraph(obj.pk, localTime, data.membername, data.title, data.content)
+                update_paragraph(obj.pk, localTime, data.mtable[1], data.mtable[0], data.title, data.content)
             })
             $('#'+updateId).hide(300).show(500)
         } )
