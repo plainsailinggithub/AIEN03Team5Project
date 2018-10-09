@@ -23,3 +23,26 @@
     
 </div>
 {% endblock %}
+
+{% block scripts %}
+<script>
+$(document).ready(function(){
+$.get("/api/salary/", function(datas){
+//   console.log(datas)
+    $.each(datas, function(i,obj){
+
+        console.log(obj.title)
+        console.log(obj.url)
+    })
+
+})
+
+
+
+
+
+
+
+})
+</script>
+{% endblock %}
