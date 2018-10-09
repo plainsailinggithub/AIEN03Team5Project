@@ -19,7 +19,7 @@ class Members(models.Model):
     positionen = models.CharField(max_length=60, blank=True, null=True)
     skill = models.CharField(max_length=45, blank=True, null=True)
     language = models.CharField(max_length=45, blank=True, null=True)
-
+    img = models.CharField(max_length=100, blank=True, null=True)
     class Meta:
         managed = True
         db_table = 'members'
