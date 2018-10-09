@@ -28,6 +28,10 @@ class Member:
         with connection.cursor() as cursor:
             sql = '''insert into members(mem_name,emailid,password)values(%s,%s,%s)'''
             cursor.execute(sql,member)
-    def why(self):
-        print("hi")
+    def updatephoto(self,member):
+        with connection.cursor() as cursor:
+            sql = """update members set img=%s
+                     where id=%s"""
+            #tuple
+            cursor.execute(sql,member)
     
