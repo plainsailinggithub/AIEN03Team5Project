@@ -26,7 +26,6 @@ router.register(r'todo',views.TodoViewSet)
 router.register(r'member',views.MemberViewSet)
 router.register(r'friendship',views.FriendshipViewSet)
 router.register(r'msg',views.MsgViewSet)
-
 router.register(r'articles', views.ArticlesViewset)
 
 

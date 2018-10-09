@@ -18,7 +18,8 @@ class FriendshipSerializre(serializers.ModelSerializer):
 class MsgSerializre(serializers.ModelSerializer):
     class Meta:
         model = Msg
-        fields = '__all__'   
+        fields = '__all__'
+        ordering = ['order']  
 
 class ArticleSerializer(serializers.ModelSerializer):
     class Meta:
