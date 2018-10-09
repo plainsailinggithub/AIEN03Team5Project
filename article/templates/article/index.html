@@ -50,16 +50,16 @@
 {% block left %}
 <!-- <div class="col-md-3 text-center bg-white pt-3 left"> -->
     <input type="button" value='發表文章' class='btn btn-primary' id='btnSend'>
-    <input type="button" value='文章分類' class='btn btn-primary' id='btnType'>
+    <input type="button" value='休閒娛樂' class='btn btn-primary' id='btnType'>
     <div class='mt-3 text-left' id='articleType'>
         <div>
-            <p class='btn btn-info'>全部文章</p>
+            <p><a href="{% url 'article:entertainment' %}">電影</a></p>
         </div>
         <div>
-            <p class='btn btn-info'>自己</p>
+            <p class='btn btn-outline-info'>自己</p>
         </div>
         <div>
-            <p class='btn btn-info'>好友</p>
+            <p class='btn btn-outline-info'>好友</p>
         </div>
     </div>
 
@@ -208,7 +208,7 @@
             // 切換顯示 發表文章按鈕
         btnSend.click(function(){
             articleType.hide()
-            btnType.val('文章分類')
+            btnType.val('休閒娛樂')
             sendMessage.slideToggle(600)
             sendMessage.find('textarea').focus()
             if( $(this).val() =='發表文章'){
@@ -217,15 +217,15 @@
                 $(this).val('發表文章')
             }
         })
-            // 切換顯示 文章分類按鈕
+            // 切換顯示 休閒娛樂按鈕
         btnType.click(function(){
             sendMessage.hide()
             btnSend.val('發表文章')
             articleType.toggle(600)
-            if($(this).val() == '文章分類'){
+            if($(this).val() == '休閒娛樂'){
                 $(this).val('關閉分類')
             } else{
-                $(this).val('文章分類')
+                $(this).val('休閒娛樂')
             }
         })
     
