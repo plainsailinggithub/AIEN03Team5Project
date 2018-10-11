@@ -518,7 +518,7 @@ section {
                     var tbMiddleInside = ""
                     var docLeftFrag = ""
                     var docMiddleFrag = $(document.createDocumentFragment())
-                    console.log(datas)
+                    // console.log(datas)
                     // console.log(datas[0].name)
         
                     $.each(datas,function(idx, members){
@@ -544,7 +544,7 @@ section {
                         var cell3 = $('<p></p>').text(members.company).attr('class','card-text')
                         // var cell4 = $('<p></p>').text(members.companyen).attr('class','card-text')
                         var cell5 = $('<a></a>').html('<i class="fa fa-plus"></i>').attr({'href':'#', 'class':'btn btn-primary btn-sm buttongap'})
-                        var cell6 = $('<a></a>').html('<i class="fas fa-file-alt"></i>').attr({'href':'#', 'class':'btn btn-primary btn-sm buttongap readarticles', 'id':members.emailid})
+                        var cell6 = $('<button></button>').html('<i class="fas fa-file-alt"></i>').attr({'class':'btn btn-primary btn-sm buttongap readarticles', 'id':members.emailid})
                         var cell7 = $('<a></a>').html('<i class="fa fa-plus"></i>').attr({'href':'#', 'class':'btn btn-primary btn-sm'})
                             //<tr><td><td><td>
                         var div1 = $('<div></div>').append([cell1,cell2,cell3,cell5,cell6,cell7]).attr('class', 'card-body text-center')
@@ -575,14 +575,51 @@ section {
                     tbLeft.html(docLeftFrag)
                     // })
                 })//get json 
+                console.log(members) 
                 }// loadTodo    
         
         
                 
-            loadTodo()
-               
-            console.log(members.emailid)
-            })//document.click
+            loadTodo()//important
+             
+            // console.log(members[0].emailid)
+
+
+
+            })//document.click.#buttonClick
+
+            $(document).on('click','.readarticles',function(){ 
+                textSearch = this.id
+                // console.log(textSearch)
+                console.log(this.id)
+                console.log(textSearch)
+                    
+                function loadArticles(){
+                    // console.log(textSearch)
+                    theUrl = '/api/members/?search=' + textSearch
+                    console.log(theUrl)
+                    $.getJSON('/api/members/?search=' + textSearch, function(datas){
+                      
+                    
+                // $.getJSON('/api/member/',function(datas){
+                    // console.log(result)
+                    // var tb =  $('#todolist>tbody');
+                    var tbLeft =  $('#leftDiv');
+                    var tbMiddle =  $('#middleDiv');
+                    var tbMiddleInside = ""
+                    var docLeftFrag = ""
+                    var docMiddleFrag = $(document.createDocumentFragment())
+                    console.log(datas)
+                    // console.log(datas[0].name)
+        
+                    $.each(datas,function(idx, members){
+
+                    })//each
+                    })//getJson
+                }//function loadArticles 
+                loadArticles()
+            })//document.click.#readarticles    
+
             // console.log(members.emailid)
         })//document.ready
         
