@@ -24,6 +24,7 @@ def index(request):
 
 def message(request):
     members = abc.all()
+    account = request.COOKIES['name'] 
     return render(request,'message/message.html',locals()) 
 
 # def friendship(request):  

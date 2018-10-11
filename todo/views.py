@@ -1,30 +1,39 @@
-from todo.models import Todo,Member,Friendship,Msg,Articles,Movies
-from todo.serializers import TodoSerializre,MemberSerializre,FriendshipSerializre,MsgSerializre,ArticleSerializer,movieSerializer
-from todo.models import Todo,Member,Friendship,Msg,Articles,Economist
-from todo.serializers import TodoSerializre,MemberSerializre,FriendshipSerializre,MsgSerializre,ArticleSerializer,EconomistSerializer
-
+from todo.models import Todo,Members,Friendship,Msg,Articles,Movies,Economist
+from todo.serializers import TodoSerializre,MembersSerializre,FriendshipSerializre,MsgSerializre,ArticleSerializer,movieSerializer,EconomistSerializer
 from rest_framework import viewsets
-# from django_filters.rest_framework import DjangoFilterBackend
+from django_filters.rest_framework import DjangoFilterBackend
 # Create your views here.
 
 class TodoViewSet(viewsets.ModelViewSet):
     queryset = Todo.objects.all()
     serializer_class = TodoSerializre
 
-class MemberViewSet(viewsets.ModelViewSet):
-    queryset = Member.objects.all()
-    serializer_class = MemberSerializre
-    # filter_backends = (DjangoFilterBackend,)
+class MembersViewSet(viewsets.ModelViewSet):
+    queryset = Members.objects.all()
+    serializer_class = MembersSerializre
+    filter_backends = (DjangoFilterBackend,)
+    filter_fields = ('id','mem_name', 'emailid')
+    # filter_backends = (filters.SearchFilter,)
+    # search_fields = ('men_name', 'emailid')
+    # ordering_fields = '__all__'
 
 class FriendshipViewSet(viewsets.ModelViewSet):
     queryset = Friendship.objects.all()
     serializer_class = FriendshipSerializre
-    # filter_backends = (DjangoFilterBackend,) 
+    filter_backends = (DjangoFilterBackend,)
+    filter_fields = ('name', 'friendid',)    
+    # filter_backends = (filters.SearchFilter,)
+    # search_fields = ('name', 'friendid')
+    # ordering_fields = '__all__'
 
 class MsgViewSet(viewsets.ModelViewSet):
     queryset = Msg.objects.all()
     serializer_class = MsgSerializre
-    # filter_backends = (DjangoFilterBackend,)                
+    filter_backends = (DjangoFilterBackend,)
+    filter_fields = ('name', 'targetid')
+    # filter_backends = (filters.SearchFilter,)
+    # search_fields = ('name', 'message','targetid')
+    # ordering_fields = '__all__'               
   
 
 class ArticlesViewset(viewsets.ModelViewSet):
