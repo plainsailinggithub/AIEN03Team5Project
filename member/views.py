@@ -19,6 +19,7 @@ def setting(request,id):
         positionen = request.POST['positionen']
         skill = request.POST['skill']
         language = request.POST['language']
+        bday = request.POST['bday']
 
         # if request.method == "POST" and request.FILES["img"]:
         #     myFile = request.FILES["img"]
@@ -26,7 +27,7 @@ def setting(request,id):
         #     img = fs.save(myFile.name,myFile)
         
             
-        _member = (gender,company,companyen,position,positionen,skill,language,id)
+        _member = (gender,company,companyen,position,positionen,skill,language,bday,id)
         abc.update(_member)
     membersingle = abc.single(id)
     members = abc.all()
