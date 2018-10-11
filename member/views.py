@@ -11,6 +11,17 @@ def index(request):
 
     return render(request,'member/index.html', locals())
 def setting(request,id):
+    if 'name' not in request.COOKIES:
+        # return redirect("/")
+        strJS = "<script>alert('請先登入或註冊');location.href='/'</script>"
+        return HttpResponse(strJS)
+    
+    if abc.single(id)[2] != request.COOKIES["name"]:
+        fake = abc.all()
+        for member in fake:
+            if member[2] == request.COOKIES["name"]:
+                return HttpResponse("<script>location.href='/setting/{}'</script>".format(member[0]))
+
     if request.method == "POST":
         gender = request.POST['gender']
         company = request.POST['company']
@@ -34,9 +45,15 @@ def setting(request,id):
     return render(request,'member/member.html', locals())
 
 def member(request):
+    if 'name' not in request.COOKIES:
+        # return redirect("/")
+        
+        strJS = "<script>alert('請先登入或註冊');location.href='/'</script>"
+        return HttpResponse(strJS)
+
+
     members = abc.all()
-    cname = request.COOKIES['name']
-    print(cname)
+    
     
     return render(request,'member/homepage.html', locals())
 def register(request):
