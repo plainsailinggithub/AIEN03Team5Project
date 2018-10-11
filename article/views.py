@@ -61,7 +61,7 @@ def create(request):
         title = request.GET['title']
         content = request.GET['content']
         membername = request.GET['membername']
-    Articles.objects.create(title=title, content=content, membername=membername, memberid=Members.objects.get(emailid=email))
+    Articles.objects.create(title=title, content=content, membername=membername, memberid=Members.objects.get(emailid=email), email = email)
         # 傳送所有資料表中的資料
     #     #read datas
     articles = serializers.serialize('json', Articles.objects.all()[::-1])
@@ -130,6 +130,12 @@ def handel():
             
         index +=1
     
+    x= Articles.objects.all()[::-1]
+    y = []
+    for i in x:
+        y.append([i,i.memberid.emailid])
+    for i in y:
+        print(i)
     article = json.dumps(_data)
     return article
 
