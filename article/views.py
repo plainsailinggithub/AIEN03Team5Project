@@ -180,13 +180,19 @@ def get_chart(request):
     result = []
     mid = {}
     for data in chart_datas:
-        result.append({'label':data.mem_name, 'y':5})
+        result.append({'label':data.mem_name, 'y':0})
         mid[data.id] = data.mem_name
     print(mid)
+
+    x = []
     for article in Articles.objects.all():
         if article.memberid.id in mid:
-            print(article, mid[article.memberid.id])
-            
-
+            # print(article, mid[article.memberid.id])
+            name = mid[article.memberid.id]
+            x.append(name)
+    for name in x:
+        for data in result:
+            if data['label'] == name:
+                data['y'] +=1    
     return HttpResponse(json.dumps(result), content_type='application/json')
-    
+

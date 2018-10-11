@@ -299,7 +299,10 @@ section {
 .buttongap {
     margin-right: 1%;
 }
-
+.inves{
+    /* font-color:#E100E1; */
+    text-indent:-9999px;
+}
     </style>
 {% block style %}
 {% endblock %}
@@ -341,7 +344,7 @@ section {
             <a class="nav-link" href="/message/"><i class="far fa-envelope"></i>訊息</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'article:index' %}"><i class="far fa-newspaper"></i>新聞</a>
+            <a class="nav-link" href="{% url 'article:index' %}"><i class="far fa-newspaper"></i>文章</a>
           </li>
             </ul>
 
@@ -518,7 +521,7 @@ section {
                     var tbMiddleInside = ""
                     var docLeftFrag = ""
                     var docMiddleFrag = $(document.createDocumentFragment())
-                    console.log(datas)
+                    // console.log(datas)
                     // console.log(datas[0].name)
         
                     $.each(datas,function(idx, members){
@@ -544,9 +547,13 @@ section {
                         var cell3 = $('<p></p>').text(members.company).attr('class','card-text')
                         // var cell4 = $('<p></p>').text(members.companyen).attr('class','card-text')
                         var cell5 = $('<a></a>').html('<i class="fa fa-plus"></i>').attr({'href':'#', 'class':'btn btn-primary btn-sm buttongap'})
-                        var cell6 = $('<a></a>').html('<i class="fa fa-plus"></i>').attr({'href':'#', 'class':'btn btn-primary btn-sm buttongap'})
+                        var cell6 = $('<button></button>').html('<i class="fas fa-file-alt"></i>').attr({'class':'btn btn-primary btn-sm buttongap readarticles', 'id':members.emailid})
+
+                        // var cell5 = $('<a></a>').html('<i class="fa fa-plus" id='+members.id+' name='+ members.id +'>+'+"1"+'</i>').attr({'href':'#', 'class':'btn btn-primary btn-sm buttongap'})
+                        // console.log(cell5.text())
+                        // var cell6 = $('<a></a>').html('<i class="fa fa-plus"></i>').attr({'href':'#', 'class':'btn btn-primary btn-sm buttongap'}) var cell7 = $('<a></a>').html('<i class="fa fa-plus"></i>').attr({'href':'#', 'class':'btn btn-primary btn-sm'})
                         var cell7 = $('<a></a>').html('<i class="fa fa-plus"></i>').attr({'href':'#', 'class':'btn btn-primary btn-sm'})
-                            //<tr><td><td><td>
+                                                    //<tr><td><td><td>
                         var div1 = $('<div></div>').append([cell1,cell2,cell3,cell5,cell6,cell7]).attr('class', 'card-body text-center')
 
                         var div2 = $('<div></div>').append(div1).attr('class', 'card')
@@ -575,14 +582,68 @@ section {
                     tbLeft.html(docLeftFrag)
                     // })
                 })//get json 
+
                 }// loadTodo    
         
         
                 
-            loadTodo()
-               
-        
-            })//document.click
+            loadTodo()//important
+             
+            // console.log(members[0].emailid)
+
+
+
+            })//document.click.#buttonClick
+
+            $(document).on('click','.readarticles',function(){ 
+                textSearch = this.id
+                // console.log(textSearch)
+                console.log(this.id)
+                console.log(textSearch)
+                    
+                function loadArticles(){
+                    // console.log(textSearch)
+                    theUrl = '/api/members/?search=' + textSearch
+                    console.log(theUrl)
+                    $.getJSON('/api/members/?search=' + textSearch, function(datasMembers){
+                    
+                    
+                // $.getJSON('/api/member/',function(datas){
+                    // console.log(result)
+                    // var tb =  $('#todolist>tbody');
+                        var tbLeft =  $('#leftDiv');
+                        var tbMiddle =  $('#middleDiv');
+                        var tbMiddleInside = ""
+                        var docLeftFrag = ""
+                        var docMiddleFrag = $(document.createDocumentFragment())
+                        console.log(datasMembers[0].id)
+                    // console.log(datas[0].name)
+                        $.getJSON('/api/articles/'+datasMembers[0].id+'/', function(datasArticles){
+                            console.log(datasArticles)
+                            $.each(datas,function(idx, members){
+                                var cell1 = $('<div></div>').html('<img class="rounded-circle" width="45" src="/media/'+datasMembers[0].id+'">').attr('class','mr-2')
+                                var cell2 = $('<div></div>').html('<div class="h5 m-0">'+datasMembers[0].mem_name+'</div><div class="h7 text-muted">'+datasMembers[0].emailid+'</div>').attr('class','mr-2')
+                                
+                                var div1 = $('<div></div>').append([cell1,cell2]).attr('class', 'd-flex justify-content-between align-items-center')
+                                
+                                var div2 = $('<div></div>').append(div1).attr('class', 'd-flex justify-content-between align-items-center')
+                                
+                                var divLevel1 = $('<div></div>').append(div2).attr('class', 'card-header')
+
+                                var cell3 = $('<div></div>').html('<i class="fa fa-clock-o"></i>{{ article.create_time }}').attr('class','text-muted h7 mb-2')
+
+
+
+                            })//each
+                        })//getJson article
+                    })//getJson members
+
+                }//function loadArticles 
+                loadArticles()
+            })//document.click.#readarticles    
+
+            // console.log(members.emailid)
+            
         })//document.ready
         
         </script>

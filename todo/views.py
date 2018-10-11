@@ -11,10 +11,10 @@ class TodoViewSet(viewsets.ModelViewSet):
 class MembersViewSet(viewsets.ModelViewSet):
     queryset = Members.objects.all()
     serializer_class = MembersSerializre
-    filter_backends = (DjangoFilterBackend,)
+    filter_backends = (DjangoFilterBackend,filters.SearchFilter,)
     filter_fields = ('id','mem_name', 'emailid',)
-    filter_backends = (filters.SearchFilter,)
-    search_fields = ('$mem_name', '$company', '$companyen')
+    # filter_backends = (filters.SearchFilter,)
+    search_fields = ('$mem_name', '$company', '$companyen','$emailid')
     # ordering_fields = '__all__'
 
 class FriendshipViewSet(viewsets.ModelViewSet):
