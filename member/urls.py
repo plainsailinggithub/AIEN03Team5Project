@@ -11,6 +11,6 @@ urlpatterns = [
     path('setting/<int:id>', views.setting, name="setting"),
     path('logout/',views.logout,name="logout"),
     path('check/<str:emailid>/', views.checkname, name="checkname"),
-
+    path('photo/<int:id>',views.updateph,name='photo'),
 
 ]

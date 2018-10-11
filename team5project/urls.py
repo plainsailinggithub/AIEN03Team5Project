@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import path,include
 from rest_framework.routers import DefaultRouter
 from todo import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 router = DefaultRouter()
 #http://localhost/api/message
@@ -25,6 +27,8 @@ router.register(r'members',views.MembersViewSet)
 router.register(r'friendship',views.FriendshipViewSet)
 router.register(r'msg',views.MsgViewSet)
 router.register(r'articles', views.ArticlesViewset)
+router.register(r'movies', views.movieViewset)
+router.register(r'salary', views.EconomistViewset)
 
 
 urlpatterns = [
@@ -37,4 +41,4 @@ urlpatterns = [
     path('api/',include(router.urls)),
     path('index/', include('index.urls')),
     path('search/',include('search.urls')),
-]
+]+static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

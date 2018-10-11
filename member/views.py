@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.db import connection
 from member.modelsmember import Member
 from member.models import Members
+from django.core.files.storage import FileSystemStorage
 # Create your views here.
 abc = Member()
 def index(request):
@@ -18,6 +19,12 @@ def setting(request,id):
         positionen = request.POST['positionen']
         skill = request.POST['skill']
         language = request.POST['language']
+
+        # if request.method == "POST" and request.FILES["img"]:
+        #     myFile = request.FILES["img"]
+        #     fs = FileSystemStorage()
+        #     img = fs.save(myFile.name,myFile)
+        
             
         _member = (gender,company,companyen,position,positionen,skill,language,id)
         abc.update(_member)
@@ -41,6 +48,7 @@ def register(request):
         
         _member = (mem_name,emailid,password)
         abc.create(_member)
+        id=3
         strJS = "<script>alert('註冊成功');location.href='/member/ '</script>"
         response = HttpResponse(strJS)
         response.set_cookie("name",emailid)
@@ -80,3 +88,17 @@ def checkname(request,emailid):
     if result:
         message = 1
     return HttpResponse(message)
+def updateph(request,id):
+    if request.method == "POST" and request.FILES["img"]:
+        myFile = request.FILES["img"]
+        fs = FileSystemStorage()
+        img = fs.save(myFile.name,myFile)
+
+        _member = (img,id)
+        abc.updatephoto(_member)
+        print(type(id))
+        
+        return HttpResponse("<script>location.href='/setting/{}'</script>".format(id))
+    
+    
+    return render(request,'member/member.html', locals())
