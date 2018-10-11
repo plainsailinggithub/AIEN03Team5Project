@@ -65,3 +65,19 @@ class Articles(models.Model):
 
     class Meta:
         db_table = 'articles'
+
+class Movies(models.Model):
+    title = models.CharField(max_length=45)
+    url = models.CharField(max_length=300)
+
+    class Meta:
+        db_table = 'movies'
+
+
+
+class Economist(models.Model):
+    title = models.CharField(max_length=45)
+    url = models.CharField(max_length=200)
+
+    class Meta:
+        db_table = 'economist'
