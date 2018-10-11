@@ -76,7 +76,6 @@ class Movies(models.Model):
         db_table = 'movies'
 
 
-
 class Economist(models.Model):
     title = models.CharField(max_length=45)
     url = models.CharField(max_length=200)
@@ -84,19 +83,14 @@ class Economist(models.Model):
     class Meta:
         db_table = 'articles'
 
-# class Members(models.Model):
-#     mem_name = models.CharField(max_length=45)
-#     emailid = models.CharField(max_length=200)
-#     password = models.CharField(max_length=45)
-#     gender = models.CharField(max_length=45, blank=True, null=True)
-#     company = models.CharField(max_length=60, blank=True, null=True)
-#     companyen = models.CharField(max_length=60, blank=True, null=True)
-#     position = models.CharField(max_length=60, blank=True, null=True)
-#     positionen = models.CharField(max_length=60, blank=True, null=True)
-#     skill = models.CharField(max_length=45, blank=True, null=True)
-#     language = models.CharField(max_length=45, blank=True, null=True)
+class Addfriend(models.Model):
+    myid = models.CharField(max_length=10)
+    askid = models.CharField(max_length=10)
+    last_modified_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
-#     class Meta:
-#         managed = True
-#         db_table = 'members'
-#         db_table = 'economist'
+    class Meta:
+        db_table = "addfriend"         
+
+
+  

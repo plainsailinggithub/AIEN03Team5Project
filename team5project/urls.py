@@ -29,6 +29,7 @@ router.register(r'msg',views.MsgViewSet)
 router.register(r'articles', views.ArticlesViewset)
 router.register(r'movies', views.movieViewset)
 router.register(r'salary', views.EconomistViewset)
+router.register(r'addfriend', views.AddfriendViewset)
 
 
 urlpatterns = [
