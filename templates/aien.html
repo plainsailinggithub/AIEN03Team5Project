@@ -521,7 +521,7 @@ section {
                     var tbMiddleInside = ""
                     var docLeftFrag = ""
                     var docMiddleFrag = $(document.createDocumentFragment())
-                    console.log(datas)
+                    // console.log(datas)
                     // console.log(datas[0].name)
         
                     $.each(datas,function(idx, members){
@@ -546,18 +546,18 @@ section {
                         var cell2 = $('<h4></h4>').text(members.mem_name).attr('class','card-title')
                         var cell3 = $('<p></p>').text(members.company).attr('class','card-text')
                         // var cell4 = $('<p></p>').text(members.companyen).attr('class','card-text')
-                        var cell5 = $('<a></a>').html('<i class="fa fa-plus" id='+members.id+' name='+ members.id +'></i>').attr({'href':'#', 'class':'btn btn-primary btn-sm buttongap'})
-                        console.log(cell5.text())
+                        var cell5 = $('<a></a>').html('<i class="fa fa-plus" id='+members.id+' name='+ members.id +'>+'+"1"+'</i>').attr({'href':'#', 'class':'btn btn-primary btn-sm buttongap'})
+                        // console.log(cell5.text())
                         var cell6 = $('<a></a>').html('<i class="fa fa-plus"></i>').attr({'href':'#', 'class':'btn btn-primary btn-sm buttongap'})
                         var cell7 = $('<a></a>').html('<i class="fa fa-plus"></i>').attr({'href':'#', 'class':'btn btn-primary btn-sm'})
                             //<tr><td><td><td>
-                        var div1 = $('<div></div>').append([cell1,cell2,cell3,cell5,cell6,cell7]).attr('class', 'card-body text-center')
+                        var div1 = $('<div name="d1"></div>').append([cell1,cell2,cell3,cell5,cell6,cell7]).attr('class', 'card-body text-center')
 
-                        var div2 = $('<div></div>').append(div1).attr('class', 'card')
+                        var div2 = $('<div name="d2"></div>').append(div1).attr('class', 'card')
 
-                        var div3 = $('<div></div>').append(div2).attr('class','frontside')
+                        var div3 = $('<div name="d3"></div>').append(div2).attr('class','frontside')
 
-                        var div4 = $('<div></div>').append(div3).attr({'class':'cardgap col-xs-12 col-sm-6 col-md-4 border2'})
+                        var div4 = $('<div name="d4"></div>').append(div3).attr({'class':'cardgap col-xs-12 col-sm-6 col-md-4 border2'})
                             //<tbody><tr>
                         docMiddleFrag.append(div4)
                     // })
@@ -590,11 +590,11 @@ section {
             // $("#card1").on("click","a[herf = '#']",function(){
             //     console.log($(this).child('p').text())
             // })
-            // $("#card1").on('click',function(){
-            //     console.log($(this).id.text())
-            //     var divid = this.id
-            //     // console.log(divid)
-            // })
+            $("#card1").on('click',"div[name ='d1']>a:first>i",function(){
+                console.log($(this).html())
+                // var divid = this.id
+                // console.log(divid)
+            })
         })//document.ready
         
         </script>
