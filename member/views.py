@@ -42,8 +42,6 @@ def setting(request,id):
 def member(request):
     members = abc.all()
     cname = request.COOKIES['name']
-    x = Members.objects.get(id=1)
-    print(x)
     print(cname)
     # =============== 文章 ===================
     articles = read_articles(Articles.objects.all()[::-1])
