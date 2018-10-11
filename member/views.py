@@ -146,15 +146,15 @@ def updateph(request,id):
 
 # ================= 放置文章到 homepage.html ===================
 
-def index(request):
-    articles = read_articles(Articles.objects.all()[::-1])
-    members = abc.all()
+# def index(request):
+#     articles = read_articles(Articles.objects.all()[::-1])
+#     members = abc.all()
     
-    if 'name' in request.COOKIES:
-        email = request.COOKIES['name']
-        member_id = Members.objects.get(emailid=email).id
+#     if 'name' in request.COOKIES:
+#         email = request.COOKIES['name']
+#         member_id = Members.objects.get(emailid=email).id
 
-    return render(request, 'article/index.html', locals())
+#     return render(request, 'article/index.html', locals())
 
 def change_time(seconds):
     hours = seconds//3600

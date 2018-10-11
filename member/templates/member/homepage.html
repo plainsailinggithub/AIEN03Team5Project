@@ -111,22 +111,22 @@
     </div>
     <div class="card-content">
         <h2>{{ member.1 }}
-        {% if member.5 == Null %}
+        {% if member.5 == "" or member.5 == NULL %}
         <small></small>
         {% else %}
         <small>任職於:{{ member.5 }}</small>
         {% endif %}
-        {% if member.7 == Null %}
+        {% if member.7 == "" or member.7 == NULL %}
         <small></small>
         {% else %}
         <small>職位:{{ member.7 }}</small>
         {% endif %}
-        {% if member.9 == Null %}
+        {% if member.9 == "" or member.9 == NULL %}
         <small></small>
         {% else %}
         <small>技能:{{ member.9 }}</small>
         {% endif %}
-        {% if member.10 == Null %}
+        {% if member.10 == "" or member.10 == NULL %}
         <small></small>
         {% else %}
         <small>語言能力:{{ member.10 }}</small>
