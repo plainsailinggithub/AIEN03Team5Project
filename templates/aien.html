@@ -221,7 +221,7 @@ section {
     -webkit-transform: rotateY(0deg);
     -ms-transform: rotateY(0deg);
     z-index: 2;
-    margin-bottom: 30px;
+    margin-bottom: 0;
 }
 
 /* .backside {
@@ -286,7 +286,18 @@ section {
 }
 
 .border1 {
-    border: 1px, #C0C0C0,solid
+    border: 1px solid #C0C0C0!important;
+    padding-bottom: 0!important;
+}
+
+.border2 {
+    border: 0.2px solid #C0C0C0!important;
+}
+.search {
+    background-color: white!important;
+}
+.buttongap {
+    margin-right: 1%;
 }
 
     </style>
@@ -532,15 +543,17 @@ section {
                         var cell2 = $('<h4></h4>').text(members.mem_name).attr('class','card-title')
                         var cell3 = $('<p></p>').text(members.company).attr('class','card-text')
                         // var cell4 = $('<p></p>').text(members.companyen).attr('class','card-text')
-                        var cell5 = $('<a></a>').html('<i class="fa fa-plus"></i>').attr({'href':'#', 'class':'btn btn-primary btn-sm'})
+                        var cell5 = $('<a></a>').html('<i class="fa fa-plus"></i>').attr({'href':'#', 'class':'btn btn-primary btn-sm buttongap'})
+                        var cell6 = $('<a></a>').html('<i class="fa fa-plus"></i>').attr({'href':'#', 'class':'btn btn-primary btn-sm buttongap'})
+                        var cell7 = $('<a></a>').html('<i class="fa fa-plus"></i>').attr({'href':'#', 'class':'btn btn-primary btn-sm'})
                             //<tr><td><td><td>
-                        var div1 = $('<div></div>').append([cell1,cell2,cell3,cell5]).attr('class', 'card-body text-center')
-        
+                        var div1 = $('<div></div>').append([cell1,cell2,cell3,cell5,cell6,cell7]).attr('class', 'card-body text-center')
+
                         var div2 = $('<div></div>').append(div1).attr('class', 'card')
-        
+
                         var div3 = $('<div></div>').append(div2).attr('class','frontside')
-        
-                        var div4 = $('<div></div>').append(div3).attr({'class':'cardgap col-xs-12 col-sm-6 col-md-4'})
+
+                        var div4 = $('<div></div>').append(div3).attr({'class':'cardgap col-xs-12 col-sm-6 col-md-4 border2'})
                             //<tbody><tr>
                         docMiddleFrag.append(div4)
                     // })
