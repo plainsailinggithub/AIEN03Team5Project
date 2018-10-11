@@ -19,6 +19,7 @@ def index(request):
         email = request.COOKIES['name']
         member_id = Members.objects.get(emailid=email).id
  
+    print(handel())
     return render(request, 'article/index.html', locals())
 
 def change_time(seconds):
@@ -112,7 +113,7 @@ def handel():
     emails = Members.objects.all()
     mdata = {}
     for i in emails:
-        mdata[i.id] = [i.emailid, i.mem_name]
+        mdata[i.id] = [i.emailid, i.mem_name, i.img]
     article = serializers.serialize('json', Articles.objects.all()[::-1])
     _data = json.loads(article)     #list
     index = 0 
