@@ -12,6 +12,12 @@ import json
 
 abc = Member()
 def index(request):
+    if 'name' not in request.COOKIES:
+        # return redirect("/")
+        
+        strJS = "<script>alert('請先登入或註冊');location.href='/'</script>"
+        return HttpResponse(strJS)
+
     articles = read_articles(Articles.objects.all()[::-1])
     members = abc.all()
     
