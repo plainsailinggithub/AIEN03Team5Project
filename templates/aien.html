@@ -546,23 +546,21 @@ section {
                         var cell2 = $('<h4></h4>').text(members.mem_name).attr('class','card-title')
                         var cell3 = $('<p></p>').text(members.company).attr('class','card-text')
                         // var cell4 = $('<p></p>').text(members.companyen).attr('class','card-text')
-<<<<<<< HEAD
                         var cell5 = $('<a></a>').html('<i class="fa fa-plus"></i>').attr({'href':'#', 'class':'btn btn-primary btn-sm buttongap'})
                         var cell6 = $('<button></button>').html('<i class="fas fa-file-alt"></i>').attr({'class':'btn btn-primary btn-sm buttongap readarticles', 'id':members.emailid})
-=======
-                        var cell5 = $('<a></a>').html('<i class="fa fa-plus" id='+members.id+' name='+ members.id +'>+'+"1"+'</i>').attr({'href':'#', 'class':'btn btn-primary btn-sm buttongap'})
+
+                        // var cell5 = $('<a></a>').html('<i class="fa fa-plus" id='+members.id+' name='+ members.id +'>+'+"1"+'</i>').attr({'href':'#', 'class':'btn btn-primary btn-sm buttongap'})
                         // console.log(cell5.text())
-                        var cell6 = $('<a></a>').html('<i class="fa fa-plus"></i>').attr({'href':'#', 'class':'btn btn-primary btn-sm buttongap'})
->>>>>>> 54e82fc3e5266a978d7ed2a334cb1a708483949e
+                        // var cell6 = $('<a></a>').html('<i class="fa fa-plus"></i>').attr({'href':'#', 'class':'btn btn-primary btn-sm buttongap'}) var cell7 = $('<a></a>').html('<i class="fa fa-plus"></i>').attr({'href':'#', 'class':'btn btn-primary btn-sm'})
                         var cell7 = $('<a></a>').html('<i class="fa fa-plus"></i>').attr({'href':'#', 'class':'btn btn-primary btn-sm'})
-                            //<tr><td><td><td>
-                        var div1 = $('<div name="d1"></div>').append([cell1,cell2,cell3,cell5,cell6,cell7]).attr('class', 'card-body text-center')
+                                                    //<tr><td><td><td>
+                        var div1 = $('<div></div>').append([cell1,cell2,cell3,cell5,cell6,cell7]).attr('class', 'card-body text-center')
 
-                        var div2 = $('<div name="d2"></div>').append(div1).attr('class', 'card')
+                        var div2 = $('<div></div>').append(div1).attr('class', 'card')
 
-                        var div3 = $('<div name="d3"></div>').append(div2).attr('class','frontside')
+                        var div3 = $('<div></div>').append(div2).attr('class','frontside')
 
-                        var div4 = $('<div name="d4"></div>').append(div3).attr({'class':'cardgap col-xs-12 col-sm-6 col-md-4 border2'})
+                        var div4 = $('<div></div>').append(div3).attr({'class':'cardgap col-xs-12 col-sm-6 col-md-4 border2'})
                             //<tbody><tr>
                         docMiddleFrag.append(div4)
                     // })
@@ -589,7 +587,6 @@ section {
         
         
                 
-<<<<<<< HEAD
             loadTodo()//important
              
             // console.log(members[0].emailid)
@@ -623,9 +620,21 @@ section {
                     // console.log(datas[0].name)
                         $.getJSON('/api/articles/'+datasMembers[0].id+'/', function(datasArticles){
                             console.log(datasArticles)
-                            // $.each(datas,function(idx, members){
-                        
-                            // })//each
+                            $.each(datas,function(idx, members){
+                                var cell1 = $('<div></div>').html('<img class="rounded-circle" width="45" src="/media/'+datasMembers[0].id+'">').attr('class','mr-2')
+                                var cell2 = $('<div></div>').html('<div class="h5 m-0">'+datasMembers[0].mem_name+'</div><div class="h7 text-muted">'+datasMembers[0].emailid+'</div>').attr('class','mr-2')
+                                
+                                var div1 = $('<div></div>').append([cell1,cell2]).attr('class', 'd-flex justify-content-between align-items-center')
+                                
+                                var div2 = $('<div></div>').append(div1).attr('class', 'd-flex justify-content-between align-items-center')
+                                
+                                var divLevel1 = $('<div></div>').append(div2).attr('class', 'card-header')
+
+                                var cell3 = $('<div></div>').html('<i class="fa fa-clock-o"></i>{{ article.create_time }}').attr('class','text-muted h7 mb-2')
+
+
+
+                            })//each
                         })//getJson article
                     })//getJson members
 
@@ -634,20 +643,7 @@ section {
             })//document.click.#readarticles    
 
             // console.log(members.emailid)
-=======
-            loadTodo()
-               
-        
-            })//document.click
-            // $("#card1").on("click","a[herf = '#']",function(){
-            //     console.log($(this).child('p').text())
-            // })
-            $("#card1").on('click',"div[name ='d1']>a:first>i",function(){
-                console.log($(this).html())
-                // var divid = this.id
-                // console.log(divid)
-            })
->>>>>>> 54e82fc3e5266a978d7ed2a334cb1a708483949e
+            
         })//document.ready
         
         </script>
