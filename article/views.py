@@ -24,7 +24,7 @@ def index(request):
     if 'name' in request.COOKIES:
         email = request.COOKIES['name']
         member_id = Members.objects.get(emailid=email).id
- 
+
     return render(request, 'article/index.html', locals())
 
 def change_time(seconds):
@@ -118,7 +118,7 @@ def handel():
     emails = Members.objects.all()
     mdata = {}
     for i in emails:
-        mdata[i.id] = [i.emailid, i.mem_name]
+        mdata[i.id] = [i.emailid, i.mem_name, i.img]
     article = serializers.serialize('json', Articles.objects.all()[::-1])
     _data = json.loads(article)     #list
     index = 0 
@@ -170,3 +170,23 @@ class OnlineSources():
             Movies.objects.create(**datas)
             # content += f'{data.text.strip()} :\nhttp://www.atmovies.com.tw{_url}\n'
 
+
+
+def chart(request):
+    return render(request, 'article/chart.html')
+
+def get_chart(request):
+    chart_datas = Members.objects.all()
+    result = []
+    mid = {}
+    for data in chart_datas:
+        result.append({'label':data.mem_name, 'y':5})
+        mid[data.id] = data.mem_name
+    print(mid)
+    for article in Articles.objects.all():
+        if article.memberid.id in mid:
+            print(article, mid[article.memberid.id])
+            
+
+    return HttpResponse(json.dumps(result), content_type='application/json')
+    
