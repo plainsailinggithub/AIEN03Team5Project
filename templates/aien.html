@@ -299,7 +299,10 @@ section {
 .buttongap {
     margin-right: 1%;
 }
-
+.inves{
+    /* font-color:#E100E1; */
+    text-indent:-9999px;
+}
     </style>
 {% block style %}
 {% endblock %}
@@ -543,7 +546,8 @@ section {
                         var cell2 = $('<h4></h4>').text(members.mem_name).attr('class','card-title')
                         var cell3 = $('<p></p>').text(members.company).attr('class','card-text')
                         // var cell4 = $('<p></p>').text(members.companyen).attr('class','card-text')
-                        var cell5 = $('<a></a>').html('<i class="fa fa-plus"></i>').attr({'href':'#', 'class':'btn btn-primary btn-sm buttongap'})
+                        var cell5 = $('<a></a>').html('<i class="fa fa-plus" id='+members.id+' name='+ members.id +'></i>').attr({'href':'#', 'class':'btn btn-primary btn-sm buttongap'})
+                        console.log(cell5.text())
                         var cell6 = $('<a></a>').html('<i class="fa fa-plus"></i>').attr({'href':'#', 'class':'btn btn-primary btn-sm buttongap'})
                         var cell7 = $('<a></a>').html('<i class="fa fa-plus"></i>').attr({'href':'#', 'class':'btn btn-primary btn-sm'})
                             //<tr><td><td><td>
@@ -583,6 +587,14 @@ section {
                
         
             })//document.click
+            // $("#card1").on("click","a[herf = '#']",function(){
+            //     console.log($(this).child('p').text())
+            // })
+            // $("#card1").on('click',function(){
+            //     console.log($(this).id.text())
+            //     var divid = this.id
+            //     // console.log(divid)
+            // })
         })//document.ready
         
         </script>
