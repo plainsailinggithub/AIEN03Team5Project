@@ -1,0 +1,82 @@
+{% extends 'aien.html' %}
+{% load static %}
+{% block style %}
+<style>
+    #movieTitle{
+        color:rgb(164, 191, 240);
+    }
+    #content{
+        margin-bottom:150px;
+    }
+</style>
+{% endblock %}
+
+{% block left %}
+<p><a href="{% url 'article:index' %}">回到文章</a></p>
+<p><span class='btn btn-outline-info' id='btnMovie'>近期電影</span></p>
+<!-- <p><span class='btn btn-outline-info' id='btnMovie2'>新片快報</span></p> -->
+{% endblock %}
+
+
+{% block middle %}
+<div id='content'>
+    <div class='mt-5'>
+        <ul class="list-group" id='listMovies'>
+            <!-- <li class="list-group-item active"><h3>近期最新上映的10部電影</h3></li>
+            <li class="list-group-item"><h3>Dapibus ac facilisis in</h3><p>what is going on ? and are you ok with that? cokasd hola queta</p></li>
+            <li class="list-group-item">Morbi leo risus</li>
+            <li class="list-group-item">Porta ac consectetur ac</li>
+            <li class="list-group-item">Vestibulum at eros</li> -->
+        </ul>
+    </div>
+
+
+
+
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+<script>
+$(function(){
+    var btnMovie = $('#btnMovie')
+    var btnMovie2 = $('#btnMovie2')
+    var content = $('#content')
+    var listMovies = $('#listMovies')
+
+    btnMovie.click(function(){
+        $.get('/api/movies/', function(datas){
+            li = $('<li class="list-group-item  bg-secondary"></li>')
+            li.html('<h3 class="text-center" id="movieTitle">近期最新上映的10部電影<h3>')
+            listMovies.append(li)
+            $.each(datas, function(i, obj){
+                console.log(obj.title)
+                console.log(obj.url)
+                li = $('<li class="list-group-item"></li>')
+                li.html('<h4>'+ obj.title +'</h4>\
+                        <p><a target="_blank" href="'+ obj.url +'">點此前往</a></p>')
+                listMovies.append(li)
+            })
+        })
+    })
+    
+    btnMovie2.click(function(){
+        $.get('/article/askmovie/', function(datas){
+            console.log(datas)
+        })
+    })
+
+
+
+
+
+
+
+
+
+
+
+})
+</script>
+{% endblock %}

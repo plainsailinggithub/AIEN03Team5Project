@@ -23,7 +23,13 @@ def index(request):
     return render(request,'message/index.html',locals()) 
 
 def message(request):
+    if 'name' not in request.COOKIES:
+        # return redirect("/")
+        
+        strJS = "<script>alert('請先登入或註冊');location.href='/'</script>"
+        return HttpResponse(strJS)
     members = abc.all()
+    account = request.COOKIES['name'] 
     return render(request,'message/message.html',locals()) 
 
 # def friendship(request):  

@@ -19,7 +19,8 @@ class Members(models.Model):
     positionen = models.CharField(max_length=60, blank=True, null=True)
     skill = models.CharField(max_length=45, blank=True, null=True)
     language = models.CharField(max_length=45, blank=True, null=True)
-
+    img = models.CharField(max_length=100, blank=True, null=True)
+    
     class Meta:
         managed = True
         db_table = 'members'
@@ -35,3 +36,11 @@ class Articles(models.Model):
 
     class Meta:
         db_table = 'articles'
+
+
+class Movies(models.Model):
+    title = models.CharField(max_length=45)
+    url = models.CharField(max_length=300)
+
+    class Meta:
+        db_table = 'movies'

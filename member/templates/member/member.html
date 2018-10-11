@@ -138,7 +138,7 @@
 {% block left %}
 {% for member in members %}
 {% if member.2 == request.COOKIES.name %}
-<div class="card profile-card-3">
+<div class="card profile-card-3" style="z-index: 2">
     <div class="background-block">
         <img src="http://3.bp.blogspot.com/-Z97JrD_r7lA/Uho8gsuj-PI/AAAAAAAAAh4/Ns2gXdDfe50/s1600/_MG_0613B.jpg" alt="profile-sample1" class="background"/>
     </div>
@@ -220,7 +220,7 @@
               </div>
             </div> -->
             <div class="form-group">
-              <label class="control-label col-sm-3">性別<span class="text-danger">*</span></label>
+              <label class="control-label col-sm-3">性別<span class="text-danger"></span></label>
               <div class="col-md-8 col-sm-9">
                 {% if membersingle.4 == "Female" %}
                 <label>
@@ -243,14 +243,21 @@
             </div>
             
             
-            <!-- <div class="form-group">
-              <label class="control-label col-sm-3">個人照片<span class="text-danger">*</span> <br></label>
+            <div class="form-group">
+              <label class="control-label col-sm-3">生日<span class="text-danger"></span> <br></label>
               <div class="col-md-5 col-sm-8">
-                <div class="input-group"> <span class="input-group-addon" id="file_upload"><i class="glyphicon glyphicon-upload"></i></span>
-                  <input type="file" name="img" id="img" class="form-control upload" required="required" aria-describedby="file_upload">
+                {% if membersingle.12 == Null %}
+                <div class="input-group">
+                  <input type="date" name="bday" id="bday" value="">
                 </div>
+                {% else %}
+                <div class="input-group">
+                  <input type="date" name="bday" id="bday" value="{{membersingle.12}}">
+                </div>
+                {% endif %}
               </div>
-            </div> -->
+            </div>
+
             <div class="form-group">
               <label class="control-label col-sm-3">任職公司</label>
               <div class="col-md-5 col-sm-8">

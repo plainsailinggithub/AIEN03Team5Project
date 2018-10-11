@@ -23,10 +23,11 @@ from django.conf.urls.static import static
 router = DefaultRouter()
 #http://localhost/api/message
 router.register(r'todo',views.TodoViewSet)
-router.register(r'member',views.MemberViewSet)
+router.register(r'members',views.MembersViewSet)
 router.register(r'friendship',views.FriendshipViewSet)
 router.register(r'msg',views.MsgViewSet)
 router.register(r'articles', views.ArticlesViewset)
+router.register(r'movies', views.movieViewset)
 router.register(r'salary', views.EconomistViewset)
 
 
