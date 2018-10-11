@@ -575,7 +575,7 @@ section {
                     tbLeft.html(docLeftFrag)
                     // })
                 })//get json 
-                console.log(members) 
+
                 }// loadTodo    
         
         
@@ -598,24 +598,27 @@ section {
                     // console.log(textSearch)
                     theUrl = '/api/members/?search=' + textSearch
                     console.log(theUrl)
-                    $.getJSON('/api/members/?search=' + textSearch, function(datas){
-                      
+                    $.getJSON('/api/members/?search=' + textSearch, function(datasMembers){
+                    
                     
                 // $.getJSON('/api/member/',function(datas){
                     // console.log(result)
                     // var tb =  $('#todolist>tbody');
-                    var tbLeft =  $('#leftDiv');
-                    var tbMiddle =  $('#middleDiv');
-                    var tbMiddleInside = ""
-                    var docLeftFrag = ""
-                    var docMiddleFrag = $(document.createDocumentFragment())
-                    console.log(datas)
+                        var tbLeft =  $('#leftDiv');
+                        var tbMiddle =  $('#middleDiv');
+                        var tbMiddleInside = ""
+                        var docLeftFrag = ""
+                        var docMiddleFrag = $(document.createDocumentFragment())
+                        console.log(datasMembers[0].id)
                     // console.log(datas[0].name)
-        
-                    $.each(datas,function(idx, members){
+                        $.getJSON('/api/articles/'+datasMembers[0].id+'/', function(datasArticles){
+                            console.log(datasArticles)
+                            // $.each(datas,function(idx, members){
+                        
+                            // })//each
+                        })//getJson article
+                    })//getJson members
 
-                    })//each
-                    })//getJson
                 }//function loadArticles 
                 loadArticles()
             })//document.click.#readarticles    
