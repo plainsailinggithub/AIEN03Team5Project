@@ -101,7 +101,7 @@
 {% block left %}
 {% for member in members %}
 {% if member.2 == request.COOKIES.name %}
-<div class="card profile-card-3">
+<div class="card profile-card-3" style="z-index: 2">
     <div class="background-block">
         <img src="http://3.bp.blogspot.com/-Z97JrD_r7lA/Uho8gsuj-PI/AAAAAAAAAh4/Ns2gXdDfe50/s1600/_MG_0613B.jpg" alt="profile-sample1" class="background"/>
     </div>
@@ -140,16 +140,50 @@
 
 
 {% endblock %}
-{% block middle %}
 
-test
-個人首頁
-{{ id }}
-{% for member in members %}
-{% if member.2 == request.COOKIES.name %}
-{{ member.0 }}
-{% endif %}
-{% endfor %}
+
+{% block middle %}
+                    <!-- ====================== 文章 ======================= -->
+<div id='paragraph'>
+    {% for article in articles %}
+    <div class="card gedf-card mb-2 articleId" id='{{ article.id }}'>
+        <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="mr-2">
+                        <img class="rounded-circle" width="45" src="/media/{{ article.memberid.img }}" >
+                    </div>
+                    <div class="ml-2">
+                        <div class="h5 m-0">{{ article.memberid.mem_name}}</div>
+                        <div class="h7 text-muted">{{ article.memberid.emailid }}</div>
+                    </div>
+                </div>
+                <div>
+
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i>{{ article.create_time }}</div>
+            <a class="card-link" href="#"></a>
+                <h5 class="card-title">{{ article.title }}</h5>
+            </a>
+            <p class="card-text">
+                {{ article.content }}
+            </p>
+        </div>
+        <div class="card-footer">
+            <a href="" class="card-link"><i class="fa fa-gittip"></i> 讚</a>
+            <a href="" class="card-link"><i class="fa fa-comment"></i> 留言</a>
+            <a href="" class="card-link"><i class="fa fa-mail-forward"></i> 分享</a>
+        </div>
+    </div>
+    {% endfor %}
+
+                    <!-- ====================== 文章 ======================= -->
+
+
 {% endblock %}
+
 {% block script %}
 {% endblock %}
