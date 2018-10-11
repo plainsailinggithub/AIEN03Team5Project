@@ -82,7 +82,7 @@ class Economist(models.Model):
     url = models.CharField(max_length=200)
 
     class Meta:
-        db_table = 'articles'
+        db_table = 'economist'
 
 # class Members(models.Model):
 #     mem_name = models.CharField(max_length=45)
