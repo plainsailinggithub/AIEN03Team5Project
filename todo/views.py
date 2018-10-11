@@ -13,13 +13,8 @@ class MembersViewSet(viewsets.ModelViewSet):
     serializer_class = MembersSerializre
     filter_backends = (DjangoFilterBackend,filters.SearchFilter,)
     filter_fields = ('id','mem_name', 'emailid',)
-<<<<<<< HEAD
-    filter_backends = (filters.SearchFilter,)
-    search_fields = ('$mem_name', '$company', '$companyen', '$emailid')
-=======
     # filter_backends = (filters.SearchFilter,)
-    search_fields = ('$mem_name', '$company', '$companyen')
->>>>>>> 54e82fc3e5266a978d7ed2a334cb1a708483949e
+    search_fields = ('$mem_name', '$company', '$companyen','$emailid')
     # ordering_fields = '__all__'
 
 class FriendshipViewSet(viewsets.ModelViewSet):
