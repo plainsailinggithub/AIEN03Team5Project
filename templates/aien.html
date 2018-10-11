@@ -341,7 +341,7 @@ section {
             <a class="nav-link" href="/message/"><i class="far fa-envelope"></i>訊息</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'article:index' %}"><i class="far fa-newspaper"></i>新聞</a>
+            <a class="nav-link" href="{% url 'article:index' %}"><i class="far fa-newspaper"></i>文章</a>
           </li>
             </ul>
 
@@ -544,7 +544,7 @@ section {
                         var cell3 = $('<p></p>').text(members.company).attr('class','card-text')
                         // var cell4 = $('<p></p>').text(members.companyen).attr('class','card-text')
                         var cell5 = $('<a></a>').html('<i class="fa fa-plus"></i>').attr({'href':'#', 'class':'btn btn-primary btn-sm buttongap'})
-                        var cell6 = $('<a></a>').html('<i class="fa fa-plus"></i>').attr({'href':'#', 'class':'btn btn-primary btn-sm buttongap'})
+                        var cell6 = $('<a></a>').html('<i class="fas fa-file-alt"></i>').attr({'href':'#', 'class':'btn btn-primary btn-sm buttongap readarticles', 'id':members.emailid})
                         var cell7 = $('<a></a>').html('<i class="fa fa-plus"></i>').attr({'href':'#', 'class':'btn btn-primary btn-sm'})
                             //<tr><td><td><td>
                         var div1 = $('<div></div>').append([cell1,cell2,cell3,cell5,cell6,cell7]).attr('class', 'card-body text-center')
@@ -581,8 +581,9 @@ section {
                 
             loadTodo()
                
-        
+            console.log(members.emailid)
             })//document.click
+            // console.log(members.emailid)
         })//document.ready
         
         </script>
