@@ -36,8 +36,6 @@ def setting(request,id):
 def member(request):
     members = abc.all()
     cname = request.COOKIES['name']
-    x = Members.objects.get(id=1)
-    print(x)
     print(cname)
     
     return render(request,'member/homepage.html', locals())
