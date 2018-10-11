@@ -546,7 +546,7 @@ section {
                         var cell2 = $('<h4></h4>').text(members.mem_name).attr('class','card-title')
                         var cell3 = $('<p></p>').text(members.company).attr('class','card-text')
                         // var cell4 = $('<p></p>').text(members.companyen).attr('class','card-text')
-                        var cell5 = $('<a></a>').html('<i class="fa fa-plus" id='+members.id+' name='+ members.id +'>+'+"1"+'</i>').attr({'href':'#', 'class':'btn btn-primary btn-sm buttongap'})
+                        var cell5 = $('<a></a>').html('<i class="fa fa-plus bby" name='+ members.id +'></i>').attr({'href':'#', 'class':'btn btn-primary btn-sm buttongap'})
                         // console.log(cell5.text())
                         var cell6 = $('<a></a>').html('<i class="fa fa-plus"></i>').attr({'href':'#', 'class':'btn btn-primary btn-sm buttongap'})
                         var cell7 = $('<a></a>').html('<i class="fa fa-plus"></i>').attr({'href':'#', 'class':'btn btn-primary btn-sm'})
@@ -587,15 +587,31 @@ section {
                
         
             })//document.click
-            // $("#card1").on("click","a[herf = '#']",function(){
-            //     console.log($(this).child('p').text())
-            // })
-            $("#card1").on('click',"div[name ='d1']>a:first>i",function(){
-                console.log($(this).html())
-                // var divid = this.id
-                // console.log(divid)
+
+
+    //         // =============
+    //         var myid;
+    //         var myname;
+    //         var talktoid;
+    //         var talktoname;
+    // // var otherid;
+    // // var othername;
+    //         var cookieaccount = getCookie('name');
+    //         $.getJSON('/api/members',function(daas){
+    //             $.each(daas,function(index,mecheck){
+    //             if ('"' + mecheck.emailid + '"' == cookieaccount){
+    //             myid = mecheck.id
+    //             myname = mecheck.mem_name
+    //         }
+    //     })
+        // })
+            $(document).on('click',"i.bby",function(){
+                console.log($(this).attr("name"))
             })
+
         })//document.ready
+
+
         
         </script>
 {% block scripts %}
