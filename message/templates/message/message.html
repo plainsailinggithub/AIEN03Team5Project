@@ -70,6 +70,11 @@
         width:600px;
         float:right;
     }
+    .p0{
+        max-width:15%;
+        margin:5px;
+        float:left;
+    }
     .p1{
         max-width:75%;
         margin:5px;
@@ -91,6 +96,14 @@
     } 
     .p5{
         height:3px;
+    }
+    .f11{
+        font-size:24px;
+        margin:10px;
+    }
+    .f11:selection{
+       /* font-size:24px; */
+       background-color: rgb(225, 255, 127) ;
     }       
 </style>
 {% endblock %}
@@ -118,14 +131,15 @@
                     <option>5</option>
                   </select>
                 </div>
-                </div>
+                <div class="form-group" id="mymessagelist"></div>
+            </div>
         
 
             <div id="tabs-2">  
                 <div class="form-group" id="friends">
                 <input type="text" class="form-control" id="addfriend"  placeholder="搜尋好友">
                 </div>
-  
+                <div class="form-group" id="myfriendlist"></div>
             </div>
            
           </div>
@@ -153,12 +167,13 @@
                 <div contenteditable="true" class="form-control" id="testarea2" name="testarea2" autofocus></div>
               <!-- <label for="textarea2">輸入視窗</label> -->
             </div>
-          
+
           </form>
 
 {% endblock %}
 
 {% block scripts %}
+ 
 <script>
     $( function() {
       $( "#tabs" ).tabs();
@@ -166,7 +181,21 @@
 </script>
 <script>
 $(document).ready(function(){
-    // $('#leftnav').load('partial/nav.html');
+    var myid;
+    var myname;
+    var talktoid;
+    var talktoname;
+    // var otherid;
+    // var othername;
+    var cookieaccount = getCookie('name');
+    $.getJSON('/api/members',function(daas){
+        $.each(daas,function(index,mecheck){
+        if ('"' + mecheck.emailid + '"' == cookieaccount){
+            myid = mecheck.id
+            myname = mecheck.mem_name
+        }
+    })
+    })
     $('#textarea2').keydown(function () {
         if (event.keyCode == 13 && event.shiftKey){
             $(this).val($(this).val())    //設定按下shift換行
@@ -174,50 +203,76 @@ $(document).ready(function(){
             event.preventDefault();  //取消按下enter換行事件
             var textset= $('#textarea2').html();
             var datas = {
-                "name":"angeljaina",
+                "name":myname,
                 "message":textset,
-                "targetid":"2",
+                "targetid":talktoid,
                 "messageimage":"",
             }
             $.post('/api/msg/',datas,function(newmsg){
                 loadmsg()
             })
             $('#textarea2').html("") 
-        };    
+        };   
     });
     $("a[href='#tabs-2']").one("click",function(){
-        $.getJSON('/api/member/',function(dates){
-            $.each(dates,function(index,object){
-                $('#friends').append("<div>" + object.name +"</div>")
+        $.getJSON('/api/friendship?name='+ myname,function(datas){
+            $.each(datas,function(index,object){
+                var friendid = object.friendid
+                $.getJSON('/api/members?id='+ friendid,function(data){
+                $.each(data,function(index,objects){
+                    $('#myfriendlist').append("<p class='f11'>" + objects.mem_name +"</p>")    })
+            })
             })
         })
+    });
+    $("#myfriendlist").on('click','p',function(){
+        // $('#textarea1').html("")
+        talktoname =  $(this).text()
+        $.getJSON('/api/members?mem_name='+ talktoname,function(data){
+        $.each(data,function(index,objects){
+        talktoid = objects.id
+        })
+        })
+        // loadmsg();
     })
+    // $("#mymessagelist").on('dblclick','p',function(){
+    //     talktoname =  $(this).text()
+    //     $.getJSON('/api/members?mem_name='+ talktoname,function(data){
+    //     $.each(data,function(index,objects){
+    //     talktoid =   objects.id
+    //     console.log(talktoid)  
+    //     })
+    //     })
+    // })
+    // function choicetarget(){
+    //     $.getJSON()
+    // }
     function loadmsg(){
         $.getJSON('/api/msg/',function(msghistory){
             var docFrag = $(document.createDocumentFragment())
             $.each(msghistory,function(index,msgdatas){
                 var messagetime = formatDate(msgdatas.last_modified_at) 
                 //呼叫formatDate function放入變數messagetime
+                var cell0 = $('<p class="h6 p0"></p>').text(msgdatas.name)
                 var cell1 = $('<p class="h4 triangle-isosceles left p1"></p>').text(msgdatas.message)
                 var cell2 = $('<p class="p2"></p>').text(messagetime).attr('contenteditable','true')               
                 var cell3 = $('<p class="h4 triangle-right right p3"></p>').text(msgdatas.message)
                 var cell4 = $('<p class="p4"></p>').text(messagetime).attr('contenteditable','true')
                 var cell5 = $('<p class="p5"><p>').text(" ").attr
                 ('contenteditable','true')
-                var rowother = $ ('<div class="div1"></div>').append([cell1,cell2,cell5])
+                var rowother = $ ('<div class="div1"></div>').append([cell0,cell1,cell2,cell5])
                 var rowmine = $ ('<div class="div2"></div>').append([cell3,cell4,cell5])
-                if (msgdatas.name != "angeljaina"){
-                    docFrag.append(rowother)
-                }else{
+                if (msgdatas.name == myname && msgdatas.targetid == talktoid){
                     docFrag.append(rowmine)
+                }else if (msgdatas.targetid == myid && msgdatas.name == talktoname){
+                    docFrag.append(rowother)
                 }
             })
             $('#textarea1').html(docFrag)
-            var div = document.getElementById('textarea1')
-            div.scrollTop = div.scrollHeight;
+            scrollHeight()        
         })
     }
-    //每秒一次回傳訊息
+    //每3秒回傳訊息
     function done(){
         setTimeout(function() { 
         loadmsg();
@@ -235,22 +290,27 @@ $(document).ready(function(){
             else{
                 return (t.substr(5,5)+" "+t.substr(11,5))
             }
+        };
+    function scrollHeight(){
+        //設定自動捲動到最下面            
+        var div = document.getElementById('textarea1')
+        div.scrollTop = div.scrollHeight;     
+    };
+    function getCookie(cookieName) {
+        //取得指定的Cookie值
+        var name = cookieName + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0; i<ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1);
+        if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
         }
-    loadmsg();    
+        return "";
+    };
+    loadmsg();     
     done();
-    function timet(){
-        var dt1 = new Date();
-        $.getJSON('/api/msg/',function(msghistory){
-            $.each(msghistory,function(index,msgdatas){
-            var dt2 = new Date(msgdatas.last_modified_at);
-    // console.log(dt2)
-    // document.write((dt2 - dt1) / (1000)) 
-    })
-    console.log(dt1)
-    })
-    }
-    timet();
 })   
+
 </script>    
 
 <script>
@@ -274,6 +334,7 @@ $(document).ready(function(){
                 $('#testarea2').html("") 
             }; 
         });
+
         function loadmsg(){
             $.getJSON('/api/msg/',function(msghistory){
                 var docFrag = $(document.createDocumentFragment())
@@ -288,9 +349,9 @@ $(document).ready(function(){
                 //呼叫formatDate function放入變數messagetime
                 var cell1 = messagewho
                 // var cell1 = $('<p class="h4 triangle-isosceles left"></p>').text(msgdatas.message)
-                    var cell2 = $('<p></p>').text(messagetime).attr('contenteditable','true')
-                    var row = $ ('<div class="d1"></div>').append([cell1,cell2])
-                    docFrag.append(row)
+                var cell2 = $('<p></p>').text(messagetime).attr('contenteditable','true')
+                var row = $ ('<div class="d1"></div>').append([cell1,cell2])
+                docFrag.append(row)
                 })
                 $('#testarea1').html(docFrag)
                 var div = document.getElementById('testarea1')
