@@ -50,16 +50,16 @@
 {% block left %}
 <!-- <div class="col-md-3 text-center bg-white pt-3 left"> -->
     <input type="button" value='發表文章' class='btn btn-outline-primary' id='btnSend'>
-    <input type="button" value='休閒娛樂' class='btn btn-outline-primary' id='btnType'>
+    <input type="button" value='其他類別' class='btn btn-outline-primary' id='btnType'>
     <div class='mt-3 text-left' id='articleType'>
         <div>
             <p><a href="{% url 'article:entertainment' %}">電影</a></p>
         </div>
         <div>
-            <p class='btn btn-outline-info'>自己</p>
+            <p><a href="{% url 'article:chart' %}">報表</a></p>
         </div>
         <div>
-            <p class='btn btn-outline-info'>好友</p>
+            <!-- <p class='btn btn-outline-info'>好友</p> -->
         </div>
     </div>
 
@@ -244,7 +244,7 @@
 
             // paragraph.text('')
             $.get('/article/create/', datas, function(returnDatas){
-            console.log(returnDatas[0].fields.mtable[2])
+            console.log(returnDatas[0].fields.mtable[1])
                     // 接收json 
 
                             // ==== 我發現只更新一筆資料的缺點: 沒有辦法更新底下文章的時間，所以~不用了====
@@ -297,10 +297,10 @@ function update_paragraph(ID, create_time, memberName, email, title, content, im
             <div class="d-flex justify-content-between align-items-center">\
                 <div class="d-flex justify-content-between align-items-center">\
                     <div class="mr-2">\
-                        <img class="rounded-circle" width="45" src='+"\""+ imgs+"\""+ + 'alt="">\
+                        <img class="rounded-cricle" width="45" src="'+imgs+'">\
                     </div>\
                     <div class="ml-2">\
-                        <div class="h5 m-0">' + memberName +'</div>\
+                        <div class="h5 m-0">'+ memberName +'</div>\
                         <div class="h7 text-muted">' + email + '</div>\
                     </div>\
                 </div>\
