@@ -118,7 +118,7 @@ def handel():
     emails = Members.objects.all()
     mdata = {}
     for i in emails:
-        mdata[i.id] = [i.emailid, i.mem_name, i.img]
+        mdata[i.id] = [i.emailid, i.mem_name, i.img, i.password]
     article = serializers.serialize('json', Articles.objects.all()[::-1])
     _data = json.loads(article)     #list
     index = 0 
@@ -126,11 +126,16 @@ def handel():
         id = i['fields']['memberid']
         if id in mdata:
             _data[index]['fields']['mtable'] = mdata[id]
+            _data[index]['email'] = mdata[id][0]
+            
         index +=1
     
     article = json.dumps(_data)
     return article
 
+def relationdatas(request):
+    datas = handel()
+    return HttpResponse(datas, content_type='application/json')
 
 def entertainment(request):
     movies = Movies.objects.all().delete()
