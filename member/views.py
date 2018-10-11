@@ -17,6 +17,17 @@ def index(request):
 
     return render(request,'member/index.html', locals())
 def setting(request,id):
+    if 'name' not in request.COOKIES:
+        # return redirect("/")
+        strJS = "<script>alert('請先登入或註冊');location.href='/'</script>"
+        return HttpResponse(strJS)
+    
+    if abc.single(id)[2] != request.COOKIES["name"]:
+        fake = abc.all()
+        for member in fake:
+            if member[2] == request.COOKIES["name"]:
+                return HttpResponse("<script>location.href='/setting/{}'</script>".format(member[0]))
+
     if request.method == "POST":
         gender = request.POST['gender']
         company = request.POST['company']
@@ -40,9 +51,16 @@ def setting(request,id):
     return render(request,'member/member.html', locals())
 
 def member(request):
+    if 'name' not in request.COOKIES:
+        # return redirect("/")
+        
+        strJS = "<script>alert('請先登入或註冊');location.href='/'</script>"
+        return HttpResponse(strJS)
+
+
     members = abc.all()
-    cname = request.COOKIES['name']
-    print(cname)
+    
+    
     # =============== 文章 ===================
     articles = read_articles(Articles.objects.all()[::-1])
     # =============== 文章 ===================
@@ -128,15 +146,15 @@ def updateph(request,id):
 
 # ================= 放置文章到 homepage.html ===================
 
-def index(request):
-    articles = read_articles(Articles.objects.all()[::-1])
-    members = abc.all()
+# def index(request):
+#     articles = read_articles(Articles.objects.all()[::-1])
+#     members = abc.all()
     
-    if 'name' in request.COOKIES:
-        email = request.COOKIES['name']
-        member_id = Members.objects.get(emailid=email).id
+#     if 'name' in request.COOKIES:
+#         email = request.COOKIES['name']
+#         member_id = Members.objects.get(emailid=email).id
 
-    return render(request, 'article/index.html', locals())
+#     return render(request, 'article/index.html', locals())
 
 def change_time(seconds):
     hours = seconds//3600
