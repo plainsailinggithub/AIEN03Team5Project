@@ -14,7 +14,7 @@ class MembersViewSet(viewsets.ModelViewSet):
     filter_backends = (DjangoFilterBackend,)
     filter_fields = ('id','mem_name', 'emailid',)
     filter_backends = (filters.SearchFilter,)
-    search_fields = ('$mem_name', '$company', '$companyen')
+    search_fields = ('$mem_name', '$company', '$companyen', '$emailid')
     # ordering_fields = '__all__'
 
 class FriendshipViewSet(viewsets.ModelViewSet):
