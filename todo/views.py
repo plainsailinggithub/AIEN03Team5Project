@@ -1,5 +1,5 @@
-from todo.models import Todo,Members,Friendship,Msg,Articles,Movies,Economist   
-from todo.serializers import TodoSerializre,MembersSerializre,FriendshipSerializre,MsgSerializre,ArticleSerializer,movieSerializer,EconomistSerializer
+from todo.models import Todo,Members,Friendship,Msg,Articles,Movies,Economist,Adcount  
+from todo.serializers import TodoSerializre,MembersSerializre,FriendshipSerializre,MsgSerializre,ArticleSerializer,movieSerializer,EconomistSerializer,AdcountSerializer
 from rest_framework import viewsets, generics, filters
 from django_filters.rest_framework import DjangoFilterBackend
 # Create your views here.
@@ -48,3 +48,9 @@ class movieViewset(viewsets.ModelViewSet):
 class EconomistViewset(viewsets.ModelViewSet):
     queryset = Economist.objects.all()
     serializer_class = EconomistSerializer
+
+class AdcountViewset(viewsets.ModelViewSet):
+    queryset = Adcount.objects.all()
+    serializer_class = AdcountSerializer
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('adname', 'count')
