@@ -7,38 +7,53 @@
 </style>
 {% endblock %}
 
-
-
-{% block main %}
-<div class="container">
-    <h1 class="text-center">Hello</h1>
+{% block left %}
 
 
 
+<button class = "btn btn-outline-info" id="btn">最新文章</button>
 
 
+{% endblock %}
+{% block middle %}
 
+  
 
+    <ul class="list-group" id="list">
+        <li class="list-group-item active">薪資相關資訊</li>
+    </ul>
+      
+      
 
-    
-</div>
 {% endblock %}
 
 {% block scripts %}
 <script>
 $(document).ready(function(){
-$.get("/api/salary/", function(datas){
-//   console.log(datas)
-    $.each(datas, function(i,obj){
 
-        console.log(obj.title)
-        console.log(obj.url)
-    })
+
+var list = $("#list")
+var btn = $("#btn")
+
+btn.click(function(){
+// console.log('can')
+news()
 
 })
 
-
-
+function news(){
+    $.get("/api/salary/", function(datas){
+//   console.log(datas)
+    $.each(datas, function(i,obj){
+        // console.log(obj.title)
+        // console.log(obj.url)
+        var title = obj.title
+        var url = obj.url
+        var li = $('<li class="list-group-item">  <h3>'+ title +'</h3>  <a target="_blank" href=" '+ url +' ">按此前往</a>   </li>')
+        list.append(li)
+    })
+})
+}
 
 
 

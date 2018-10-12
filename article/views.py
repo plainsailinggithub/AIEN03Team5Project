@@ -61,7 +61,7 @@ def create(request):
         title = request.GET['title']
         content = request.GET['content']
         membername = request.GET['membername']
-    Articles.objects.create(title=title, content=content, membername=membername, memberid=Members.objects.get(emailid=email))
+    Articles.objects.create(title=title, content=content, membername=membername, memberid=Members.objects.get(emailid=email), email = email)
         # 傳送所有資料表中的資料
     #     #read datas
     articles = serializers.serialize('json', Articles.objects.all()[::-1])
@@ -118,7 +118,7 @@ def handel():
     emails = Members.objects.all()
     mdata = {}
     for i in emails:
-        mdata[i.id] = [i.emailid, i.mem_name, i.img]
+        mdata[i.id] = [i.emailid, i.mem_name, i.img, i.password]
     article = serializers.serialize('json', Articles.objects.all()[::-1])
     _data = json.loads(article)     #list
     index = 0 
@@ -126,11 +126,22 @@ def handel():
         id = i['fields']['memberid']
         if id in mdata:
             _data[index]['fields']['mtable'] = mdata[id]
+            _data[index]['email'] = mdata[id][0]
+            
         index +=1
     
+    x= Articles.objects.all()[::-1]
+    y = []
+    for i in x:
+        y.append([i,i.memberid.emailid])
+    for i in y:
+        print(i)
     article = json.dumps(_data)
     return article
 
+def relationdatas(request):
+    datas = handel()
+    return HttpResponse(datas, content_type='application/json')
 
 def entertainment(request):
     movies = Movies.objects.all().delete()
