@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 from todo.models import Todo,Members,Friendship,Msg,Articles,Movies,Economist
+=======
+from todo.models import Todo,Members,Friendship,Msg,Articles,Movies,Economist   
+>>>>>>> 0e58aff226ae069c6f259193f248b7edaada7979
 from todo.serializers import TodoSerializre,MembersSerializre,FriendshipSerializre,MsgSerializre,ArticleSerializer,movieSerializer,EconomistSerializer
 from rest_framework import viewsets, generics, filters
 from django_filters.rest_framework import DjangoFilterBackend
@@ -11,9 +15,9 @@ class TodoViewSet(viewsets.ModelViewSet):
 class MembersViewSet(viewsets.ModelViewSet):
     queryset = Members.objects.all()
     serializer_class = MembersSerializre
-    filter_backends = (DjangoFilterBackend,filters.SearchFilter,)
+    filter_backends = (DjangoFilterBackend,)
     filter_fields = ('id','mem_name', 'emailid',)
-    # filter_backends = (filters.SearchFilter,)
+    filter_backends = (filters.SearchFilter,)
     search_fields = ('$mem_name', '$company', '$companyen','$emailid')
     # ordering_fields = '__all__'
 
@@ -35,9 +39,15 @@ class MsgViewSet(viewsets.ModelViewSet):
     # search_fields = ('name', 'message','targetid')
     # ordering_fields = '__all__'               
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0e58aff226ae069c6f259193f248b7edaada7979
 class ArticlesViewset(viewsets.ModelViewSet):
     queryset = Articles.objects.all()
     serializer_class = ArticleSerializer
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('=email',)
 
 class movieViewset(viewsets.ModelViewSet):
     queryset = Movies.objects.all()

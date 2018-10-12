@@ -9,10 +9,18 @@ class Todo(models.Model):
     class Meta:
         db_table = "todo";     
 
+# class Member(models.Model):
+#     name = models.CharField(max_length=45)
+#     email = models.CharField(max_length=200)
+#     password = models.CharField(max_length=45)
+#     last_modified_at = models.DateTimeField(auto_now=True)
+#     created_at = models.DateTimeField(auto_now_add=True)
+#     class Meta:
+#         db_table = "member";    
+
 class Friendship(models.Model):
     name = models.CharField(max_length=45)
     friendid = models.CharField(max_length=45)
-    addid = models.CharField(max_length=45)
     last_modified_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
     class Meta:
@@ -62,13 +70,35 @@ class Articles(models.Model):
 class Movies(models.Model):
     title = models.CharField(max_length=45)
     url = models.CharField(max_length=300)
+
     class Meta:
         db_table = 'movies'
+
+
 
 class Economist(models.Model):
     title = models.CharField(max_length=45)
     url = models.CharField(max_length=200)
+
     class Meta:
         db_table = 'economist'
 
+# class Members(models.Model):
+#     mem_name = models.CharField(max_length=45)
+#     emailid = models.CharField(max_length=200)
+#     password = models.CharField(max_length=45)
+#     gender = models.CharField(max_length=45, blank=True, null=True)
+#     company = models.CharField(max_length=60, blank=True, null=True)
+#     companyen = models.CharField(max_length=60, blank=True, null=True)
+#     position = models.CharField(max_length=60, blank=True, null=True)
+#     positionen = models.CharField(max_length=60, blank=True, null=True)
+#     skill = models.CharField(max_length=45, blank=True, null=True)
+#     language = models.CharField(max_length=45, blank=True, null=True)
 
+<<<<<<< HEAD
+=======
+#     class Meta:
+#         managed = True
+#         db_table = 'members'
+#         db_table = 'economist'
+>>>>>>> 0e58aff226ae069c6f259193f248b7edaada7979
