@@ -414,7 +414,7 @@ section {
 
   <nav class="navbar navbar-expand-lg navbar-dark header-padding" style="background-color:#283E4A;height: 52px">
             
-    <a class="navbar-brand" href="#">LinkedIn</a>
+    <a class="navbar-brand" href="#">NetworkIn</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -441,15 +441,16 @@ section {
 
           <ul class="navbar-nav mr-4">
             <li class="nav-item dropdown">
+                 {% for member in members %}
+                {% if member.2 == request.COOKIES.name %}
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="fas fa-wrench"></i>
-                我的設定
+                {{ member.1 }}
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                {% for member in members %}
-                {% if member.2 == request.COOKIES.name %}
+               
                 <a class="dropdown-item" href="{% url 'member:setting' member.0 %}">個人資料</a>
-                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">刪除帳號</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{% url 'member:logout' %}">登出</a>
                 {% endif %}
@@ -568,7 +569,7 @@ section {
         <!-- footer div區塊 -->
 
   <footer  style="background-color:#283E4A">
-    <p>© 2018<a style="color:#0a93a6; text-decoration:none;" href="#"> LinkedIn </a>, All rights reserved 2018.</p>
+    <p>© 2018<a style="color:#0a93a6; text-decoration:none;" href="#"> NetworkIn </a>, All rights reserved 2018.</p>
   </footer>
 
                 

@@ -83,6 +83,14 @@ class Economist(models.Model):
     class Meta:
         db_table = 'economist'
 
+class Adcount(models.Model):
+    adname = models.CharField(max_length=45)
+    count = models.IntegerField()
+
+
+    class Meta:
+        managed = False
+        db_table = 'Adcount'
 # class Members(models.Model):
 #     mem_name = models.CharField(max_length=45)
 #     emailid = models.CharField(max_length=200)
