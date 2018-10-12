@@ -616,12 +616,14 @@ section {
         })
             $(document).on('click',"i.bby",function(){
                 var addid= $(this).attr("name")
-                var datas = {
-                "myid":myid,
-                "askid":addid,
-            }
-            $.post('/api/msg/',datas,function(newmsg){
-                alert("已申請新增好友")
+                console.log(myid)
+                console.log(addid)
+                var datas =     {
+                "myid": myid,
+                "askid": addid
+                }
+                $.post('/api/addfriend/',datas,function(newid){
+                    alert("已申請新增好友")
             })
             })
 ///////////////////////////////////////////////////////////////////////////
