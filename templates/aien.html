@@ -40,30 +40,10 @@
             left:0;
             top:0;
             z-index:10;
-            
+            padding:0;
         }
-        /* display: none; */
-
-        /* .gedf-wrapper {
-            margin-top: 0.97rem;
-        }
-
-        @media (min-width: 992px) {
-            .gedf-main {
-                padding-left: 4rem;
-                padding-right: 4rem;
-            }
-            .gedf-card {
-                margin-bottom: 2.77rem;
-            }
-        } 
 
         
-        .dropdown-toggle::after {
-            content: none;
-        }   */
-
-   /* *Reset Bootstrap */
 
 
     .content-left {
@@ -404,8 +384,13 @@ section {
     color:#fff;
     text-decoration:none;
   }
-
-
+  .block {            
+    display: block;
+}
+    
+.none {
+    display: none;
+}
     </style>
 {% block style %}
 {% endblock %}
@@ -448,6 +433,9 @@ section {
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'article:index' %}"><i class="far fa-newspaper"></i>文章</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'Sophia:index' %}"><i class="far fa-newspaper"></i>新聞</a>
           </li>
             </ul>
 
@@ -542,18 +530,19 @@ section {
         
 
         <!-- 右邊block 比例3/12 放廣告區 不要動!-->
-      <div class="col-md-3 content-right">
-          <div class="card gedf-card">
-              <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                      card's content.</p>
-                  <a href="#" class="card-link">Card link</a>
-                  <a href="#" class="card-link">Another link</a>
-              </div>
-          </div>
-      </div>
+        <div class="col-md-3 content-right">
+            <div class="card gedf-card">
+                <div class="card-body">
+                  <a href="https://www.shein.tw/Best-Selling-Dresses-vc-70094.html?url_from=twadgg03xxn_BestSellingDressesvc70094_20180916-I-300*250&gclid=EAIaIQobChMInqzmyOX_3QIVmreWCh1vEgy2EAEYASAAEgLWLPD_BwE" target="_blank"><img id="ad0" class="block" src="/media/ad01.gif" style='height: 100%; width: 100%; object-fit: contain'></a>
+                  <a href="http://prodtw.universalpictures.com/micro/first-man" target="_blank"><img id="ad1" class="none" src="/media/ad02.jpg" style='height: 100%; width: 100%; object-fit: contain'></a>
+                  <a href="https://www.taiwanmobile.com/content/event/estore-499/index.html?utm_source=GDN&utm_medium=CPC&utm_campaign=estore_Oct_499&utm_content=remarketing_20181001_499&mkwid=4tkvkyax" target="_blank"><img id="ad2" class="none" src="/media/ad03.png"
+                    style='height: 100%; width: 100%; object-fit: contain'></a>
+                  <a href="https://www.domohornwrinkle.com.tw/tc/landing/lps0011/?bcd=TWIA0010&sid=pa0044&cid=TWIA0010pa0044&utm_source=google&utm_medium=display&utm_campaign=sample_pc&gclid=EAIaIQobChMI5-voluf_3QIVBymWCh2niwjKEAEYASAAEgI9EfD_BwE" target="_blank"><img id="ad3" class="none" src="/media/ad04.png"
+                    style='height: 100%; width: 100%; object-fit: contain'></a>
+                    
+                </div>
+            </div>
+        </div>
       <!-- 右邊block 比例3/12 的放廣告區 的結尾-->
 
 <img src="" alt="" height="" width="">
@@ -631,7 +620,7 @@ section {
         
                         var cell1 = $('<p></p>').html('<img  class="img-fluid" src="/media/'+members.img+'" alt="card image">')
                         
-                        var cell2 = $('<h4></h4>').text(members.mem_name).attr('class','card-title')
+                        var cell2 = $('<h6></h6>').text(members.mem_name).attr('class','card-title')
                         var cell3 = $('<p></p>').text(members.company).attr('class','card-text')
                         var cell4 = $('<p></p>').text(members.position).attr('class','card-text')
                         var cell5 = $('<button></button>').html('<i class="fa fa-plus"></i>').attr({'href':'#', 'class':'btn btn-primary btn-sm buttongap'})
@@ -659,7 +648,7 @@ section {
         
                     var div6 = $('<div></div>').append(div5).attr('class','container')
                     
-                    var div7 = $('<section></section>').append(div6).attr({'id':'team', 'class':'pb-5 border1'})
+                    var div7 = $('<section></section>').append(div6).attr({'id':'team', 'class':'pb-5 border1 middleDivMargin'})
                     
 
                     
