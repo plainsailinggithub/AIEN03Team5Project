@@ -64,6 +64,7 @@ class Articles(models.Model):
     create_time = models.DateTimeField(auto_now_add=True)
     membername = models.CharField(max_length=30)
     memberid = models.ForeignKey('Members', models.DO_NOTHING, db_column='memberid', blank=True, null=True)
+    emailid = models.CharField(max_length=200)
 
     class Meta:
         db_table = 'articles'
