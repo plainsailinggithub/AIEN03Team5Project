@@ -55,6 +55,10 @@ class Articles(models.Model):
     create_time = models.DateTimeField(auto_now_add=True)
     membername = models.CharField(max_length=30)
     memberid = models.ForeignKey('Members', models.DO_NOTHING, db_column='memberid', blank=True, null=True)
+<<<<<<< HEAD
+=======
+    email = models.CharField(max_length=100)
+>>>>>>> 7a2c2db97118eefd02a9643beafc565974f45b46
     class Meta:
         db_table = 'articles'
 
@@ -68,7 +72,7 @@ class Economist(models.Model):
     title = models.CharField(max_length=45)
     url = models.CharField(max_length=200)
     class Meta:
-        db_table = 'articles'
+        db_table = 'economist'
 
 
 class Addfriend(models.Model):

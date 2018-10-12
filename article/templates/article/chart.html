@@ -1,17 +1,69 @@
 <!DOCTYPE HTML>
 <html>
 <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <style>
+        body{
+            background-color:rgb(83, 81, 81);
+        }
+        #chartContainer{
+            margin:60px auto;
+        }
+        #btn{
+            position:fixed;
+            top:30px;
+            left:30px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id='btn'>
+        <div>
+            <button class='btn btn-outline-warning mb-3'>長條圖</button>
+        </div>
+        <div>
+            <button class='btn btn-outline-warning mb-3'>圓餅圖</button>
+        </div>
+        <div>
+            <button class='btn btn-outline-warning mb-3'>環狀圖</button>
+        </div>
+    </div>
+
+
+<div id="chartContainer" style="height: 400px; width: 50%;"></div>
+
+<a class='btn btn-outline-warning mb-3 ml-4' href="{% url 'article:index' %}">回到文章</a>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+
+
 <script>
-window.onload = function () {
+$(function(){
+    var btn = $('.btn-outline-warning')
+    $(btn[0]).click(function(){
+        bar()
+    })
+    $(btn[1]).click(function(){
+        pie()
+    })
+    $(btn[2]).click(function(){
+        donut()
+    })
+    
 
-//Better to construct options first and then pass it as a parameter
 
-
-
-$.get('/article/chart/get/', function(results){
+function bar(){
+    $.get('/article/chart/get/', function(results){
     var options = {
 	title: {
-		text: "Column Chart in jQuery CanvasJS"              
+		text: "會員使用發表文章次數 : "              
 	},
 	data: [              
 	{
@@ -21,20 +73,75 @@ $.get('/article/chart/get/', function(results){
 	}
 	]
 };
-
 $("#chartContainer").CanvasJSChart(options);
 })
-
-
-
-
-
 }
+
+function pie(){
+    $.get('/article/chart/get/', function(results){
+        var options = {
+        title: {
+            text: "Desktop OS Market Share in 2017"
+        },
+        subtitles: [{
+            text: "As of November, 2017"
+        }],
+        animationEnabled: true,
+        data: [{
+            type: "pie",
+            startAngle: 40,
+            toolTipContent: "<b>{label}</b>: 文章數{y}",
+            showInLegend: "true",
+            legendText: "{label}",
+            indexLabelFontSize: 16,
+            indexLabel: "{label} - 文章數{y}",
+            dataPoints: results
+        }]
+    }
+    $("#chartContainer").CanvasJSChart(options);
+})
+}
+
+
+
+function donut(){
+    $.get('/article/chart/get/', function(results){
+        var options = {
+        title: {
+            text: "Desktop OS Market Share in 2017"
+        },
+        subtitles: [{
+            text: "As of November, 2017"
+        }],
+        animationEnabled: true,
+        data: [{
+            type: "doughnut",
+            innerRadius: "50%",
+            startAngle: 40,
+            toolTipContent: "<b>{label}</b>: 文章數{y}",
+            showInLegend: "true",
+            legendText: "{label}",
+            indexLabelFontSize: 16,
+            indexLabel: "{label} - 文章數{y}",
+            dataPoints: results
+        }]
+    }
+    $("#chartContainer").CanvasJSChart(options);
+})
+}
+pie()
+
+
+
+
+
+
+
+
+
+
+
+})
 </script>
-</head>
-<body>
-<div id="chartContainer" style="height: 370px; width: 100%;"></div>
-<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
-<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
 </body>
 </html>
