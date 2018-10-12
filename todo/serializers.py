@@ -19,12 +19,8 @@ class MsgSerializre(serializers.ModelSerializer):
     class Meta:
         model = Msg
         fields = '__all__'
-<<<<<<< HEAD
-        # ordering = ['order']     
-=======
         # ordering = ['order']
      
->>>>>>> 0e58aff226ae069c6f259193f248b7edaada7979
 
 class ArticleSerializer(serializers.ModelSerializer):
     class Meta:

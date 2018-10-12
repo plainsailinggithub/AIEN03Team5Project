@@ -95,10 +95,7 @@ class Economist(models.Model):
 #     skill = models.CharField(max_length=45, blank=True, null=True)
 #     language = models.CharField(max_length=45, blank=True, null=True)
 
-<<<<<<< HEAD
-=======
 #     class Meta:
 #         managed = True
 #         db_table = 'members'
 #         db_table = 'economist'
->>>>>>> 0e58aff226ae069c6f259193f248b7edaada7979
