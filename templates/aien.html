@@ -303,6 +303,7 @@ section {
     /* font-color:#E100E1; */
     text-indent:-9999px;
 }
+<<<<<<< HEAD
 .middleDivMargin {
     margin-bottom: 10%;
 }
@@ -406,6 +407,15 @@ section {
   }
 
 
+=======
+.block {            
+    display: block;
+}
+    
+.none {
+    display: none;
+}
+>>>>>>> b5b939119b23d3e1391490c5337c277f54ae541f
     </style>
 {% block style %}
 {% endblock %}
@@ -545,12 +555,11 @@ section {
       <div class="col-md-3 content-right">
           <div class="card gedf-card">
               <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                      card's content.</p>
-                  <a href="#" class="card-link">Card link</a>
-                  <a href="#" class="card-link">Another link</a>
+                <a href="https://www.shein.tw/Best-Selling-Dresses-vc-70094.html?url_from=twadgg03xxn_BestSellingDressesvc70094_20180916-I-300*250&gclid=EAIaIQobChMInqzmyOX_3QIVmreWCh1vEgy2EAEYASAAEgLWLPD_BwE" target="_blank"><img id="ad0" class="block" src="/media/ad01.gif"></a>
+                <a href="http://prodtw.universalpictures.com/micro/first-man" target="_blank"><img id="ad1" class="none" src="/media/ad02.jpg"></a>
+                <a href="https://www.taiwanmobile.com/content/event/estore-499/index.html?utm_source=GDN&utm_medium=CPC&utm_campaign=estore_Oct_499&utm_content=remarketing_20181001_499&mkwid=4tkvkyax" target="_blank"><img id="ad2" class="none" src="/media/ad03.png"></a>
+                <a href="https://www.domohornwrinkle.com.tw/tc/landing/lps0011/?bcd=TWIA0010&sid=pa0044&cid=TWIA0010pa0044&utm_source=google&utm_medium=display&utm_campaign=sample_pc&gclid=EAIaIQobChMI5-voluf_3QIVBymWCh2niwjKEAEYASAAEgI9EfD_BwE" target="_blank"><img id="ad3" class="none" src="/media/ad04.png"></a>
+                  
               </div>
           </div>
       </div>
@@ -827,8 +836,22 @@ section {
             
         })//document.ready
 
+        // ===========廣告輪播==============
+        var adImgs = document.querySelectorAll("img.block,img.none");
 
         
+        var count = 0;
+        var flag = true;
+        function show() {
+            adImgs[count].className = "none";
+            count++;
+            if (count >= 4) count = 0;   
+            adImgs[count].className = "block";
+        }
+
+        var t = window.setInterval(show, 5000);
+        
+
         </script>
 {% block scripts %}
 {% endblock %}

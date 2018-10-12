@@ -125,28 +125,28 @@
       <div class="row" >
     
             <!-- 左邊3/12的div區塊 -->
-          <div class="col-md-3 content-left">
+          <div class="col-md-4 content-left">
                
           </div>
           <!-- div class="col-md-3 content-left"的結尾 -->
     
     
-    
+          
            <!-- 中間6/12的div區塊 -->
-           <div class="col-md-6 gedf-main" style="background-color:#e8ffc4 ;opacity:0.85">
-            <h1 class="entry-title"><span>Sign Up</span> </h1>
+           <div class="col-md-4 gedf-main" style="background-color:rgba(255, 255, 255, .4)">
+            <h1 class="entry-title" style="font-weight:bold"><span>Sign Up</span> </h1>
             <hr>
                 <form class="form-horizontal" action="{% url 'member:register' %}" method="POST" name="signup" id="signup" enctype="multipart/form-data" >        
                     {% csrf_token %}
                     <div class="form-group">
-                    <label class="control-label col-sm-3">姓名 <span class="text-danger">*</span></label>
+                    <label class="control-label col-sm-3" style="font-weight:bold ;font-size:20px">姓名 <span class="text-danger">*</span></label>
                     <div class="col-md-8 col-sm-9">
                         <input type="text" class="form-control" name="mem_name" id="mem_name" required="required" placeholder="Enter your Name here" value="">
                     </div>
                     </div>        
     
                     <div class="form-group">
-                    <label class="control-label col-sm-3">信箱  <span class="text-danger">*</span></label>
+                    <label class="control-label col-sm-3" style="font-weight:bold;font-size:20px">信箱  <span class="text-danger">*</span></label>
                     <div class="col-md-8 col-sm-9">
                         <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
@@ -158,11 +158,11 @@
                     </div>
                     
                     <div class="form-group">
-                    <label class="control-label col-sm-3">密碼 <span class="text-danger">*</span></label>
+                    <label class="control-label col-sm-3" style="font-weight:bold;font-size:20px">密碼 <span class="text-danger">*</span></label>
                     <div class="col-md-5 col-sm-8">
                         <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                        <input type="password" class="form-control" name="password" id="password" required="required" placeholder="Choose password (4-8 chars)" value="">
+                        <input type="password" class="form-control" name="password" id="password" required="required" placeholder="password (4-8 chars)" value="">
                     </div>
                     <span id="pwdcheck" class="text-danger"></span>   
                     </div>
@@ -180,7 +180,7 @@
            <!-- 中間6/12的div區塊 div class="col-md-6 gedf-main" 的結尾-->
     
             <!-- 右邊block 比例3/12 放廣告區 不要動!-->
-          <div class="col-md-3 content-right">
+          <div class="col-md-4 content-right">
               
           </div>
           <!-- 右邊block 比例3/12 的放廣告區 的結尾-->
