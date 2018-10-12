@@ -182,12 +182,12 @@ $(document).ready(function(){
         };   
     });
     $("a[href='#tabs-2']").one("click",function(){
-        $.getJSON('/api/friendship?name='+ myname,function(datas){
-            $.each(datas,function(index,object){
-                var friendid = object.friendid
-                $.getJSON('/api/members?id='+ friendid,function(data){
-                $.each(data,function(index,objects){
-                    $('#myfriendlist').append("<p class='f11'>" + objects.mem_name +"</p>")    })
+        $.getJSON('/api/friendship?name='+ myname ,function(datas){
+        $.each(datas,function(index,object){
+        var friendid = object.friendid
+        // console.log(friendid)
+        $.getJSON('/api/members/'+friendid,function(data){
+            $('#myfriendlist').append("<p class='f11'>"+data.mem_name+"</p>")
             })
             })
         })
@@ -195,8 +195,8 @@ $(document).ready(function(){
     $("#myfriendlist").on('click','p',function(){
         talktoname =  $(this).text()
         $.getJSON('/api/members?mem_name='+ talktoname,function(data){
-        $.each(data,function(index,objects){
-        talktoid = objects.id
+        $.each(data,function(index,objectss){
+        talktoid = objectss.id
         loadmsg()
         })
         })

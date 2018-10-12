@@ -11,8 +11,8 @@ class TodoViewSet(viewsets.ModelViewSet):
 class MembersViewSet(viewsets.ModelViewSet):
     queryset = Members.objects.all()
     serializer_class = MembersSerializre
-    filter_backends = (DjangoFilterBackend,)
-    filter_fields = ('id','mem_name', 'emailid',)
+    # filter_backends = (DjangoFilterBackend,)
+    # filter_fields = ('mem_name', 'emailid',)
     filter_backends = (filters.SearchFilter,)
     search_fields = ('$mem_name', '$company', '$companyen','$emailid')
     # ordering_fields = '__all__'
