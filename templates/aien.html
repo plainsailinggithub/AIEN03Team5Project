@@ -635,7 +635,7 @@ section {
                         var cell3 = $('<p></p>').text(members.company).attr('class','card-text')
                         var cell4 = $('<p></p>').text(members.position).attr('class','card-text')
                         var cell5 = $('<button></button>').html('<i class="fa fa-plus"></i>').attr({'href':'#', 'class':'btn btn-primary btn-sm buttongap'})
-                        var cell6 = $('<button></button>').html('<i class="fas fa-file-alt"></i>').attr({'class':'btn btn-primary btn-sm buttongap readarticles', 'id':members.emailid})
+                        var cell6 = $('<button></button>').html('<i class="fas fa-file-alt"></i>').attr({'class':'btn btn-primary btn-sm buttongap readarticles', 'id':members.email})
 
      
 
@@ -673,13 +673,55 @@ section {
         
         
                 
-            loadTodo()//important
+            loadTodo()
+               
+        
+            })//document.click
+
+////////////////////////////////////////////////////////////////////////////////
+            var myid;
+            var myname;
+        function getCookie(cookieName) {
+        //取得指定的Cookie值
+        var name = cookieName + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0; i<ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1);
+        if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
+        }
+        return "";
+    };
+        var cookieaccount = getCookie('name');
+        $.getJSON('/api/members',function(daas){
+            $.each(daas,function(index,mecheck){
+            if ('"' + mecheck.emailid + '"' == cookieaccount){
+            myid = mecheck.id
+            myname = mecheck.mem_name
+            // console.log(myid)
+            }
+        })
+        })
+            $(document).on('click',"i.bby",function(){
+                var addid= $(this).attr("name")
+                console.log(myid)
+                console.log(addid)
+                var datas =     {
+                "myid": myid,
+                "askid": addid
+                }
+                $.post('/api/addfriend/',datas,function(newid){
+                    alert("已申請新增好友")
+            })
+            })
+///////////////////////////////////////////////////////////////////////////
+            // loadTodo()//important
              
             // console.log(members[0].emailid)
 
 
 
-            })//document.click.#buttonClick
+            //document.click.#buttonClick
 
             $(document).on('click','.readarticles',function(){ 
                 textSearch = this.id
@@ -784,6 +826,8 @@ section {
             // console.log(members.emailid)
             
         })//document.ready
+
+
         
         </script>
 {% block scripts %}
