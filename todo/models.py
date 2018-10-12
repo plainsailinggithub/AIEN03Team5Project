@@ -7,7 +7,7 @@ class Todo(models.Model):
     last_modified_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
     class Meta:
-        db_table = "todo";   
+        db_table = "todo";     
 
 # class Member(models.Model):
 #     name = models.CharField(max_length=45)
@@ -51,7 +51,6 @@ class Members(models.Model):
     language = models.CharField(max_length=45, blank=True, null=True)
     img = models.CharField(max_length=100, blank=True, null=True)
     bday = models.CharField(max_length=45, blank=True, null=True)
-
     class Meta:
         managed = True
         db_table = 'members'
@@ -64,8 +63,7 @@ class Articles(models.Model):
     create_time = models.DateTimeField(auto_now_add=True)
     membername = models.CharField(max_length=30)
     memberid = models.ForeignKey('Members', models.DO_NOTHING, db_column='memberid', blank=True, null=True)
-    emailid = models.CharField(max_length=200)
-
+    email = models.CharField(max_length=100)
     class Meta:
         db_table = 'articles'
 
@@ -83,7 +81,7 @@ class Economist(models.Model):
     url = models.CharField(max_length=200)
 
     class Meta:
-        db_table = 'articles'
+        db_table = 'economist'
 
 # class Members(models.Model):
 #     mem_name = models.CharField(max_length=45)

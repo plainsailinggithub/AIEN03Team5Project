@@ -19,7 +19,8 @@ class MsgSerializre(serializers.ModelSerializer):
     class Meta:
         model = Msg
         fields = '__all__'
-        # ordering = ['order']  
+        # ordering = ['order']
+     
 
 class ArticleSerializer(serializers.ModelSerializer):
     class Meta:
