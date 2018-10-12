@@ -35,7 +35,6 @@ class MsgViewSet(viewsets.ModelViewSet):
     # search_fields = ('name', 'message','targetid')
     # ordering_fields = '__all__'               
 
-
 class ArticlesViewset(viewsets.ModelViewSet):
     queryset = Articles.objects.all()
     serializer_class = ArticleSerializer
