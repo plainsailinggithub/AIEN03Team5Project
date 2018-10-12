@@ -11,9 +11,9 @@ class TodoViewSet(viewsets.ModelViewSet):
 class MembersViewSet(viewsets.ModelViewSet):
     queryset = Members.objects.all()
     serializer_class = MembersSerializre
-    filter_backends = (DjangoFilterBackend,filters.SearchFilter,)
+    filter_backends = (DjangoFilterBackend,)
     filter_fields = ('id','mem_name', 'emailid',)
-    # filter_backends = (filters.SearchFilter,)
+    filter_backends = (filters.SearchFilter,)
     search_fields = ('$mem_name', '$company', '$companyen','$emailid')
     # ordering_fields = '__all__'
 
@@ -39,6 +39,8 @@ class MsgViewSet(viewsets.ModelViewSet):
 class ArticlesViewset(viewsets.ModelViewSet):
     queryset = Articles.objects.all()
     serializer_class = ArticleSerializer
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('=emailid',)
 
 class movieViewset(viewsets.ModelViewSet):
     queryset = Movies.objects.all()
