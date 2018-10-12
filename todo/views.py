@@ -40,7 +40,7 @@ class ArticlesViewset(viewsets.ModelViewSet):
     queryset = Articles.objects.all()
     serializer_class = ArticleSerializer
     filter_backends = (filters.SearchFilter,)
-    search_fields = ('=emailid',)
+    search_fields = ('=email',)
 
 class movieViewset(viewsets.ModelViewSet):
     queryset = Movies.objects.all()
