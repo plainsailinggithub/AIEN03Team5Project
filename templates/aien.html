@@ -591,41 +591,7 @@ section {
             })//document.click
 
 ////////////////////////////////////////////////////////////////////////////////
-            var myid;
-            var myname;
-        function getCookie(cookieName) {
-        //取得指定的Cookie值
-        var name = cookieName + "=";
-        var ca = document.cookie.split(';');
-        for(var i=0; i<ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0)==' ') c = c.substring(1);
-        if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
-        }
-        return "";
-    };
-        var cookieaccount = getCookie('name');
-        $.getJSON('/api/members',function(daas){
-            $.each(daas,function(index,mecheck){
-            if ('"' + mecheck.emailid + '"' == cookieaccount){
-            myid = mecheck.id
-            myname = mecheck.mem_name
-            // console.log(myid)
-            }
-        })
-        })
-            $(document).on('click',"i.bby",function(){
-                var addid= $(this).attr("name")
-                console.log(myid)
-                console.log(addid)
-                var datas =     {
-                "myid": myid,
-                "askid": addid
-                }
-                $.post('/api/addfriend/',datas,function(newid){
-                    alert("已申請新增好友")
-            })
-            })
+ 
 ///////////////////////////////////////////////////////////////////////////
             // loadTodo()//important
              

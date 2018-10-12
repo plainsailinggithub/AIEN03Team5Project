@@ -86,11 +86,19 @@
         text-align: center;
     }
     .f11:hover{
-       /* font-size:24px; */
+       font-size:24px;
        background-color: rgb(224, 196, 233) ;
+       cursor: pointer;
+    }
+    .f12{
+        background-color: rgb(224, 196, 233) ;
+    }
+    .f13{
+        background-color: #ffffff ; 
     }
     .icon1{
-        float:right
+        float:right;
+        cursor:pointer;
     }       
 </style>
 {% endblock %}
@@ -146,8 +154,6 @@ $(document).ready(function(){
     var myname;
     var talktoid;
     var talktoname;
-    // var otherid;
-    // var othername;
     var cookieaccount = getCookie('name');
     $.getJSON('/api/members',function(daas){
         $.each(daas,function(index,mecheck){
@@ -191,22 +197,23 @@ $(document).ready(function(){
         $.getJSON('/api/members?mem_name='+ talktoname,function(data){
         $.each(data,function(index,objects){
         talktoid = objects.id
+        loadmsg()
         })
         })
-        loadmsg();
     })
-    
-    $("#textarea1").on('click','.icon1',function(){        
-        var deleteid =$(this).attr("name")     
+    $("#textarea1").on('click','.icon1',function(){
+        var deleteid =$(this).attr("name")   
+        var ok = confirm('確定要刪除這項訊息嗎?')
+        if (ok){
             $.ajax({
                 'url':'/api/msg/'+ deleteid+ '/',
                 'type':'DELETE'
             }).done(function(data){
                 loadmsg();   
-            })        
-    })
-    
-    function loadmsg(){
+            }) 
+        }      
+    })   
+    function loadmsg(){   
         $.getJSON('/api/msg/',function(msghistory){
             var docFrag = $(document.createDocumentFragment())
             $.each(msghistory,function(index,msgdatas){
@@ -228,31 +235,8 @@ $(document).ready(function(){
                 }
             })
             $('#textarea1').html(docFrag)
-            scrollHeight()        
+            scrollHeight()     
             })
-        // $.getJSON('/api/addfriend?askid='+ myid,function(ask1){   
-        // $.each(ask1,function(index,ask2){
-        //     var ifid = ask2.myid
-        //     console.log(ifid)
-        //     var docask = $(document.createDocumentFragment())
-        //     $.getJSON('/api/members?id='+ ifid,function(ask3) {
-        //     $.each(ask3,function(index,ask4){
-        //         var askname = ask4.mem_name
-        //         var cel1 =  $('<p class="p2"></p>').text(askname +'想要加你為好友') 
-        //         var cel2 =  $('<div type="#" class="btn btn-primary" name='+ifid+'></div>').text("同意") 
-        //         var cel3 =  $('<div type="#" class="btn btn-danger" name='+ifid+'></div>').text("不同意")   
-        //         var formask = $ ('<div></div>').append([cel1,cel2,cel3])
-        //         console.log(formask)
-        //         docask.append(formask)  
-        //         console.log(askname)
-        //     })
-        //     $('#mymessagelist').append(docask)
-        //     $(document).one("click",".btn-primary",function(){
-        //         alert("同意成為好友")
-        //     })
-        //     })
-        //     })
-        // })
         }
     //每3秒回傳訊息
 
@@ -285,33 +269,6 @@ $(document).ready(function(){
         }
         return "";
     };
-    function askaddfriend(){
-    $.getJSON('/api/addfriend?askid='+ myid,function(ask1){   
-        $.each(ask1,function(index,ask2){
-            var ifid = ask2.myid
-            console.log(ifid)
-            var docask = $(document.createDocumentFragment())
-            $.getJSON('/api/members?id='+ ifid,function(ask3) {
-            $.each(ask3,function(index,ask4){
-                var askname = ask4.mem_name
-                var cel1 =  $('<p class="p2"></p>').text(askname +'想要加你為好友') 
-                var cel2 =  $('<div type="#" class="btn btn-primary" name='+ifid+'></div>').text("同意") 
-                var cel3 =  $('<div type="#" class="btn btn-danger" name='+ifid+'></div>').text("拒絕")   
-                var formask = $ ('<div></div>').append([cel1,cel2,cel3])
-                console.log(formask)
-                docask.append(formask)  
-                console.log(askname)
-            })
-            $('#mymessagelist').append(docask)
-            $(document).one("click",".btn-primary",function(){
-                alert("同意成為好友")
-            })
-            })
-            }) 
-        })
-    } 
-    // ajax();
-    askaddfriend();
     done();  
     function done(){
     setTimeout(function() { 
