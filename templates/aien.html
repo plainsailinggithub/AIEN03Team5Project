@@ -303,7 +303,6 @@ section {
     /* font-color:#E100E1; */
     text-indent:-9999px;
 }
-<<<<<<< HEAD
 .middleDivMargin {
     margin-bottom: 10%;
 }
@@ -407,15 +406,6 @@ section {
   }
 
 
-=======
-.block {            
-    display: block;
-}
-    
-.none {
-    display: none;
-}
->>>>>>> b5b939119b23d3e1391490c5337c277f54ae541f
     </style>
 {% block style %}
 {% endblock %}
@@ -555,11 +545,12 @@ section {
       <div class="col-md-3 content-right">
           <div class="card gedf-card">
               <div class="card-body">
-                <a href="https://www.shein.tw/Best-Selling-Dresses-vc-70094.html?url_from=twadgg03xxn_BestSellingDressesvc70094_20180916-I-300*250&gclid=EAIaIQobChMInqzmyOX_3QIVmreWCh1vEgy2EAEYASAAEgLWLPD_BwE" target="_blank"><img id="ad0" class="block" src="/media/ad01.gif"></a>
-                <a href="http://prodtw.universalpictures.com/micro/first-man" target="_blank"><img id="ad1" class="none" src="/media/ad02.jpg"></a>
-                <a href="https://www.taiwanmobile.com/content/event/estore-499/index.html?utm_source=GDN&utm_medium=CPC&utm_campaign=estore_Oct_499&utm_content=remarketing_20181001_499&mkwid=4tkvkyax" target="_blank"><img id="ad2" class="none" src="/media/ad03.png"></a>
-                <a href="https://www.domohornwrinkle.com.tw/tc/landing/lps0011/?bcd=TWIA0010&sid=pa0044&cid=TWIA0010pa0044&utm_source=google&utm_medium=display&utm_campaign=sample_pc&gclid=EAIaIQobChMI5-voluf_3QIVBymWCh2niwjKEAEYASAAEgI9EfD_BwE" target="_blank"><img id="ad3" class="none" src="/media/ad04.png"></a>
-                  
+                  <h5 class="card-title">Card title</h5>
+                  <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                      card's content.</p>
+                  <a href="#" class="card-link">Card link</a>
+                  <a href="#" class="card-link">Another link</a>
               </div>
           </div>
       </div>
@@ -644,7 +635,7 @@ section {
                         var cell3 = $('<p></p>').text(members.company).attr('class','card-text')
                         var cell4 = $('<p></p>').text(members.position).attr('class','card-text')
                         var cell5 = $('<button></button>').html('<i class="fa fa-plus"></i>').attr({'href':'#', 'class':'btn btn-primary btn-sm buttongap'})
-                        var cell6 = $('<button></button>').html('<i class="fas fa-file-alt"></i>').attr({'class':'btn btn-primary btn-sm buttongap readarticles', 'id':members.email})
+                        var cell6 = $('<button></button>').html('<i class="fas fa-file-alt"></i>').attr({'class':'btn btn-primary btn-sm buttongap readarticles', 'id':members.emailid})
 
      
 
@@ -682,55 +673,13 @@ section {
         
         
                 
-            loadTodo()
-               
-        
-            })//document.click
-
-////////////////////////////////////////////////////////////////////////////////
-            var myid;
-            var myname;
-        function getCookie(cookieName) {
-        //取得指定的Cookie值
-        var name = cookieName + "=";
-        var ca = document.cookie.split(';');
-        for(var i=0; i<ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0)==' ') c = c.substring(1);
-        if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
-        }
-        return "";
-    };
-        var cookieaccount = getCookie('name');
-        $.getJSON('/api/members',function(daas){
-            $.each(daas,function(index,mecheck){
-            if ('"' + mecheck.emailid + '"' == cookieaccount){
-            myid = mecheck.id
-            myname = mecheck.mem_name
-            // console.log(myid)
-            }
-        })
-        })
-            $(document).on('click',"i.bby",function(){
-                var addid= $(this).attr("name")
-                console.log(myid)
-                console.log(addid)
-                var datas =     {
-                "myid": myid,
-                "askid": addid
-                }
-                $.post('/api/addfriend/',datas,function(newid){
-                    alert("已申請新增好友")
-            })
-            })
-///////////////////////////////////////////////////////////////////////////
-            // loadTodo()//important
+            loadTodo()//important
              
             // console.log(members[0].emailid)
 
 
 
-            //document.click.#buttonClick
+            })//document.click.#buttonClick
 
             $(document).on('click','.readarticles',function(){ 
                 textSearch = this.id
@@ -746,7 +695,7 @@ section {
                     
                         var tbLeft =  $('#leftDiv');
                         var tbMiddle =  $('#middleDiv');
-                        var tbMiddleInside = ""
+                        // var tbMiddleInside = ""
                         var docLeftFrag = $(document.createDocumentFragment())
                         var docMiddleFrag = $(document.createDocumentFragment())
                         console.log(datasMembers[0].id)
@@ -756,7 +705,7 @@ section {
                             $.each(datasArticles,function(idx, members){
                                 console.log(members.title)
                                 var cell1 = $('<div></div>').html('<img class="rounded-circle" width="45" src="/media/'+datasMembers[0].img+'">').attr('class','mr-2')
-                                var cell2 = $('<div></div>').html('<div class="h5 m-0">'+datasMembers[0].mem_name+'</div><div class="h7 text-muted">'+members.emailid+'</div>').attr('class','ml-2')
+                                var cell2 = $('<div></div>').html('<div class="h5 m-0">'+datasMembers[0].mem_name+'</div><div class="h7 text-muted">'+members.email+'</div>').attr('class','ml-2')
                                 
                                 var div1 = $('<div></div>').append([cell1,cell2]).attr('class', 'd-flex justify-content-between align-items-center')
                                 
@@ -793,6 +742,7 @@ section {
                             var div5 = $('<div></div>').append(docMiddleFrag).attr({'id': 'paragraph','class':'middleDivMargin'})
                             
                             tbMiddle.html(div5)
+                            console.log(tbMiddle)
 
                         })//getJson article
                         
@@ -823,7 +773,8 @@ section {
 
                         docLeftFrag.append(divLeft4)
 
-                        tbLeft.append(docLeftFrag)
+                        tbLeft.html(docLeftFrag)
+                        // tbMiddle.html(div5)
                                 
                     
                     })//getJson members
@@ -835,22 +786,21 @@ section {
             // console.log(members.emailid)
             
         })//document.ready
-
-        // ===========廣告輪播==============
-        var adImgs = document.querySelectorAll("img.block,img.none");
+        
+                // ===========廣告輪播==============
+                var adImgs = document.querySelectorAll("img.block,img.none");
 
         
-        var count = 0;
-        var flag = true;
-        function show() {
-            adImgs[count].className = "none";
-            count++;
-            if (count >= 4) count = 0;   
-            adImgs[count].className = "block";
-        }
+                var count = 0;
+                var flag = true;
+                function show() {
+                    adImgs[count].className = "none";
+                    count++;
+                    if (count >= 4) count = 0;   
+                    adImgs[count].className = "block";
+                }
 
-        var t = window.setInterval(show, 5000);
-        
+                var t = window.setInterval(show, 5000);
 
         </script>
 {% block scripts %}
