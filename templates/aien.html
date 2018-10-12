@@ -303,6 +303,109 @@ section {
     /* font-color:#E100E1; */
     text-indent:-9999px;
 }
+.middleDivMargin {
+    margin-bottom: 10%;
+}
+
+/* member's style */
+
+.profile-card-3 {
+    font-family: 'Open Sans', Arial, sans-serif;
+    position: relative;
+    float: left;
+    overflow: hidden;
+    width: 100%;
+    text-align: center;
+    height:500px;
+    border:none;
+  }
+  .profile-card-3 .background-block {
+      float: left;
+      width: 100%;
+      height: 250px;
+      overflow: hidden;
+  }
+  .profile-card-3 .background-block .background {
+    width:100%;
+    vertical-align: top;
+    opacity: 1;
+    -webkit-filter: blur(0px);
+    filter: blur(0.2px);
+     -webkit-transform: scale(2);
+    transform: scale(1.5);
+  }
+  .profile-card-3 .card-content {
+    width: 100%;
+    padding: 15px 25px;
+    color:#232323;
+    float:left;
+    background:#efefef;
+    height:50%;
+    border-radius:0 0 5px 5px;
+    position: relative;
+    z-index: 9999;
+  }
+  .profile-card-3 .card-content::before {
+      content: '';
+      background: #efefef;
+      width: 120%;
+      height: 100%;
+      left: 11px;
+      bottom: 51px;
+      position: absolute;
+      z-index: -1;
+      transform: rotate(-13deg);
+  }
+  .profile-card-3 .profile {
+    border-radius: 50%;
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    max-width: 100px;
+    opacity: 1;
+    box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.5);
+    border: 2px solid rgba(255, 255, 255, 1);
+    -webkit-transform: translate(-50%, 0%);
+    transform: translate(-50%, 0%);
+    z-index:99999;
+  }
+  .profile-card-3 h2 {
+    margin: 0 0 5px;
+    font-weight: 600;
+    font-size:25px;
+  }
+  .profile-card-3 h2 small {
+    display: block;
+    font-size: 18px;
+    margin-top:10px;
+  }
+  .profile-card-3 i {
+    display: inline-block;
+      font-size: 16px;
+      color: #232323;
+      text-align: center;
+      border: 1px solid #232323;
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+      border-radius: 50%;
+      margin:0 5px;
+  }
+  .profile-card-3 .icon-block{
+      float:left;
+      width:100%;
+      margin-top:15px;
+  }
+  .profile-card-3 .icon-block a{
+      text-decoration:none;
+  }
+  .profile-card-3 i:hover {
+    background-color:#232323;
+    color:#fff;
+    text-decoration:none;
+  }
+
+
     </style>
 {% block style %}
 {% endblock %}
@@ -337,7 +440,7 @@ section {
             <a class="nav-link" href="{% url 'member:member' %}"><i class="fas fa-home"></i>首頁 <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#"><i class="fas fa-users"></i>人脈</a>
+            <a class    ="nav-link" href="#"><i class="fas fa-users"></i>人脈</a>
             
           </li>
           <li class="nav-item">
@@ -526,35 +629,18 @@ section {
         
                     $.each(datas,function(idx, members){
         
-                    
-                    
-        
-                    //for (var i=0; i<6; i++){
-                    // $.each(result,function(idx,todo){
-                        //a > index
-                        //b > {}
-                       
-                        //<img src="" alt="">
-                        //<img src="'/media/' + members.img">
-                        //<img src='"/media/' + members.img"'>
-                        // theUrl = "/media/"+members.img
-                        // var cell1 = $('<p></p>').html('<img class="img-fluid" src="'+theUrl+'">')
                         var cell1 = $('<p></p>').html('<img  class="img-fluid" src="/media/'+members.img+'" alt="card image">')
-        
-                        // var cell1 = $('<p></p>').html('<img  class="img-fluid" src="https://sunlimetech.com/portfolio/boot4menu/assets/imgs/team/img_02.png" alt="card image">')
                         
                         var cell2 = $('<h4></h4>').text(members.mem_name).attr('class','card-title')
                         var cell3 = $('<p></p>').text(members.company).attr('class','card-text')
-                        // var cell4 = $('<p></p>').text(members.companyen).attr('class','card-text')
-                        var cell5 = $('<a></a>').html('<i class="fa fa-plus"></i>').attr({'href':'#', 'class':'btn btn-primary btn-sm buttongap'})
+                        var cell4 = $('<p></p>').text(members.position).attr('class','card-text')
+                        var cell5 = $('<button></button>').html('<i class="fa fa-plus"></i>').attr({'href':'#', 'class':'btn btn-primary btn-sm buttongap'})
                         var cell6 = $('<button></button>').html('<i class="fas fa-file-alt"></i>').attr({'class':'btn btn-primary btn-sm buttongap readarticles', 'id':members.emailid})
 
-                        // var cell5 = $('<a></a>').html('<i class="fa fa-plus" id='+members.id+' name='+ members.id +'>+'+"1"+'</i>').attr({'href':'#', 'class':'btn btn-primary btn-sm buttongap'})
-                        // console.log(cell5.text())
-                        // var cell6 = $('<a></a>').html('<i class="fa fa-plus"></i>').attr({'href':'#', 'class':'btn btn-primary btn-sm buttongap'}) var cell7 = $('<a></a>').html('<i class="fa fa-plus"></i>').attr({'href':'#', 'class':'btn btn-primary btn-sm'})
-                        var cell7 = $('<a></a>').html('<i class="fa fa-plus"></i>').attr({'href':'#', 'class':'btn btn-primary btn-sm'})
+     
+
                                                     //<tr><td><td><td>
-                        var div1 = $('<div></div>').append([cell1,cell2,cell3,cell5,cell6,cell7]).attr('class', 'card-body text-center')
+                        var div1 = $('<div></div>').append([cell1,cell2,cell3,cell4,cell5,cell6]).attr('class', 'card-body text-center')
 
                         var div2 = $('<div></div>').append(div1).attr('class', 'card')
 
@@ -598,8 +684,8 @@ section {
             $(document).on('click','.readarticles',function(){ 
                 textSearch = this.id
                 // console.log(textSearch)
-                console.log(this.id)
-                console.log(textSearch)
+                // console.log(this.id)
+                // console.log(textSearch)
                     
                 function loadArticles(){
                     // console.log(textSearch)
@@ -607,22 +693,19 @@ section {
                     console.log(theUrl)
                     $.getJSON('/api/members/?search=' + textSearch, function(datasMembers){
                     
-                    
-                // $.getJSON('/api/member/',function(datas){
-                    // console.log(result)
-                    // var tb =  $('#todolist>tbody');
                         var tbLeft =  $('#leftDiv');
                         var tbMiddle =  $('#middleDiv');
                         var tbMiddleInside = ""
-                        var docLeftFrag = ""
+                        var docLeftFrag = $(document.createDocumentFragment())
                         var docMiddleFrag = $(document.createDocumentFragment())
                         console.log(datasMembers[0].id)
                     // console.log(datas[0].name)
-                        $.getJSON('/api/articles/'+datasMembers[0].id+'/', function(datasArticles){
+                        $.getJSON('/api/articles/?search='+datasMembers[0].emailid, function(datasArticles){
                             console.log(datasArticles)
-                            $.each(datas,function(idx, members){
-                                var cell1 = $('<div></div>').html('<img class="rounded-circle" width="45" src="/media/'+datasMembers[0].id+'">').attr('class','mr-2')
-                                var cell2 = $('<div></div>').html('<div class="h5 m-0">'+datasMembers[0].mem_name+'</div><div class="h7 text-muted">'+datasMembers[0].emailid+'</div>').attr('class','mr-2')
+                            $.each(datasArticles,function(idx, members){
+                                console.log(members.title)
+                                var cell1 = $('<div></div>').html('<img class="rounded-circle" width="45" src="/media/'+datasMembers[0].img+'">').attr('class','mr-2')
+                                var cell2 = $('<div></div>').html('<div class="h5 m-0">'+datasMembers[0].mem_name+'</div><div class="h7 text-muted">'+members.emailid+'</div>').attr('class','ml-2')
                                 
                                 var div1 = $('<div></div>').append([cell1,cell2]).attr('class', 'd-flex justify-content-between align-items-center')
                                 
@@ -630,12 +713,68 @@ section {
                                 
                                 var divLevel1 = $('<div></div>').append(div2).attr('class', 'card-header')
 
-                                var cell3 = $('<div></div>').html('<i class="fa fa-clock-o"></i>{{ article.create_time }}').attr('class','text-muted h7 mb-2')
+                                // var cell3 = $('<div></div>').html('<i class="fa fa-clock-o"></i>'+members.create_time+'').attr('class','text-muted h7 mb-2')
 
+                                var cell4 = $('<a></a>').html('<h5 class="card-title">'+members.title+'</h5>').attr('class','card-link')
 
+                                var cell5 = $('<p></p>').html(''+members.content+'').attr('class','card-text')
+
+                                var divLevel2 = $('<div></div>').append([cell4,cell5]).attr('class', 'card-body')
+
+                                var cell6 = $('<a></a>').html('<i class="fa fa-gittip"></i> 讚').attr({'href':'', 'class':'card-link'})
+
+                                var cell7 = $('<a></a>').html('<i class="fa fa-comment"></i> 留言').attr({'href':'', 'class':'card-link'})
+
+                                var cell8 = $('<a></a>').html('<i class="fa fa-mail-forward"></i> 分享').attr({'href':'', 'class':'card-link'})
+
+                                var divLevel3 = $('<div></div>').append([cell6,cell7,cell8]).attr('class', 'card-footer')
+
+                                var div3 = $('<div></div>').append([divLevel1,divLevel2,divLevel3]).attr({'class':'card-link'})
+
+                                var div4 = $('<div></div>').attr({'id':members.id, 'class':'card gedf-card mb-2 articleId'})
+
+                                div4.append(div3)
+
+                                docMiddleFrag.append(div4)
 
                             })//each
+                            
+                            var div5 = $('<div></div>').append(docMiddleFrag).attr({'id': 'paragraph','class':'middleDivMargin'})
+                            
+                            tbMiddle.html(div5)
+
                         })//getJson article
+                        
+                        var cellLeft1 = $('<small></small>').html('任職於:'+datasMembers[0].company)
+
+                        var cellLeft2 = $('<small></small>').html('職位:'+datasMembers[0].position)
+
+                        var cellLeft3 = $('<small></small>').html('技能:'+datasMembers[0].skill)
+
+                        var cellLeft4 = $('<small></small>').html('語言能力:'+datasMembers[0].language)
+
+                        var divLeft1 = $('<h2></h2>').text(datasMembers[0].mem_name)
+
+                        divLeft1.append([cellLeft1, cellLeft2, cellLeft3, cellLeft4])
+
+                        var divLeft5 = $('<div></div>').append(divLeft1).attr('class', 'card-content')
+
+                        
+
+
+                        var divLeft2 = $('<div></div>').html('<img src="http://3.bp.blogspot.com/-Z97JrD_r7lA/Uho8gsuj-PI/AAAAAAAAAh4/Ns2gXdDfe50/s1600/_MG_0613B.jpg" alt="profile-sample1" class="background"/>').attr('class','background-block')
+
+                        var divLeft3 = $('<div></div>').html('<img src="/media/'+datasMembers[0].img+'" alt="profile-image" class="profile"/>').attr('class','profile-thumb-block')
+
+
+                                
+                        var divLeft4 = $('<div></div>').append([divLeft2,divLeft3,divLeft5]).attr({'class':'card profile-card-3', 'style':'z-index: 2'})
+
+                        docLeftFrag.append(divLeft4)
+
+                        tbLeft.append(docLeftFrag)
+                                
+                    
                     })//getJson members
 
                 }//function loadArticles 
